@@ -1,4 +1,4 @@
-package mochila;
+package negocio;
 
 import java.util.HashSet;
 import java.util.Set;

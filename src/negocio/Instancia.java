@@ -1,4 +1,4 @@
-package mochila;
+package negocio;
 
 import java.util.ArrayList;
 import java.util.Collections;

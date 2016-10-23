@@ -1,4 +1,4 @@
-package mochila;
+package negocio;
 
 public interface Solver
 {

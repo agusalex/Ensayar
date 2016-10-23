@@ -1,4 +1,4 @@
-package mochila;
+package negocio;
 
 public class SolverExacto implements Solver
 {
@@ -23,10 +23,11 @@ public class SolverExacto implements Solver
 		long fin = System.currentTimeMillis();
 		
 		tiempo = (fin - inicio) / 1000.0;
+		System.out.println(mejorEncontrado);
 		return mejorEncontrado;
 	}
 
-	// Genera y evalúa todos los subconjuntos a partir del k-ésimo objeto
+	// Genera y evalï¿½a todos los subconjuntos a partir del k-ï¿½simo objeto
 	private void generarDesde(int k)
 	{
 		// Caso base: Recorrimos todos los objetos (estamos en una hoja)

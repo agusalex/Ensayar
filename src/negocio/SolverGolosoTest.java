@@ -1,4 +1,4 @@
-package mochila;
+package negocio;
 
 import org.junit.Test;
 

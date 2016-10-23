@@ -1,4 +1,4 @@
-package mochila;
+package negocio;
 
 public class Objeto
 {
@@ -36,7 +36,7 @@ public class Objeto
 		
 		if (obj == null)
 			return false;
-		
+
 		if (getClass() != obj.getClass())
 			return false;
 		
@@ -45,4 +45,9 @@ public class Objeto
 			   this.getBeneficio() == otro.getBeneficio() &&
 			   this.getPeso() == otro.getPeso();
 	}
+
+	public String toString(){
+		return "Nombre: "+ this.getNombre()+" Peso= "+this.getPeso()+ " Beneficio=  "+ this.getBeneficio();
+	}
+
 }
