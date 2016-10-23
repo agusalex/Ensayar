@@ -4,7 +4,7 @@ package Data;
  * Created by Agus on 23/10/2016.
  */
 public class DataBase {
-    String filename;
+    private final String filename;
     private static DataBase db;
     private DataBase(){
         filename="Offers.json";
