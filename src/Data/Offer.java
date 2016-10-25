@@ -47,6 +47,7 @@ public class Offer implements Serializable{
     private Schedule schedule;
     private ArrayList<instruments> instruments;
     private long duration;
+    private int durationInMin;
 
     public void random(Random r){
         price= (float)r.nextInt(1000)+1;
@@ -70,6 +71,7 @@ public class Offer implements Serializable{
         if(fin<0)
             fin*=-1;
         setSchedule(new Schedule(inicio,0,fin,0));
+
 
         client=new Client(Integer.toString(this.hashCode()));
     }
@@ -104,14 +106,20 @@ public class Offer implements Serializable{
 
     public void setSchedule(Schedule schedule) {
         this.schedule = schedule;
-        this.duration=schedule.end.getHours()-schedule.start.getHours();
+        this.duration=schedule.getFinishHour() - schedule.getStartHour();
+        if(schedule.getStartMins() > schedule.getFinishMins())
+            this.duration--;
+        this.durationInMin = Math.abs(schedule.getFinishMins() - schedule.getStartMins());
+
+        System.out.println("duracion de oferta : "+this.duration+"hs "+this.durationInMin+"mins ");
+
     }
 
     public long getDuration() {
         return duration;
     }
 
-    public ArrayList<Offer.instruments> getInstruments() {
+    public ArrayList<instruments> getInstruments() {
         return instruments;
 
     }

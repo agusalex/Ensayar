@@ -8,7 +8,6 @@ public class Main
 {
 	public static void main(String[] args)
 	{
-
 			Instancia instancia = aleatoria(10);
 			SolverExacto solver = new SolverExacto();
 			solver.resolver(instancia);
@@ -21,7 +20,7 @@ public class Main
 
 	private static Instancia aleatoria(int n)
 	{
-Instancia instancia = new Instancia(2*n);
+		Instancia instancia = new Instancia(2*n);
 		Random random = new Random(0); // Semilla fija!
 
 			for(int i=0; i<n; ++i)
@@ -32,8 +31,14 @@ Instancia instancia = new Instancia(2*n);
 
 				Offer off=new Offer();
 				off.random(random);
-				Objeto aleatorio = new Objeto(off.hashCode() +" "+ i, off.getDuration(), off.getPrice());
-				System.out.println(aleatorio);
+				System.out.println("Ofeer: "+i);
+				System.out.println("Start Hour");
+				System.out.println(off.getSchedule().getStartHour());
+				System.out.println("Finishing  Hour");
+				System.out.println(off.getSchedule().getFinishHour());
+				System.out.println("");
+				Objeto aleatorio = new Objeto( "Ofeer: "+i, off.getDuration(), off.getPrice());
+
 		instancia.agregarObjeto(aleatorio);
 	}
 
