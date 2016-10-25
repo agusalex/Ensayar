@@ -62,7 +62,7 @@ public class Offer implements Serializable{
         if(fin<0)
             fin*=-1;
 
-        while(inicio>fin){
+        while(inicio>=fin){
             inicio=r.nextInt(24);
 
         }

@@ -28,18 +28,16 @@ public class Main
 				/*int peso = random.nextInt(10) + 1;
 				int benef  = random.nextInt(10) + 1;*/
 
-
 				Offer off=new Offer();
 				off.random(random);
 				System.out.println("Ofeer: "+i);
 				System.out.println("Start Hour");
-				System.out.println(off.getSchedule().getStartHour());
+				System.out.println(off.getSchedule().getStart());
 				System.out.println("Finishing  Hour");
-				System.out.println(off.getSchedule().getFinishHour());
+				System.out.println(off.getSchedule().getEnd());
 				System.out.println("");
 				Objeto aleatorio = new Objeto( "Ofeer: "+i, off.getDuration(), off.getPrice());
-
-		instancia.agregarObjeto(aleatorio);
+				instancia.agregarObjeto(aleatorio);
 	}
 
 		return instancia;

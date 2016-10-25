@@ -12,12 +12,12 @@ public class Schedule {
 
     public Schedule(int startH,int startM,int endH,int endM){
 
-        if(false){
-            if(startH == endH)
-                throw new IllegalArgumentException("No se puede elegir el mismo horario como inicio y final");
-            if(endH < startH)
-                throw new IllegalArgumentException("No se puede elegir como hora inicial una posterior a la final");
-        }
+        if(startH == endH)
+            throw new IllegalArgumentException("No se puede elegir el mismo horario como inicio y final");
+        if(endH < startH)
+            throw new IllegalArgumentException("No se puede elegir como hora inicial una posterior a la final");
+        if(startM < 0 || endM < 0 || startM > 60 || endM > 60)
+            throw new IllegalArgumentException("No se puede elegir como minuto menor a 0 o mayor a 60");
 
         start = Calendar.getInstance();
         end = Calendar.getInstance();
@@ -38,8 +38,6 @@ public class Schedule {
             System.out.println("The beginning comes before the end");
             System.out.println("");
         }
-        //TODO tener en cuenta minutos
-
 
     }
 
