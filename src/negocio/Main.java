@@ -11,7 +11,6 @@ public class Main
 			Instancia instancia = aleatoria(10);
 			SolverExacto solver = new SolverExacto();
 			solver.resolver(instancia);
-
 			System.out.print("n = " + 1);
 			System.out.print(" - Hojas: " + solver.getHojas());
 			System.out.println(" -Tiempo: " + solver.getTiempo());
@@ -21,13 +20,9 @@ public class Main
 	private static Instancia aleatoria(int n)
 	{
 		Instancia instancia = new Instancia(2*n);
-		Random random = new Random(0); // Semilla fija!
+		Random random = new Random();
 
-			for(int i=0; i<n; ++i)
-			{
-				/*int peso = random.nextInt(10) + 1;
-				int benef  = random.nextInt(10) + 1;*/
-
+			for(int i=0; i<n; ++i) {
 				Offer off=new Offer();
 				off.random(random);
 				System.out.println("Ofeer: "+i);
