@@ -106,7 +106,7 @@ public class Offer implements Serializable{
 
     public void setSchedule(Schedule schedule) {
         this.schedule = schedule;
-        this.duration=schedule.getFinishHour() - schedule.getStartHour();
+        this.duration = schedule.getEnd() - schedule.getStart();
         if(schedule.getStartMins() > schedule.getFinishMins())
             this.duration--;
         this.durationInMin = Math.abs(schedule.getFinishMins() - schedule.getStartMins());

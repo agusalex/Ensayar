@@ -6,7 +6,7 @@ import java.util.Calendar;
  * Created by Agus on 23/10/2016.
  */
 public class Schedule {
-    private Calendar startHour, finishHour, startMin, finishMin;
+    private Calendar start, end;
     private int starth,finishH, startMins, finishMins;
 
 
@@ -19,22 +19,22 @@ public class Schedule {
                 throw new IllegalArgumentException("No se puede elegir como hora inicial una posterior a la final");
         }
 
-        startHour = Calendar.getInstance();
-        finishHour = Calendar.getInstance();
-        startMin = Calendar.getInstance();
-        finishMin = Calendar.getInstance();
+        start = Calendar.getInstance();
+        end = Calendar.getInstance();
+        start = Calendar.getInstance();
+        end = Calendar.getInstance();
 
-        startHour.set(Calendar.HOUR_OF_DAY,startH);
-        startMin.set(Calendar.MINUTE,startM);
-        finishHour.set(Calendar.HOUR_OF_DAY,endH);
-        finishMin.set(Calendar.MINUTE,endM);
+        start.set(Calendar.HOUR_OF_DAY,startH);
+        start.set(Calendar.MINUTE,startM);
+        end.set(Calendar.HOUR_OF_DAY,endH);
+        end.set(Calendar.MINUTE,endM);
 
         this.starth = startH;
         this.finishH = endH;
         this.startMins = startM;
         this.finishMins = endM;
 
-        if (startHour.before(finishHour)) {
+        if (start.before(end)) {
             System.out.println("The beginning comes before the end");
             System.out.println("");
         }
@@ -43,11 +43,11 @@ public class Schedule {
 
     }
 
-    public int getStartHour() {
+    public int getStart() {
         return starth;
     }
 
-    public int getFinishHour() {
+    public int getEnd() {
         return finishH;
     }
 
