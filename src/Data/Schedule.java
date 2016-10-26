@@ -7,7 +7,7 @@ import java.util.Calendar;
  */
 public class Schedule {
     private Calendar start, end;
-    private int starth,finishH, startMins, finishMins;
+    private int starth,finishH, startMins, endMins;
 
 
     public Schedule(int startH,int startM,int endH,int endM){
@@ -32,12 +32,23 @@ public class Schedule {
         this.starth = startH;
         this.finishH = endH;
         this.startMins = startM;
-        this.finishMins = endM;
+        this.endMins = endM;
 
         if (start.before(end)) {
             System.out.println("The beginning comes before the end");
             System.out.println("");
         }
+
+    }
+
+    public boolean conflictsWith(Schedule that){
+
+        if(this.start.after(that.end)||this.end.before(that.start)){
+            return false;
+
+        }
+
+        return true;
 
     }
 
@@ -53,7 +64,7 @@ public class Schedule {
         return startMins;
     }
 
-    public int getFinishMins() {
-        return finishMins;
+    public int getEndMins() {
+        return endMins;
     }
 }

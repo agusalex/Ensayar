@@ -104,12 +104,20 @@ public class Offer implements Serializable{
         return schedule;
     }
 
+    public boolean conflictsWith(Offer that){
+
+
+        return this.getSchedule().conflictsWith(that.getSchedule());
+
+    }
+
+
     public void setSchedule(Schedule schedule) {
         this.schedule = schedule;
         this.duration = schedule.getEnd() - schedule.getStart();
-        if(schedule.getStartMins() > schedule.getFinishMins())
+        if(schedule.getStartMins() > schedule.getEndMins())
             this.duration--;
-        this.durationInMin = Math.abs(schedule.getFinishMins() - schedule.getStartMins());
+        this.durationInMin = Math.abs(schedule.getEndMins() - schedule.getStartMins());
 
         System.out.println("duracion de oferta : "+this.duration+"hs "+this.durationInMin+"mins ");
 
