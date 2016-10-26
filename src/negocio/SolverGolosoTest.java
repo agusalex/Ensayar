@@ -15,7 +15,7 @@ public class SolverGolosoTest
 		Instancia instancia = peque(25);
 		
 		SolverGoloso solver = new SolverGoloso(Comparador.porPeso());
-		ArrayList<Objeto> objetos = solver.objetosOrdenados(instancia);
+		ArrayList<Offer> objetos = solver.objetosOrdenados(instancia);
 		
 		assertEquals(3, objetos.size());
 		assertEquals("B", objetos.get(0).getNombre());
@@ -53,7 +53,7 @@ public class SolverGolosoTest
 		testear(peque(25), Comparador.porCociente(), new int[] {1, 2});
 	}
 	
-	private void testear(Instancia instancia, Comparator<Objeto> comparador, int[] esperados)
+	private void testear(Instancia instancia, Comparator<Offer> comparador, int[] esperados)
 	{
 		SolverGoloso solver = new SolverGoloso(comparador);
 		Subconjunto solucion = solver.resolver(instancia);
@@ -67,10 +67,10 @@ public class SolverGolosoTest
 
 	private Instancia peque(double capacidad)
 	{
-		Instancia instancia = new Instancia(capacidad);
-		instancia.agregarObjeto(new Objeto("A", 20, 10));
-		instancia.agregarObjeto(new Objeto("B",  5,  5));
-		instancia.agregarObjeto(new Objeto("C",  6,  7));
+		Instancia instancia = new Instancia();
+		instancia.agregarObjeto(new Offer("A", 20, 10));
+		instancia.agregarObjeto(new Offer("B",  5,  5));
+		instancia.agregarObjeto(new Offer("C",  6,  7));
 		return instancia;
 	}
 }

@@ -37,12 +37,10 @@ public class SolverExacto implements Solver
 			return;
 		}
 		
-		// Caso base: Estamos pasados de peso
-		if (subconjunto.peso() > instancia.capacidad())
-			return;
+
 
 		// Caso recursivo
-		Objeto obj = instancia.objeto(k);
+		Offer obj = instancia.objeto(k);
 
 		subconjunto.agregar(obj);
 		generarDesde(k+1);
@@ -55,7 +53,7 @@ public class SolverExacto implements Solver
 	{
 		++hojas;
 
-		if (subconjunto.peso() <= instancia.capacidad() && subconjunto.tieneMayorBeneficioQue(mejorEncontrado))
+		if (subconjunto.tieneMayorBeneficioQue(mejorEncontrado))
 			mejorEncontrado = subconjunto.clonar();
 	}
 

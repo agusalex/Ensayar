@@ -5,7 +5,7 @@ import java.util.Set;
 
 public class Subconjunto
 {
-	private final Set<Objeto> objetos;
+	private final Set<Offer> objetos;
 	private double peso;
 	private double beneficio;
 
@@ -26,14 +26,14 @@ public class Subconjunto
 		return beneficio;
 	}
 
-	public void agregar(Objeto obj)
+	public void agregar(Offer obj)
 	{
 		objetos.add(obj);
 		peso += obj.getPeso();
 		beneficio += obj.getBeneficio();
 	}
 
-	public void sacar(Objeto obj)
+	public void sacar(Offer obj)
 	{
 		objetos.remove(obj);
 		peso -= obj.getPeso();
@@ -43,7 +43,7 @@ public class Subconjunto
 	public Subconjunto clonar()
 	{
 		Subconjunto s = new Subconjunto();
-		for (Objeto o: objetos)
+		for (Offer o: objetos)
 			s.agregar(o);
 
 		return s;
@@ -53,7 +53,7 @@ public class Subconjunto
 	public String toString()
 	{
 		String s = "{";
-		for (Objeto o: objetos)
+		for (Offer o: objetos)
 			s += o.getNombre() + ", ";
 		
 		return s + "}";
@@ -80,13 +80,13 @@ public class Subconjunto
 		if (objetos.size() != otro.cantidadDeObjetos())
 			return false;
 		
-		for(Objeto objeto: objetos) if (otro.contiene(objeto) == false)
+		for(Offer objeto: objetos) if (otro.contiene(objeto) == false)
 			return false;
 		
 		return true;
 	}
 
-	public boolean contiene(Objeto objeto)
+	public boolean contiene(Offer objeto)
 	{
 		return objetos.contains(objeto);
 	}

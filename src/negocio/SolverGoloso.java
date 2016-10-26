@@ -6,10 +6,10 @@ import java.util.Comparator;
 
 public class SolverGoloso implements Solver
 {
-	private Comparator<Objeto> comparador;
+	private Comparator<Offer> comparador;
 
 	// El comparador es para ordenar los objetos en el algoritmo goloso
-	public SolverGoloso(Comparator<Objeto> comp)
+	public SolverGoloso(Comparator<Offer> comp)
 	{
 		comparador = comp;
 	}
@@ -18,18 +18,17 @@ public class SolverGoloso implements Solver
 	public Subconjunto resolver(Instancia inst)
 	{
 		Subconjunto ret = new Subconjunto();
-		for(Objeto obj: objetosOrdenados(inst))
+		for(Offer obj: objetosOrdenados(inst))
 		{
-			if( ret.peso() + obj.getPeso() <= inst.capacidad() )
-				ret.agregar(obj);
+			ret.agregar(obj);
 		}
 		
 		return ret;
 	}
 
-	ArrayList<Objeto> objetosOrdenados(Instancia inst)
+	ArrayList<Offer> objetosOrdenados(Instancia inst)
 	{
-		ArrayList<Objeto> objetos = inst.getObjetos();
+		ArrayList<Offer> objetos = inst.getObjetos();
 		Collections.sort(objetos, comparador);
 		
 		return objetos;

@@ -3,23 +3,17 @@ package negocio;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Instancia
-{
-	private final double capacidad;
-	private final ArrayList<Objeto> objetos;
+public class Instancia {
 
-	public Instancia(double capacidadMax)
-	{
-		capacidad = capacidadMax;
+	private final ArrayList<Offer> objetos;
+
+	public Instancia() {
+
 		objetos = new ArrayList<>();
 	}
 
-	public double capacidad()
-	{
-		return capacidad;
-	}
 
-	public void agregarObjeto(Objeto obj)
+	public void agregarObjeto(Offer obj)
 	{
 		objetos.add(obj);
 		
@@ -27,7 +21,7 @@ public class Instancia
 		Collections.reverse(objetos);
 	}
 
-	public Objeto objeto(int i)
+	public Offer objeto(int i)
 	{
 		return objetos.get(i);
 	}
@@ -38,8 +32,8 @@ public class Instancia
 	}
 	
 	@SuppressWarnings("unchecked")
-	public ArrayList<Objeto> getObjetos()
+	public ArrayList<Offer> getObjetos()
 	{
-		return (ArrayList<Objeto>) objetos.clone();
+		return (ArrayList<Offer>) objetos.clone();
 	}
 }

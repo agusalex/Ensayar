@@ -1,12 +1,12 @@
 package negocio;
 
-public class Objeto
+public class Offer
 {
 	private final String nombre;
 	private final double peso;
 	private final double beneficio;
 
-	public Objeto(String n, double p, double b)
+	public Offer(String n, double p, double b)
 	{
 		nombre = n;
 		peso = p;
@@ -40,7 +40,7 @@ public class Objeto
 		if (getClass() != obj.getClass())
 			return false;
 		
-		Objeto otro = (Objeto) obj;
+		Offer otro = (Offer) obj;
 		return this.getNombre() == otro.getNombre() &&
 			   this.getBeneficio() == otro.getBeneficio() &&
 			   this.getPeso() == otro.getPeso();

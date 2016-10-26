@@ -36,7 +36,6 @@ public class DataBase {
 
     public void save(){
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
         String coordenadas = gson.toJson(this.offers);  //guardado de coordenada
 
         try{
@@ -47,12 +46,12 @@ public class DataBase {
         catch (Exception e){
             System.out.println("Falla en la escritura de archivos");
         }
-
-
     }
+
     public ArrayList<Offer> load() {
         Gson gson = new Gson();
         File f = new File(this.dir);
+
         try {
             if (f.exists()) {
                 ArrayList<Offer> offers = new ArrayList<Offer>();

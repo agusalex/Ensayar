@@ -6,6 +6,7 @@ package Data;
 public class Client {
     private String ID;
     private String Name;
+    private String Mobile;
 
     public Client(String name){
         this.Name=name;
@@ -35,9 +36,8 @@ public class Client {
         Mobile = mobile;
     }
 
-    String Mobile;
-
-
-
+    public String toString(){
+        return "Nombre: "+ this.Name+ " ID: "+ this.ID+ " Telefono: "+this.Mobile;
+    }
 
 }

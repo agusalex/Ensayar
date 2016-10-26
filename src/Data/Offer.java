@@ -2,13 +2,86 @@ package Data;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Random;
+import java.util.Calendar;
 
 /**
  * Created by Agus on 23/10/2016.
  */
 public class Offer implements Serializable{
+
+    private Float price;
+    private Client client;
+    private Calendar dateAvailable = Calendar.getInstance();
+    private Schedule schedule;
+    private ArrayList<Instruments> instruments;
+    private long duration;
+    private int durationInMin;
+
+    public Offer(ArrayList<Instruments> instruments, Schedule schedule, Client client ){
+        this.instruments = instruments;
+        this.price = Instruments.comboValue(instruments);
+        this.setSchedule(schedule);
+        this.client = client;
+    }
+
+    public enum Instruments {
+        BATERIA,GUITARRA,TECLADO,BAJO,MICROFONO;
+
+        public static float instrumentValue(Instruments inst){
+             switch(inst){
+                 case BATERIA   : return 70.0F;
+                 case GUITARRA  : return 50.0F;
+                 case TECLADO   : return 40.0F;
+                 case BAJO      : return 50.0F;
+                 case MICROFONO : return 30.0F;
+                 default        : return 0.0F;
+             }
+        }
+
+        public static float comboValue(ArrayList<Instruments> combo){
+            if(combo == null || combo.size() == 0)
+                throw new RuntimeException("No existe ningun combo de instrumentos");
+
+            float ret = 0.0F;
+            for(int i = 0; i< combo.size(); i++)
+                ret += instrumentValue(combo.get(i));
+            return ret;
+        }
+    }
+
+
+    public float getPrice() {return price;}
+
+    public Client getClient() {return client;}
+
+    public void setClient(Client client) {this.client = client;}
+
+    public Calendar getDateAvailable() {return dateAvailable;}
+
+    public void setDateAvailable(Calendar dateAvailable) {this.dateAvailable = dateAvailable;}
+
+    public boolean conflictsWith(Offer that){
+        return this.getSchedule().conflictsWith(that.getSchedule());
+    }
+
+    public long getDuration() {return duration;}
+
+    public int getDurationInMin() {return durationInMin;}
+
+    public ArrayList<Instruments> getInstruments() {return instruments;}
+
+    public void setInstruments(ArrayList<Instruments> instruments) {this.instruments = instruments;}
+
+    public void setSchedule(Schedule schedule) {
+        this.schedule = schedule;
+        this.duration = schedule.getEnd() - schedule.getStart();
+        if(schedule.getStartMins() > schedule.getEndMins())
+            this.duration--;
+        this.durationInMin = Math.abs(schedule.getEndMins() - schedule.getStartMins());
+    }
+
+    public Schedule getSchedule() {return schedule;}
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -23,7 +96,6 @@ public class Offer implements Serializable{
             return false;
         if (schedule != null ? !schedule.equals(offer.schedule) : offer.schedule != null) return false;
         return instruments != null ? instruments.equals(offer.instruments) : offer.instruments == null;
-
     }
 
     @Override
@@ -37,104 +109,15 @@ public class Offer implements Serializable{
         return result;
     }
 
-    public enum instruments{
-        BATERIA,GUITARRA,TECLADO,BAJO,MICROFONO
-    }
-
-    private Float price;
-    private Client client;
-    private Date dateAvailable;
-    private Schedule schedule;
-    private ArrayList<instruments> instruments;
-    private long duration;
-    private int durationInMin;
-
-    public void random(Random r){
-        price= (float)r.nextInt(1000)+1;
-        if(price<0){
-            price*=-1;
-        }
-        int inicio=r.nextInt(24);
-        int fin=r.nextInt(24);
-
-        if(inicio<0)
-            inicio*=-1;
-        if(fin<0)
-            fin*=-1;
-
-        while(inicio>=fin){
-            inicio=r.nextInt(24);
-
-        }
-        if(inicio<0)
-            inicio*=-1;
-        if(fin<0)
-            fin*=-1;
-        setSchedule(new Schedule(inicio,0,fin,0));
-
-
-        client=new Client(Integer.toString(this.hashCode()));
-    }
-
-    public float getPrice() {
-        return price;
-    }
-
-    public void setPrice(float price) {
-        this.price = price;
-    }
-
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
-    public Date getDateAvailable() {
-        return dateAvailable;
-    }
-
-    public void setDateAvailable(Date dateAvailable) {
-        this.dateAvailable = dateAvailable;
-    }
-
-    public Schedule getSchedule() {
-        return schedule;
-    }
-
-    public boolean conflictsWith(Offer that){
-
-
-        return this.getSchedule().conflictsWith(that.getSchedule());
+    @Override
+    public String toString(){
+        return "Oferta:\n" +
+                "Instrumentos: "+this.instruments.toString()+"\n"+
+                "Horario: "+ this.schedule.toString()+"\n"+
+                "Duracion: "+ this.duration +"hs "+ this.durationInMin+" minutos\n"+
+                "Cliente: "+ this.client.toString()+"\n"+
+                "Precio: "+ this.price+"\n";
 
     }
-
-
-    public void setSchedule(Schedule schedule) {
-        this.schedule = schedule;
-        this.duration = schedule.getEnd() - schedule.getStart();
-        if(schedule.getStartMins() > schedule.getEndMins())
-            this.duration--;
-        this.durationInMin = Math.abs(schedule.getEndMins() - schedule.getStartMins());
-
-        System.out.println("duracion de oferta : "+this.duration+"hs "+this.durationInMin+"mins ");
-
-    }
-
-    public long getDuration() {
-        return duration;
-    }
-
-    public ArrayList<instruments> getInstruments() {
-        return instruments;
-
-    }
-
-    public void setInstruments(ArrayList<Offer.instruments> instruments) {
-        this.instruments = instruments;
-    }
-
 
 }
