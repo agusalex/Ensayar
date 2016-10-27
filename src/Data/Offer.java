@@ -80,21 +80,7 @@ public class Offer implements Serializable{
 
     public Schedule getSchedule() {return schedule;}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
 
-        Offer offer = (Offer) o;
-
-        if (duration != offer.duration) return false;
-        if (price != null ? !price.equals(offer.price) : offer.price != null) return false;
-        if (client != null ? !client.equals(offer.client) : offer.client != null) return false;
-        if (dateAvailable != null ? !dateAvailable.equals(offer.dateAvailable) : offer.dateAvailable != null)
-            return false;
-        if (schedule != null ? !schedule.equals(offer.schedule) : offer.schedule != null) return false;
-        return instruments != null ? instruments.equals(offer.instruments) : offer.instruments == null;
-    }
 
     @Override
     public int hashCode() {
@@ -109,12 +95,12 @@ public class Offer implements Serializable{
 
     @Override
     public String toString(){
-        return "Oferta:\n" +
+        return "\nOferta:\n" +
                 "Instrumentos: "+this.instruments.toString()+"\n"+
                 "Horario: "+ this.schedule.toString()+"\n"+
                 "Duracion: "+ this.duration +"hs "+ this.durationInMin+" minutos\n"+
                 "Cliente: "+ this.client.toString()+"\n"+
-                "Precio: "+ this.price+"\n";
+                "Precio: "+ this.price+"\n\n*********\n";
 
     }
 

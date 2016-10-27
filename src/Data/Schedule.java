@@ -47,7 +47,7 @@ public class Schedule {
             return false;
         }
 
-        else if(this.end.equals(that.start))
+        else if(this.end.equals(that.start) ||this.start.equals(that.end) )
             return false;
 
         return true;

@@ -59,7 +59,7 @@ public class Client {
     }
 
     public String toString(){
-        return "Nombre: "+ this.Name+ " ID: "+ this.ID+ " Telefono: "+this.Mobile;
+        return "\nNombre: "+ this.Name+ " \nID: "+ this.ID+ " \nTelefono: "+this.Mobile;
     }
 
 }

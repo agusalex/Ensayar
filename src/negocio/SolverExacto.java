@@ -38,17 +38,16 @@ public class SolverExacto implements Solver
 
 
 		// Caso recursivo
-		Offer obj = instancia.offerAt(k);
-		for(Offer of : subconjunto.getOffers()){
-			System.out.println(of.conflictsWith(obj));
-			if(of.conflictsWith(obj))
+		Offer oferta2 = instancia.offerAt(k);
+		for(Offer oferta1 : subconjunto.getOffers()){
+			if(oferta1.conflictsWith(oferta2))
 				return;
 		}
 
-		subconjunto.agregar(obj);
+		subconjunto.agregar(oferta2);
 		generarDesde(k+1);
 
-		subconjunto.sacar(obj);
+		subconjunto.sacar(oferta2);
 		generarDesde(k+1);
 	}
 
