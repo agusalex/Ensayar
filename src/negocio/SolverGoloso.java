@@ -1,5 +1,7 @@
 package negocio;
 
+import Data.Offer;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -28,7 +30,7 @@ public class SolverGoloso implements Solver
 
 	ArrayList<Offer> objetosOrdenados(Instancia inst)
 	{
-		ArrayList<Offer> objetos = inst.getObjetos();
+		ArrayList<Offer> objetos = inst.getOffers();
 		Collections.sort(objetos, comparador);
 		
 		return objetos;

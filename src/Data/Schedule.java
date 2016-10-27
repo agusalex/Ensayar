@@ -21,9 +21,9 @@ public class Schedule {
         if(startM < 0 || endM < 0 || startM > 60 || endM > 60)
             throw new IllegalArgumentException("No se puede elegir como minuto menor a 0 o mayor a 60." +
                     "minuto de inicio :"+ startM+ " minuto de finalizacion: "+ endM);
-        if(startM < 0 || endM < 0 || startM > 24 || endM > 24)
+        if(startH < 0 || endH < 0 || startH > 24 || endH > 24)
             throw new IllegalArgumentException("No se puede elegir como horario de inicio fuera de las 24 hs del dia actual." +
-                    "minuto de inicio :"+ startM+ " minuto de finalizacion: "+ endM);
+                    "hora de inicio :"+ startM+ " hora de finalizacion: "+ endM);
 
         start = Calendar.getInstance();
         end = Calendar.getInstance();
@@ -47,6 +47,9 @@ public class Schedule {
             return false;
         }
 
+        else if(this.end.equals(that.start))
+            return false;
+
         return true;
 
     }
@@ -65,6 +68,23 @@ public class Schedule {
 
     public int getEndMins() {
         return endMins;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Schedule schedule = (Schedule) o;
+
+        if (starth != schedule.starth) return false;
+        if (endH != schedule.endH) return false;
+        if (startMins != schedule.startMins) return false;
+        if (endMins != schedule.endMins) return false;
+        if (!start.equals(schedule.start)) return false;
+        return end.equals(schedule.end);
+
     }
 
 

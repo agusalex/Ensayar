@@ -3,57 +3,111 @@ package Data;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Random;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Max on 10/26/2016.
  */
 public class OfferTest {
     private Random r;
-    @Test
-    public void getPrice() throws Exception {
 
+    private Offer instanceOffer() {
+        Schedule schedule = new Schedule(4,30,8,0);
+        ArrayList<Offer.Instruments> chosen = new ArrayList<Offer.Instruments>();
+        chosen.add(Offer.Instruments.GUITARRA);
+        chosen.add(Offer.Instruments.BAJO);
+        chosen.add(Offer.Instruments.BATERIA);
+        Client cl = new Client("Joseph");
+        Offer offer = new Offer(chosen,schedule,cl);
+        return offer;
     }
 
     @Test
-    public void getClient() throws Exception {
+    public void getPrice() throws Exception {
+        Offer offer = instanceOffer();
+        assertEquals(170.0F, offer.getPrice(),1.0);
+    }
 
+
+
+    @Test
+    public void getClient() throws Exception {
+        Offer offer = instanceOffer();
+        assertEquals("Joseph", offer.getClient().getName());
     }
 
     @Test
     public void getDateAvailable() throws Exception {
-
+        Offer offer = instanceOffer();
+        Calendar c = offer.getDateAvailable();
+        Date date = c.getTime();
+        assertEquals(27,date.getDate());
+        assertEquals(9,date.getMonth());
     }
 
 
     @Test
     public void conflictsWith() throws Exception {
+        Offer offer = instanceOffer();
+        Offer offer2 = instanceOffer();
+        assertTrue(offer.conflictsWith(offer2));
 
+        ArrayList<Offer.Instruments>  defaultInst = defaultInstruments();
+        ArrayList<Offer.Instruments> offerInstruments = chosenRandomInstruments(2,defaultInst);
+        Schedule sc = new Schedule(8,0,9,30);
+        Offer offer3 = new Offer( offerInstruments, sc, new Client("Juan"));
+        assertFalse(offer2.conflictsWith(offer3));
     }
+
 
     @Test
     public void getDuration() throws Exception {
+        Offer offer = instanceOffer();
+        assertEquals(3, offer.getDuration());
 
     }
 
     @Test
     public void getDurationInMin() throws Exception {
-
+        Offer offer = instanceOffer();
+        assertEquals(30,offer.getDurationInMin());
     }
 
     @Test
     public void getInstruments() throws Exception {
+        Offer offer = instanceOffer();
+        ArrayList<Offer.Instruments> chosen = new ArrayList<Offer.Instruments>();
+        chosen.add(Offer.Instruments.GUITARRA);
+        chosen.add(Offer.Instruments.BAJO);
+        chosen.add(Offer.Instruments.BATERIA);
+        assertEquals(chosen,offer.getInstruments());
+
+        ArrayList<Offer.Instruments> chosen2 = new ArrayList<Offer.Instruments>();
+        chosen2.add(Offer.Instruments.BAJO);
+        chosen2.add(Offer.Instruments.MICROFONO);
+        chosen2.add(Offer.Instruments.TECLADO);
+        assertFalse(chosen2.equals(offer.getInstruments()));
 
     }
 
     @Test
     public void getSchedule() throws Exception {
-
+        Offer offer = instanceOffer();
+        Schedule schedule = new Schedule(4,30,8,0);
+        assertEquals(schedule,offer.getSchedule());
     }
 
     @Test
     public void equals() throws Exception {
-
+        Offer offer = instanceOffer();
+        Offer offer2 = instanceOffer();
+        assertEquals(offer,offer2);
     }
 
 
@@ -75,7 +129,7 @@ public class OfferTest {
         ArrayList<Offer.Instruments> offerInstruments = new ArrayList<Offer.Instruments>();
         int Low = 1;
         int High = 5;
-        int randomIndex;
+        int randomClient;
         int randomHour, randomMin;
         int cantInst;
         int[] min = {0,30};
@@ -83,11 +137,14 @@ public class OfferTest {
         for(int i = 0; i< n; i++){
             cantInst = r.nextInt(defaultInst.size()-1)+1;
             offerInstruments = chosenRandomInstruments(cantInst,defaultInst);
+
             randomHour = r.nextInt(High-Low)+Low;
-            randomMin = min[r.nextInt(1)];
-            schedule = new Schedule(randomHour,randomMin,randomHour+High, randomMin);
-            randomIndex = r.nextInt(clients.size()-1);
-            client = clients.get(randomIndex);
+            randomMin = min[r.nextInt(2)];
+            schedule = new Schedule(randomHour, randomMin, randomHour+High, min[r.nextInt(2)]);
+
+            randomClient = r.nextInt(clients.size()-1);
+            client = clients.get(randomClient);
+
             offer = new Offer(offerInstruments,schedule,client);
             ret.add(offer);
         }
@@ -96,14 +153,14 @@ public class OfferTest {
     }
 
     private ArrayList<Offer.Instruments> chosenRandomInstruments(int n, ArrayList<Offer.Instruments> defaultInst){
-        ArrayList<Offer.Instruments> inst = new ArrayList<Offer.Instruments>();
+        ArrayList<Offer.Instruments> ret = new ArrayList<Offer.Instruments>();
         Random rand = new Random();
         int randomIndex;
         for (int i =0; i< n; i++){
             randomIndex = rand.nextInt(n);
-            inst.add(defaultInst.get(randomIndex));
+            ret.add(defaultInst.get(randomIndex));
         }
-        return inst;
+        return ret;
     }
 
     private ArrayList<Offer.Instruments> defaultInstruments(){
@@ -115,7 +172,6 @@ public class OfferTest {
         inst.add(Offer.Instruments.MICROFONO);
         return inst;
     }
-
 
     private ArrayList <Client> generateRandomClients(){
         String [] names = {"Gerardo", "Agustin", "Emmanuel","Fede", "Roberto", "Juan", "Pustilnik","Maxi", "Roberto"

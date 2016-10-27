@@ -1,7 +1,8 @@
 package negocio;
 
-import java.util.Comparator;
+import Data.Offer;
 
+import java.util.Comparator;
 public class Comparador
 {
 	public static Comparator<Offer> porPeso()
@@ -11,10 +12,10 @@ public class Comparador
 			@Override
 			public int compare(Offer uno, Offer otro)
 			{
-				if (uno.getPeso() < otro.getPeso())
+				if (uno.getDuration() < otro.getDuration())
 					return -1;
 					
-				if (uno.getPeso() > otro.getPeso())
+				if (uno.getDuration() > otro.getDuration())
 					return 1;
 					
 				return 0;
@@ -28,10 +29,10 @@ public class Comparador
 		{
 			public int compare(Offer uno, Offer otro)
 			{
-				if (uno.getBeneficio() < otro.getBeneficio())
+				if (uno.getPrice() < otro.getPrice())
 					return 1;
 					
-				if (uno.getBeneficio() > otro.getBeneficio())
+				if (uno.getPrice() > otro.getPrice())
 					return -1;
 					
 				return 0;
@@ -45,8 +46,8 @@ public class Comparador
 		{
 			public int compare(Offer uno, Offer otro)
 			{
-				double cocienteUno = uno.getBeneficio() / uno.getPeso();
-				double cocienteOtro = otro.getBeneficio() / otro.getPeso();
+				double cocienteUno = uno.getPrice() / uno.getDuration();
+				double cocienteOtro = otro.getPrice() / otro.getDuration();
 						
 				if (cocienteUno < cocienteOtro)
 					return 1;

@@ -1,5 +1,5 @@
 package negocio;
-
+import Data.Offer;
 public class SolverExacto implements Solver
 {
 	private Instancia instancia;
@@ -23,24 +23,27 @@ public class SolverExacto implements Solver
 		long fin = System.currentTimeMillis();
 		
 		tiempo = (fin - inicio) / 1000.0;
-		System.out.println(mejorEncontrado);
 		return mejorEncontrado;
 	}
 
-	// Genera y eval�a todos los subconjuntos a partir del k-�simo objeto
+	// Genera y eval�a todos los subconjuntos a partir del k-�simo offerAt
 	private void generarDesde(int k)
 	{
 		// Caso base: Recorrimos todos los objetos (estamos en una hoja)
-		if (k == instancia.cantidadDeObjetos())
-		{
+		if (k == instancia.offersSize()) {
 			analizarActual();
 			return;
 		}
-		
+
 
 
 		// Caso recursivo
-		Offer obj = instancia.objeto(k);
+		Offer obj = instancia.offerAt(k);
+		for(Offer of : subconjunto.getOffers()){
+			System.out.println(of.conflictsWith(obj));
+			if(of.conflictsWith(obj))
+				return;
+		}
 
 		subconjunto.agregar(obj);
 		generarDesde(k+1);

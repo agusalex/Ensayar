@@ -36,6 +36,28 @@ public class Client {
         Mobile = mobile;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Client client = (Client) o;
+
+        if (ID != null && client.ID != null)
+            return ID.equals(client.ID);
+        if (Name != null && client.Name != null)
+            return Name.equals(client.Name);
+        if(Mobile != null && client.getMobile() != null)
+            return Mobile.equals(client.Mobile);
+        if(ID == null && client.ID == null)
+            return true;
+        if (Name == null && client.Name == null)
+            return true;
+        if(Mobile == null && client.getMobile() == null)
+            return true;
+        return false;
+    }
+
     public String toString(){
         return "Nombre: "+ this.Name+ " ID: "+ this.ID+ " Telefono: "+this.Mobile;
     }

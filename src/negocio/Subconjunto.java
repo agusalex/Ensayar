@@ -1,5 +1,7 @@
 package negocio;
 
+import Data.Offer;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,15 +31,15 @@ public class Subconjunto
 	public void agregar(Offer obj)
 	{
 		objetos.add(obj);
-		peso += obj.getPeso();
-		beneficio += obj.getBeneficio();
+		peso += obj.getDuration();
+		beneficio += obj.getPrice();
 	}
 
 	public void sacar(Offer obj)
 	{
 		objetos.remove(obj);
-		peso -= obj.getPeso();
-		beneficio -= obj.getBeneficio();
+		peso -= obj.getDuration();
+		beneficio -= obj.getPrice();
 	}
 
 	public Subconjunto clonar()
@@ -54,7 +56,7 @@ public class Subconjunto
 	{
 		String s = "{";
 		for (Offer o: objetos)
-			s += o.getNombre() + ", ";
+			s += o.toString() + "\n";
 		
 		return s + "}";
 	}
@@ -95,4 +97,6 @@ public class Subconjunto
 	{
 		return objetos.size();
 	}
+
+	public Set<Offer> getOffers(){return this.objetos;}
 }

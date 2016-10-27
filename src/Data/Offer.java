@@ -70,8 +70,6 @@ public class Offer implements Serializable{
 
     public ArrayList<Instruments> getInstruments() {return instruments;}
 
-    public void setInstruments(ArrayList<Instruments> instruments) {this.instruments = instruments;}
-
     public void setSchedule(Schedule schedule) {
         this.schedule = schedule;
         this.duration = schedule.getEnd() - schedule.getStart();

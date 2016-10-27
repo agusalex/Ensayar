@@ -1,39 +1,41 @@
 package negocio;
 
+import Data.Offer;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class Instancia {
 
-	private final ArrayList<Offer> objetos;
+	private final ArrayList<Offer> offers;
 
 	public Instancia() {
 
-		objetos = new ArrayList<>();
+		offers = new ArrayList<>();
 	}
 
 
 	public void agregarObjeto(Offer obj)
 	{
-		objetos.add(obj);
+		offers.add(obj);
 		
-		Collections.sort(objetos, Comparador.porPeso());
-		Collections.reverse(objetos);
+		Collections.sort(offers, Comparador.porPeso());
+		Collections.reverse(offers);
 	}
 
-	public Offer objeto(int i)
+	public Offer offerAt(int i)
 	{
-		return objetos.get(i);
+		return offers.get(i);
 	}
 
-	public int cantidadDeObjetos()
+	public int offersSize()
 	{
-		return objetos.size();
+		return offers.size();
 	}
 	
 	@SuppressWarnings("unchecked")
-	public ArrayList<Offer> getObjetos()
+	public ArrayList<Offer> getOffers()
 	{
-		return (ArrayList<Offer>) objetos.clone();
+		return (ArrayList<Offer>) offers.clone();
 	}
 }
