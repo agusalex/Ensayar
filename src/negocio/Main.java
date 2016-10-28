@@ -17,21 +17,21 @@ public static void main (String args[] ){
     Instancia ins = new Instancia();
     Instancia inst = new Instancia();
     ArrayList<Offer> offers = generateRandomOffers(8);
-    ArrayList<Offer> offers2 = generateRandomOffers(6);
+
 
     
     for(Offer of : offers)
         ins.agregarObjeto(of);
 
-    for(Offer of: offers2)
-        inst.agregarObjeto(of);
-
 
     System.out.println(offers);
-    System.out.println("fin de ofertas");
-    Solver solver = new SolverExacto();
+    System.out.println("**************************");
+    System.out.println("");
+    System.out.println("Fin de ofertas:"); 
+    Solver solver = new SolverGoloso();
     Subconjunto sub = solver.resolver(ins);
-    System.out.println("soluciones");
+    System.out.println("Soluciones:");
+    System.out.println("");
     System.out.println(sub);
 
 

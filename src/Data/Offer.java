@@ -93,6 +93,9 @@ public class Offer implements Serializable{
         return result;
     }
 
+    
+    
+    
     @Override
     public String toString(){
         return "\nOferta:\n" +

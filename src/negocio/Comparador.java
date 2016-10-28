@@ -29,16 +29,19 @@ public class Comparador
 		{
 			public int compare(Offer uno, Offer otro)
 			{
-				if (uno.getPrice() < otro.getPrice())
+				if (uno.getPrice() > otro.getPrice())
 					return 1;
 					
-				if (uno.getPrice() > otro.getPrice())
+				if (uno.getPrice() < otro.getPrice())
 					return -1;
 					
 				return 0;
 			}
 		};
 	}
+	
+	
+	//bases de datos especificacaion de softwarer/ingenieria-----> Laboratorio y especiicacion
 	
 	public static Comparator<Offer> porCociente()
 	{

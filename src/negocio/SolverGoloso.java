@@ -11,16 +11,12 @@ public class SolverGoloso implements Solver
 	private Comparator<Offer> comparador;
 
 	// El comparador es para ordenar los objetos en el algoritmo goloso
-	public SolverGoloso(Comparator<Offer> comp)
-	{
-		comparador = comp;
-	}
-	
+
 	@Override
 	public Subconjunto resolver(Instancia inst)
 	{
 		Subconjunto ret = new Subconjunto();
-		for(Offer obj: objetosOrdenados(inst))
+		for(Offer obj: objetosOrdenados(inst,Comparador.porCociente()))
 		{
 			ret.agregar(obj);
 		}
@@ -28,11 +24,13 @@ public class SolverGoloso implements Solver
 		return ret;
 	}
 
-	ArrayList<Offer> objetosOrdenados(Instancia inst)
+	ArrayList<Offer> objetosOrdenados(Instancia inst,Comparator<Offer> comp)
 	{
 		ArrayList<Offer> objetos = inst.getOffers();
-		Collections.sort(objetos, comparador);
+		Collections.sort(objetos, comp);
 		
 		return objetos;
 	}
+	
+
 }
