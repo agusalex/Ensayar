@@ -9,7 +9,7 @@ import java.util.Calendar;
  */
 public class Offer implements Serializable{
 
-    private Float price;
+    private Integer price;
     private Client client;
     private Calendar dateAvailable = Calendar.getInstance();
     private Schedule schedule;
@@ -27,22 +27,22 @@ public class Offer implements Serializable{
     public enum Instruments {
         BATERIA,GUITARRA,TECLADO,BAJO,MICROFONO;
 
-        public static float instrumentValue(Instruments inst){
+        public static int instrumentValue(Instruments inst){
              switch(inst){
-                 case BATERIA   : return 70.0F;
-                 case GUITARRA  : return 50.0F;
-                 case TECLADO   : return 40.0F;
-                 case BAJO      : return 50.0F;
-                 case MICROFONO : return 30.0F;
-                 default        : return 0.0F;
+                 case BATERIA   : return 70;
+                 case GUITARRA  : return 50;
+                 case TECLADO   : return 40;
+                 case BAJO      : return 50;
+                 case MICROFONO : return 30;
+                 default        : return 0;
              }
         }
 
-        public static float comboValue(ArrayList<Instruments> combo){
+        public static int comboValue(ArrayList<Instruments> combo){
             if(combo == null || combo.size() == 0)
                 throw new RuntimeException("No existe ningun combo de instrumentos");
 
-            float ret = 0.0F;
+            int ret = 0;
             for(int i = 0; i< combo.size(); i++)
                 ret += instrumentValue(combo.get(i));
             return ret;
@@ -50,7 +50,7 @@ public class Offer implements Serializable{
     }
 
 
-    public float getPrice() {return price;}
+    public int getPrice() {return price;}
 
     public Client getClient() {return client;}
 

@@ -27,6 +27,7 @@ public class Comparador
 	{
 		return new Comparator<Offer>()
 		{
+			@Override
 			public int compare(Offer uno, Offer otro)
 			{
 				if (uno.getPrice() > otro.getPrice())
@@ -47,6 +48,7 @@ public class Comparador
 	{
 		return new Comparator<Offer>()
 		{
+
 			public int compare(Offer uno, Offer otro)
 			{
 				double cocienteUno = uno.getPrice() / uno.getDuration();

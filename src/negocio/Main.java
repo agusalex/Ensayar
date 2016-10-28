@@ -1,9 +1,11 @@
 package negocio;
 
 import Data.Client;
-import Data.Schedule;
 import Data.Offer;
+import Data.Schedule;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 /**
@@ -18,17 +20,17 @@ public static void main (String args[] ){
     Instancia inst = new Instancia();
     ArrayList<Offer> offers = generateRandomOffers(8);
 
-
-    
     for(Offer of : offers)
         ins.agregarObjeto(of);
 
+    Collections.sort(offers, Comparador.porBeneficio());
+    Collections.reverse(offers);
 
     System.out.println(offers);
     System.out.println("**************************");
     System.out.println("");
     System.out.println("Fin de ofertas:"); 
-    Solver solver = new SolverGoloso();
+    Solver solver = new SolverExacto();
     Subconjunto sub = solver.resolver(ins);
     System.out.println("Soluciones:");
     System.out.println("");
