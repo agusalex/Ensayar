@@ -17,23 +17,23 @@ public class Comparador
 						uno.getDurationInMin() == 30 && otro.getDurationInMin() == 30) {
 
 					if (uno.getDuration() < otro.getDuration())
-						return -1;
+						return 1;
 
 					if (uno.getDuration() > otro.getDuration())
-						return 1;
+						return -1;
 
 				}
 				if(uno.getDurationInMin() == 30 && otro.getDurationInMin() == 0){
 					if(uno.getDuration() >= otro.getDurationInMin())
-						return 1;
-					if(uno.getDuration() < otro.getDuration())
 						return -1;
+					if(uno.getDuration() < otro.getDuration())
+						return 1;
 				}
 				if(otro.getDurationInMin() == 30 && uno.getDurationInMin() == 0){
 					if(otro.getDuration() >= uno.getDurationInMin())
-						return 1;
-					if(otro.getDuration() < uno.getDuration())
 						return -1;
+					if(otro.getDuration() < uno.getDuration())
+						return 1;
 				}
 
 				return 0;
@@ -83,10 +83,10 @@ public class Comparador
 				double cocienteOtro = otro.getPrice() / otro.getDuration();
 						
 				if (cocienteUno < cocienteOtro)
-					return 1;
+					return -1;
 					
 				if (cocienteUno > cocienteOtro)
-					return -1;
+					return 1;
 					
 				return 0;
 			}

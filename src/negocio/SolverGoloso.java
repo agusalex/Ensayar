@@ -29,18 +29,13 @@ public class SolverGoloso implements Solver
 		else if(criterio == Criterios.COCIENTE)
 			comparador = Comparador.porCociente();
 
-		Collections.sort(inst.getOffers(),comparador);
+		Collections.sort(inst.getInstanceOffers(),comparador);
+
 		Subconjunto ret = Solve(inst);
 
 		return ret;
 	}
 
-	ArrayList<Offer> objetosOrdenados(Instancia inst)
-	{
-		ArrayList<Offer> objetos = inst.getOffers();
-		Collections.sort(objetos, comparador);
-		return objetos;
-	}
 
 
 	public void setCriterio(Criterios criterio){
@@ -57,7 +52,7 @@ public class SolverGoloso implements Solver
 	private Subconjunto Solve(Instancia inst){
 		Subconjunto ret = new Subconjunto();
 		int horas = 0, index = 0;
-		int size = inst.getOffers().size();
+		int size = inst.getInstanceOffers().size();
 
 		//agrega un primer elemento al subconjunto solucion
 		Offer offer =  inst.offerAt(index);
@@ -66,7 +61,7 @@ public class SolverGoloso implements Solver
 		index++;
 
 
-		while(horas <= 24 && inst.hasAviableOffers() && !areAllColisions(ret.getOffers(), inst.getOffers()) && index < size){
+		while(horas <= 24 && inst.hasAviableOffers() && !areAllColisions(ret.getOffers(), inst.getInstanceOffers()) && index < size){
 			offer =  inst.offerAt(index);
 			if(!collition(offer,ret.getOffers())) {
 				ret.agregar(offer);
@@ -90,7 +85,7 @@ public class SolverGoloso implements Solver
 		}
 		return retu;
 	}
-
+	//verifica si una oferta choca con las del conjunto a devolver
 	private static  boolean collition(Offer of, ArrayList<Offer> offers){
 		for(Offer of1 : offers){
 			if(of.conflictsWith(of1))

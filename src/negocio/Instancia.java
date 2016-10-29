@@ -3,7 +3,6 @@ package negocio;
 import Data.Offer;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class Instancia {
 
@@ -23,7 +22,6 @@ public class Instancia {
 
 	public void agregarObjeto(Offer obj){
 		offers.add(obj);
-		Collections.sort(offers,Comparador.porBeneficio());
 	}
 
 
@@ -38,12 +36,16 @@ public class Instancia {
 	}
 
 	public boolean hasAviableOffers(){
-		return this.getOffers().size() != 0;
+		return this.getInstanceOffers().size() != 0;
 	}
 
 	@SuppressWarnings("unchecked")
-	public ArrayList<Offer> getOffers()
+	public ArrayList<Offer> cloneOffers()
 	{
 		return (ArrayList<Offer>) offers.clone();
+	}
+
+	public ArrayList<Offer> getInstanceOffers(){
+		return this.offers;
 	}
 }

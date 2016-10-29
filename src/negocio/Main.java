@@ -23,7 +23,7 @@ public static void main (String args[] ){
         ins.agregarObjeto(of);
     }
 
-    System.out.println(ins.getOffers());
+    System.out.println(ins.cloneOffers());
     System.out.println("**************************");
     System.out.println("");
     System.out.println("Fin de ofertas:"); 
