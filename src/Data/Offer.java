@@ -10,17 +10,21 @@ import java.util.Calendar;
 public class Offer implements Serializable{
 
     private Integer price;
+    private static final Integer pricePerHour = 30;
+    private static final Integer priceHalfHour = pricePerHour / 2;
     private Client client;
     private Calendar dateAvailable = Calendar.getInstance();
     private Schedule schedule;
     private ArrayList<Instruments> instruments;
-    private long duration;
+    private int duration;
     private int durationInMin;
+    private int nonHalfHour;
 
     public Offer(ArrayList<Instruments> instruments, Schedule schedule, Client client ){
         this.instruments = instruments;
         this.price = Instruments.comboValue(instruments);
         this.setSchedule(schedule);
+        this.price += pricePerHour*getDuration() + priceHalfHour*nonHalfHour;
         this.client = client;
     }
 
@@ -51,6 +55,7 @@ public class Offer implements Serializable{
 
 
     public int getPrice() {return price;}
+    public  void  subastar( int cantidad){ this.price += cantidad;}
 
     public Client getClient() {return client;}
 
@@ -64,7 +69,7 @@ public class Offer implements Serializable{
         return this.getSchedule().conflictsWith(that.getSchedule());
     }
 
-    public long getDuration() {return duration;}
+    public int getDuration() {return duration;}
 
     public int getDurationInMin() {return durationInMin;}
 
@@ -76,6 +81,9 @@ public class Offer implements Serializable{
         if(schedule.getStartMins() > schedule.getEndMins())
             this.duration--;
         this.durationInMin = Math.abs(schedule.getEndMins() - schedule.getStartMins());
+        if(durationInMin == 30)
+            nonHalfHour = 1;
+        else nonHalfHour = 0;
     }
 
     public Schedule getSchedule() {return schedule;}
@@ -93,9 +101,25 @@ public class Offer implements Serializable{
         return result;
     }
 
-    
-    
-    
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Offer offer = (Offer) o;
+
+        if (duration != offer.duration) return false;
+        if (durationInMin != offer.durationInMin) return false;
+        if (nonHalfHour != offer.nonHalfHour) return false;
+        if (price != null ? !price.equals(offer.price) : offer.price != null) return false;
+        if (client != null ? !client.equals(offer.client) : offer.client != null) return false;
+        if (dateAvailable != null ? !dateAvailable.equals(offer.dateAvailable) : offer.dateAvailable != null)
+            return false;
+        if (schedule != null ? !schedule.equals(offer.schedule) : offer.schedule != null) return false;
+        return instruments != null ? instruments.equals(offer.instruments) : offer.instruments == null;
+
+    }
+
     @Override
     public String toString(){
         return "\nOferta:\n" +

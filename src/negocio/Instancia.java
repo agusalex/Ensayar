@@ -3,10 +3,13 @@ package negocio;
 import Data.Offer;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Instancia {
 
 	private final ArrayList<Offer> offers;
+
+
 
 	public enum Sorting{
 		DURACION,PRECIO,COCIENTE;
@@ -20,8 +23,7 @@ public class Instancia {
 
 	public void agregarObjeto(Offer obj){
 		offers.add(obj);
-		
-
+		Collections.sort(offers,Comparador.porBeneficio());
 	}
 
 
@@ -34,7 +36,11 @@ public class Instancia {
 	{
 		return offers.size();
 	}
-	
+
+	public boolean hasAviableOffers(){
+		return this.getOffers().size() != 0;
+	}
+
 	@SuppressWarnings("unchecked")
 	public ArrayList<Offer> getOffers()
 	{

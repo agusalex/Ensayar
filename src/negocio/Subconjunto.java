@@ -2,18 +2,17 @@ package negocio;
 
 import Data.Offer;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
 
 public class Subconjunto
 {
-	private final Set<Offer> objetos;
+	private final ArrayList<Offer> objetos;
 	private double peso;
 	private double beneficio;
 
 	public Subconjunto()
 	{
-		objetos = new HashSet<>();
+		objetos = new ArrayList<Offer>();
 		peso = 0;
 		beneficio = 0;
 	}
@@ -98,5 +97,5 @@ public class Subconjunto
 		return objetos.size();
 	}
 
-	public Set<Offer> getOffers(){return this.objetos;}
+	public ArrayList<Offer> getOffers(){return this.objetos;}
 }

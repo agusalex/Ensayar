@@ -1,5 +1,7 @@
 package negocio;
+
 import Data.Offer;
+
 public class SolverExacto implements Solver
 {
 	private Instancia instancia;
@@ -35,8 +37,6 @@ public class SolverExacto implements Solver
 			return;
 		}
 
-
-
 		// Caso recursivo
 		Offer oferta2 = instancia.offerAt(k);
 		for(Offer oferta1 : subconjunto.getOffers()){
@@ -58,6 +58,7 @@ public class SolverExacto implements Solver
 		if (subconjunto.tieneMayorBeneficioQue(mejorEncontrado))
 			mejorEncontrado = subconjunto.clonar();
 	}
+
 
 	public int getHojas()
 	{

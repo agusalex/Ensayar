@@ -31,7 +31,7 @@ public class OfferTest {
     @Test
     public void getPrice() throws Exception {
         Offer offer = instanceOffer();
-        assertEquals(170.0F, offer.getPrice(),1.0);
+        assertEquals(275, offer.getPrice());
     }
 
 
@@ -47,7 +47,7 @@ public class OfferTest {
         Offer offer = instanceOffer();
         Calendar c = offer.getDateAvailable();
         Date date = c.getTime();
-        assertEquals(27,date.getDate());
+        assertEquals(28,date.getDate());
         assertEquals(9,date.getMonth());
     }
 
