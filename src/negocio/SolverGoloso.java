@@ -29,9 +29,9 @@ public class SolverGoloso implements Solver
 		else if(criterio == Criterios.COCIENTE)
 			comparador = Comparador.porCociente();
 
+		Collections.sort(inst.getOffers(),comparador);
 		Subconjunto ret = Solve(inst);
 
-		
 		return ret;
 	}
 

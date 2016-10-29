@@ -16,7 +16,7 @@ public class Main {
 
 public static void main (String args[] ){
     Instancia ins = new Instancia();
-    ArrayList<Offer> offers = generateRandomOffers(4);
+    ArrayList<Offer> offers = generateRandomOffers(8);
     Random r = new Random();
     for(Offer of : offers){
 
