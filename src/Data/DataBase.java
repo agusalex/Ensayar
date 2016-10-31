@@ -2,12 +2,15 @@ package Data;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Agus on 23/10/2016.
@@ -18,7 +21,7 @@ public class DataBase {
     private ArrayList<Offer> offers;
     private boolean archivoCorrupto = false;
 
-    private File directory = new File (".");
+    private File directory = new File (filename);
     private String dir = directory.getAbsolutePath();
 
     private DataBase(){}
@@ -35,33 +38,33 @@ public class DataBase {
     }
 
     public void save(){
+        Type listType = new TypeToken<List<Offer>>() {}.getType();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String coordenadas = gson.toJson(this.offers);  //guardado de coordenada
+        String offers = gson.toJson(this.offers,listType);
 
         try{
-            BufferedWriter fileWriter = new BufferedWriter(new FileWriter(this.dir));
-            fileWriter.write(coordenadas);
+            BufferedWriter fileWriter = new BufferedWriter(new FileWriter(this.filename));
+            fileWriter.write(offers);
             fileWriter.close();
         }
         catch (Exception e){
+            e.printStackTrace();
             System.out.println("Falla en la escritura de archivos");
         }
     }
 
-    public ArrayList<Offer> load() {
+    public void  load() {
         Gson gson = new Gson();
         File f = new File(this.dir);
+        Type listType = new TypeToken<List<Offer>>() {}.getType();
 
         try {
             if (f.exists()) {
-                ArrayList<Offer> offers = new ArrayList<Offer>();
                 try {
-                    offers = gson.fromJson(new FileReader(this.dir), offers.getClass());
+                    this.offers = gson.fromJson(new FileReader(this.dir), listType);
                 } catch (Exception e) {
                     System.out.println("Archivo corrupto, generando instancia vacia");
                     archivoCorrupto = true;
-                    return offers;
-
                 }
                 if (offers == null)
                     System.out.println("Archivo vacio, creando uno nuevo...");
@@ -76,7 +79,7 @@ public class DataBase {
             e.printStackTrace();
             System.out.println("No se encuentra el archivo especificado");
         }
-        return null;
+
     }
 
 

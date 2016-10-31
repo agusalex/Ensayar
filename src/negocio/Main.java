@@ -13,7 +13,7 @@ import java.util.Random;
 public class Main {
 
 
-
+//
 public static void main (String args[] ){
     Instancia ins = new Instancia();
     ArrayList<Offer> offers = generateRandomOffers(4);
