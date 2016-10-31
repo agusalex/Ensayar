@@ -16,7 +16,7 @@ public class Main {
 
 public static void main (String args[] ){
     Instancia ins = new Instancia();
-    ArrayList<Offer> offers = generateRandomOffers(8);
+    ArrayList<Offer> offers = generateRandomOffers(4);
     Random r = new Random();
     for(Offer of : offers){
 
@@ -27,7 +27,7 @@ public static void main (String args[] ){
     System.out.println("**************************");
     System.out.println("");
     System.out.println("Fin de ofertas:"); 
-    Solver solver = new SolverGoloso(SolverGoloso.Criterios.PRECIO);
+    Solver solver = new SolverGoloso(SolverGoloso.Criterios.COCIENTE);
     Subconjunto sub = solver.resolver(ins);
     System.out.println("Soluciones:");
     System.out.println("");
