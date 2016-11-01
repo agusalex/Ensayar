@@ -7,6 +7,14 @@ import java.util.concurrent.TimeUnit;
  * Created by Agus on 23/10/2016.
  */
 public class Schedule {
+    public Calendar getStartC() {
+        return this.start;
+    }
+
+    public Calendar getEndC() {
+        return this.end;
+    }
+
     private Calendar start, end;
     private int starth, endH, startMins, endMins;
 

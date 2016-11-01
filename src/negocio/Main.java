@@ -16,19 +16,15 @@ public class Main {
 //
 public static void main (String args[] ){
     Instancia ins = new Instancia();
-    ArrayList<Offer> offers = generateRandomOffers(25);
+    ArrayList<Offer> offers = generateRandomOffers(10);
     Random r = new Random();
     for(Offer of : offers){
 
         ins.agregarObjeto(of);
     }
 
-    /*System.out.println(ins.getOffers());
-    System.out.println("**************************");
-    System.out.println("");
-    System.out.println("Fin de ofertas:");*/
 
-
+   // System.out.println(offers);
     Solver solverBeneficio = new SolverGoloso(SolverGoloso.Criterios.PRECIO);
     Subconjunto sub3 = solverBeneficio.resolver(ins);
     System.out.println("Solver beneficio, GUITA:"+ sub3.beneficio());
@@ -84,7 +80,7 @@ public static void main (String args[] ){
             if(endH==24)
                 randomMin=0;
 
-            schedule = new Schedule(randomHour, randomMin,endH,randomMin );
+            schedule = new Schedule(randomHour, min[r.nextInt(2)],endH,randomMin );
 
             randomClient = r.nextInt(clients.size()-1);
             client = clients.get(randomClient);

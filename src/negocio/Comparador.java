@@ -79,7 +79,7 @@ public class Comparador
 	}
 
 
-	
+
 	//bases de datos especificacaion de softwarer/ingenieria-----> Laboratorio y especiicacion
 	
 	public static Comparator<Offer> porCociente()
@@ -97,6 +97,8 @@ public class Comparador
 
 					if (cocienteUno > cocienteOtro)
 						return -1;
+
+					return 0;
 				}
 
 				double cocienteUno = uno.getPrice() / uno.getDuration();

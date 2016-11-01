@@ -3,6 +3,7 @@ package Data;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Agus on 23/10/2016.
@@ -76,14 +77,16 @@ public class Offer implements Serializable{
     public ArrayList<Instruments> getInstruments() {return instruments;}
 
     public void setSchedule(Schedule schedule) {
+
         this.schedule = schedule;
-        this.duration = schedule.getEnd() - schedule.getStart();
-        if(schedule.getStartMins() > schedule.getEndMins())
-            this.duration--;
-        this.durationInMin = Math.abs(schedule.getEndMins() - schedule.getStartMins());
-        if(durationInMin == 30)
-            nonHalfHour = 1;
-        else nonHalfHour = 0;
+        Long initMilis=schedule.getStartC().getTimeInMillis();
+        Long endMilis=schedule.getEndC().getTimeInMillis();
+        Long deltaH= TimeUnit.MILLISECONDS.toHours(endMilis-initMilis);
+        Long deltaM= TimeUnit.MILLISECONDS.toMinutes(endMilis-initMilis);
+
+        this.duration = (int)Math.abs(deltaH);
+        this.durationInMin =((int)Math.abs(deltaM)-((int)Math.abs(deltaH))*60);
+
     }
 
     public Schedule getSchedule() {return schedule;}
