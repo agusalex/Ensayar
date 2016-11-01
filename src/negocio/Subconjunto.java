@@ -3,6 +3,7 @@ package negocio;
 import Data.Offer;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Subconjunto
 {
@@ -50,9 +51,31 @@ public class Subconjunto
 		return s;
 	}
 
+	public boolean tieneColisiones(){
+		for(Offer offer1:  this.getOffers()){
+			for(Offer offer2:  this.getOffers()){
+				if(offer1!=offer2){
+					if(offer1.conflictsWith(offer2)){
+
+					return true;
+				}
+				}
+			}
+		}
+		return false;
+	}
+
 	@Override
 	public String toString()
 	{
+
+
+
+		Collections.sort(objetos,Comparador.porHorario());
+
+
+
+
 		String s = "{";
 		for (Offer o: objetos)
 			s += o.toString() + "\n";

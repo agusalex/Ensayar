@@ -16,22 +16,36 @@ public class Main {
 //
 public static void main (String args[] ){
     Instancia ins = new Instancia();
-    ArrayList<Offer> offers = generateRandomOffers(4);
+    ArrayList<Offer> offers = generateRandomOffers(25);
     Random r = new Random();
     for(Offer of : offers){
 
         ins.agregarObjeto(of);
     }
 
-    System.out.println(ins.cloneOffers());
+    /*System.out.println(ins.getOffers());
     System.out.println("**************************");
     System.out.println("");
-    System.out.println("Fin de ofertas:"); 
-    Solver solver = new SolverGoloso(SolverGoloso.Criterios.COCIENTE);
+    System.out.println("Fin de ofertas:");*/
+
+
+    Solver solverBeneficio = new SolverGoloso(SolverGoloso.Criterios.PRECIO);
+    Subconjunto sub3 = solverBeneficio.resolver(ins);
+    System.out.println("Solver beneficio, GUITA:"+ sub3.beneficio());
+    System.out.println(sub3+"\n\n");
+
+    Solver solverCociente = new SolverGoloso(SolverGoloso.Criterios.COCIENTE);
+    Subconjunto sub2 = solverCociente.resolver(ins);
+    System.out.println("Solver Cociente, GUITA:"+ sub2.beneficio());
+    System.out.println(sub2+"\n\n");
+
+    SolverExacto solver = new SolverExacto();
     Subconjunto sub = solver.resolver(ins);
-    System.out.println("Soluciones:");
+    System.out.println("Solver Exacto tiempo"+solver.getTiempo());
+   System.out.println("Soluciones EXACTO Beneficio="+sub.beneficio());
     System.out.println("");
     System.out.println(sub);
+
 
 
 }
@@ -43,10 +57,9 @@ public static void main (String args[] ){
         Schedule schedule;
         ArrayList<Client> clients =  generateRandomClients();
         ArrayList<Offer.Instruments> offerInstruments = new ArrayList<Offer.Instruments>();
-        int Low = 1;
-        int High = 10;
+
         int randomClient;
-        int randomHour, randomMin,randomSpan;
+        int randomHour, randomMin;
         int cantInst;
         int[] min = {0,30};
 
@@ -55,12 +68,23 @@ public static void main (String args[] ){
             offerInstruments = chosenRandomInstruments(cantInst);
          
             	 
-           
-            randomHour = r.nextInt(23)+1;
-            
-            randomSpan = r.nextInt(24-randomHour)+1;
+
+            randomHour = r.nextInt(24);//min 0 max 23
+
+
+            int randomSpan =1;
+            int maxSpan=23-randomHour;
             randomMin = min[r.nextInt(2)];
-            schedule = new Schedule(randomHour, randomMin,randomHour+randomSpan, min[r.nextInt(2)]);
+
+            if(maxSpan>0)
+                randomSpan = r.nextInt(maxSpan)+1;
+
+            int endH=randomHour+randomSpan;
+
+            if(endH==24)
+                randomMin=0;
+
+            schedule = new Schedule(randomHour, randomMin,endH,randomMin );
 
             randomClient = r.nextInt(clients.size()-1);
             client = clients.get(randomClient);

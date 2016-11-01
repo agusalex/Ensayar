@@ -22,8 +22,10 @@ public class DataBaseTest {
     public void load() throws Exception {
         DataBase db = DataBase.getDb();
         db.load();
-        System.out.println(db.getOffers());
+
     }
+
+
 
 
     private ArrayList<Offer> generateRandomOffers(int n){

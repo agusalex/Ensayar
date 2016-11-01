@@ -10,6 +10,8 @@ public class Instancia {
 
 
 
+
+
 	public enum Sorting{
 		DURACION,PRECIO,COCIENTE;
 	}
@@ -22,6 +24,7 @@ public class Instancia {
 
 	public void agregarObjeto(Offer obj){
 		offers.add(obj);
+
 	}
 
 
@@ -36,7 +39,7 @@ public class Instancia {
 	}
 
 	public boolean hasAviableOffers(){
-		return this.getInstanceOffers().size() != 0;
+		return this.getOffers().size() != 0;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -45,7 +48,7 @@ public class Instancia {
 		return (ArrayList<Offer>) offers.clone();
 	}
 
-	public ArrayList<Offer> getInstanceOffers(){
+	public ArrayList<Offer> getOffers(){
 		return this.offers;
 	}
 }

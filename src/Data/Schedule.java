@@ -1,6 +1,7 @@
 package Data;
 
 import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Agus on 23/10/2016.
@@ -12,16 +13,21 @@ public class Schedule {
 
     public Schedule(int startH,int startM,int endH,int endM){
 
+
+
+        if(endH==24&&endM>0)
+            throw new IllegalArgumentException("El horario no puede terminar mas de las 24");
+
         if(startH == endH)
             throw new IllegalArgumentException("No se puede elegir el mismo horario como inicio y final. " +
                     "hora de inicio: "+ startH+" hora finalizacion"+ endH);
         if(endH < startH)
             throw new IllegalArgumentException("No se puede elegir como hora inicial una posterior a la final. " +
-                    "Hora inicial: " + startH+" hora finalizacion"+ endH);
+                    "Hora inicial: " + startH+":"+startM+" hora finalizacion"+ endH+":"+startM);
         if(startM < 0 || endM < 0 || startM > 60 || endM > 60)
             throw new IllegalArgumentException("No se puede elegir como minuto menor a 0 o mayor a 60." +
                     "minuto de inicio :"+ startM+ " minuto de finalizacion: "+ endM);
-        if(startH < 0 || endH < 0 || startH > 24 || endH > 24)
+        if(startH < 0 || endH < 0 || startH >= 24 || endH > 24)
             throw new IllegalArgumentException("No se puede elegir como horario de inicio fuera de las 24 hs del dia actual." +
                     "hora de inicio :"+ startM+ " hora de finalizacion: "+ endM);
 
@@ -34,6 +40,12 @@ public class Schedule {
         start.set(Calendar.MINUTE,startM);
         end.set(Calendar.HOUR_OF_DAY,endH);
         end.set(Calendar.MINUTE,endM);
+
+        Long initMilis=start.getTimeInMillis();
+        Long endMilis=end.getTimeInMillis();
+        Long delta=TimeUnit.MILLISECONDS.toMinutes(endMilis-initMilis);
+        if(Math.abs(delta)<30)
+            throw new IllegalArgumentException("Minimo tiempo por reserva es de 30 minutos");
 
         this.starth = startH;
         this.endH = endH;

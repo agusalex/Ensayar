@@ -25,6 +25,7 @@ public class SolverExacto implements Solver
 		long fin = System.currentTimeMillis();
 		
 		tiempo = (fin - inicio) / 1000.0;
+
 		return mejorEncontrado;
 	}
 
@@ -40,22 +41,12 @@ public class SolverExacto implements Solver
 		// Caso recursivo
 		Offer oferta2 = instancia.offerAt(k);
 		boolean conflicts = false;
-		for(Offer of : subconjunto.getOffers()){
-			if(oferta2.conflictsWith(of))
-				conflicts = true;
-		}
 
-		if(!conflicts) {
 			subconjunto.agregar(oferta2);
 			generarDesde(k + 1);
 			subconjunto.sacar(oferta2);
 			generarDesde(k+1);
-		}
-		else{
-			generarDesde(k + 1);
-			subconjunto.sacar(oferta2);
-			generarDesde(k+1);
-		}
+
 
 }
 
@@ -64,7 +55,8 @@ public class SolverExacto implements Solver
 		++hojas;
 
 		if (subconjunto.tieneMayorBeneficioQue(mejorEncontrado))
-			mejorEncontrado = subconjunto.clonar();
+			if(subconjunto.tieneColisiones()==false)
+				mejorEncontrado = subconjunto.clonar();
 	}
 
 
@@ -72,7 +64,8 @@ public class SolverExacto implements Solver
 	{
 		return hojas;
 	}
-	
+
+	@Override
 	public double getTiempo()
 	{
 		return tiempo;

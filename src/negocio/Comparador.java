@@ -58,7 +58,27 @@ public class Comparador
 			}
 		};
 	}
-	
+
+
+	public static Comparator<Offer> porHorario()
+	{
+		return new Comparator<Offer>()
+		{
+			@Override
+			public int compare(Offer uno, Offer otro)
+			{
+				if (uno.getSchedule().getStart() < otro.getSchedule().getStart())
+					return -1;
+
+				if (uno.getSchedule().getStart() > otro.getSchedule().getStart())
+					return 1;
+
+				return 0;
+			}
+		};
+	}
+
+
 	
 	//bases de datos especificacaion de softwarer/ingenieria-----> Laboratorio y especiicacion
 	
