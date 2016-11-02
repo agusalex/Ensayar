@@ -8,7 +8,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="573.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -49,32 +49,46 @@
         </Menu>
       </menus>
     </MenuBar>
-    <SplitPane dividerPositions="0.2505567928730512, 0.7505567928730512" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+    <SplitPane dividerPositions="0.2505567928730512, 0.7360801781737194" focusTraversable="true" prefHeight="470.0" prefWidth="908.0" VBox.vgrow="ALWAYS">
       <items>
-        <AnchorPane>
-          <children>
-            <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Master" textAlignment="CENTER" wrapText="false">
-              <font>
-                <Font size="18.0" fx:id="x1" />
-              </font>
-              <textFill>
-                <Color blue="0.624" green="0.624" red="0.624" fx:id="x2" />
-              </textFill>
-            </Label>
-          </children>
-        </AnchorPane>
-        <ScrollPane prefHeight="-1.0" prefWidth="-1.0">
+            <ScrollPane maxWidth="-Infinity" prefHeight="200.0" prefWidth="200.0">
+               <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="531.0" prefWidth="226.0">
+                     <children>
+                  <Label alignment="CENTER" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Recientes" textAlignment="CENTER" wrapText="false">
+                    <font>
+                      <Font size="18.0" fx:id="x1" />
+                    </font>
+                    <textFill>
+                      <Color blue="0.624" green="0.624" red="0.624" fx:id="x2" />
+                    </textFill>
+                  </Label>
+                        <Button layoutY="-6.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="200.0" text="Button" />
+                        <Button layoutY="35.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="200.0" text="Button" />
+                        <Button layoutY="76.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="200.0" text="Button" />
+                        <Button layoutY="117.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="200.0" text="Button" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </ScrollPane>
+        <ScrollPane maxWidth="421.0" prefHeight="534.0" prefWidth="421.0">
           <content>
             <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="430.0">
               <children>
-                <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" style="&#10;" text="View" textAlignment="CENTER" textFill="$x2" wrapText="false" />
+                <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" style="&#10;" text="Asignadas" textAlignment="CENTER" textFill="$x2" wrapText="false" />
+                        <Button layoutY="-3.0" mnemonicParsing="false" prefHeight="89.0" prefWidth="430.0" text="Oferta" AnchorPane.bottomAnchor="459.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-3.0" />
+                        <Button layoutY="86.0" mnemonicParsing="false" prefHeight="89.0" prefWidth="430.0" text="Oferta" />
+                        <Button layoutY="175.0" mnemonicParsing="false" prefHeight="89.0" prefWidth="430.0" text="Oferta" />
+                        <Button layoutY="264.0" mnemonicParsing="false" prefHeight="89.0" prefWidth="430.0" text="Oferta" />
+                        <Button layoutY="353.0" mnemonicParsing="false" prefHeight="89.0" prefWidth="430.0" text="Oferta" />
+                        <Button layoutY="442.0" mnemonicParsing="false" prefHeight="89.0" prefWidth="430.0" text="Oferta" />
               </children>
             </AnchorPane>
           </content>
         </ScrollPane>
-        <AnchorPane>
+        <AnchorPane SplitPane.resizableWithParent="false">
           <children>
-            <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" style="&#10;" text="Details" textAlignment="CENTER" textFill="$x2" wrapText="false" />
+            <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" style="&#10;" text="Informacion Oferta" textAlignment="CENTER" textFill="$x2" wrapText="false" />
           </children>
         </AnchorPane>
       </items>
@@ -89,7 +103,7 @@
             <Color blue="0.625" green="0.625" red="0.625" fx:id="x4" />
           </textFill>
         </Label>
-        <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
+        <Pane HBox.hgrow="ALWAYS" />
         <Label font="$x3" maxWidth="-1.0" text="Right status" textFill="$x4" HBox.hgrow="NEVER" />
       </children>
       <padding>
