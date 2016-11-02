@@ -14,7 +14,7 @@ public class Main extends Application {
         primaryStage.setTitle("Ensayos");
         primaryStage.setScene(new Scene(root, 900, 500));
         primaryStage.show();
-        primaryStage.setResizable(false);
+        //primaryStage.setResizable(false);
 
 
     }
