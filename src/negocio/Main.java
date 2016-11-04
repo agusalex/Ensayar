@@ -45,7 +45,7 @@ public static void main (String args[] ){
 
 
 }
-    private static ArrayList<Offer> generateRandomOffers(int n){
+    public static ArrayList<Offer> generateRandomOffers(int n){
         Random r = new Random();
         Offer offer;
         Client client;

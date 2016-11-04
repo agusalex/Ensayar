@@ -1,4 +1,4 @@
-package UI;
+package NewBostonTutorial;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
