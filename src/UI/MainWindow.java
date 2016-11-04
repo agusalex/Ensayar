@@ -37,7 +37,7 @@ public class MainWindow  extends Application {
         borderPane.setLeft(unnasignedOffersLayout);
         borderPane.setCenter(asignedOffersLayout);
 
-        Scene scene = new Scene(borderPane,800,600);
+        Scene scene = new Scene(borderPane,800,400);
         primaryStage.setScene(scene);
         primaryStage.show();
 

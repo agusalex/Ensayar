@@ -1,61 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import java.lang.*?>
-<?import java.util.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="573.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="316.0" prefWidth="816.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.Controller">
   <children>
-    <MenuBar VBox.vgrow="NEVER">
+    <MenuBar VBox.vgrow="ALWAYS">
       <menus>
-        <Menu mnemonicParsing="false" text="File">
+        <Menu mnemonicParsing="false" text="Archivo">
           <items>
-            <MenuItem mnemonicParsing="false" text="New" />
-            <MenuItem mnemonicParsing="false" text="Open…" />
-            <Menu mnemonicParsing="false" text="Open Recent" />
+            <MenuItem mnemonicParsing="false" text="Importar Datos" />
+            <MenuItem mnemonicParsing="false" text="Exportar Datos" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Close" />
-            <MenuItem mnemonicParsing="false" text="Save" />
-            <MenuItem mnemonicParsing="false" text="Save As…" />
-            <MenuItem mnemonicParsing="false" text="Revert" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Preferences…" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Quit" />
+                  <MenuItem mnemonicParsing="false" text="Borrar Todo" />
+            <MenuItem mnemonicParsing="false" text="Salir" />
           </items>
         </Menu>
-        <Menu mnemonicParsing="false" text="Edit">
+        <Menu mnemonicParsing="false" text="Editar">
           <items>
-            <MenuItem mnemonicParsing="false" text="Undo" />
-            <MenuItem mnemonicParsing="false" text="Redo" />
+            <MenuItem mnemonicParsing="false" text="Agregar Oferta" />
+            <MenuItem mnemonicParsing="false" text="Quitar Oferta" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Cut" />
-            <MenuItem mnemonicParsing="false" text="Copy" />
-            <MenuItem mnemonicParsing="false" text="Paste" />
-            <MenuItem mnemonicParsing="false" text="Delete" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Select All" />
-            <MenuItem mnemonicParsing="false" text="Unselect All" />
+            <MenuItem mnemonicParsing="false" text="Calcular Ofertas" />
+            <MenuItem mnemonicParsing="false" text="Cerrar Dia" />
+            <MenuItem mnemonicParsing="false" text="Desasignar Ofertas" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Agregar a Asignadas" />
+            <MenuItem mnemonicParsing="false" text="Borrar Recientes" />
           </items>
         </Menu>
-        <Menu mnemonicParsing="false" text="Help">
+            <Menu mnemonicParsing="false" text="Ver">
+               <items>
+                  <Menu mnemonicParsing="false" text="Ordenar Por">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Horario" />
+                        <MenuItem mnemonicParsing="false" text="Precio" />
+                        <MenuItem mnemonicParsing="false" text="Carga Horaria" />
+                    </items>
+                  </Menu>
+               </items>
+            </Menu>
+        <Menu mnemonicParsing="false" text="Ayuda">
           <items>
-            <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
+            <MenuItem mnemonicParsing="false" text="Sobre Ensayos" />
           </items>
         </Menu>
       </menus>
     </MenuBar>
-    <SplitPane dividerPositions="0.2505567928730512, 0.7360801781737194" focusTraversable="true" prefHeight="470.0" prefWidth="908.0" VBox.vgrow="ALWAYS">
+    <SplitPane dividerPositions="0.22605790645879734, 0.5" focusTraversable="true" prefHeight="251.0" prefWidth="900.0" VBox.vgrow="ALWAYS">
       <items>
-            <ScrollPane maxWidth="-Infinity" prefHeight="200.0" prefWidth="200.0">
+            <ScrollPane fx:id="scrollPaneRecent1" fitToWidth="true" hbarPolicy="AS_NEEDED" layoutX="10.0" layoutY="10.0" prefHeight="269.0" prefWidth="200.0">
                <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="531.0" prefWidth="226.0">
+                  <AnchorPane  prefHeight="267.0" prefWidth="198.0">
                      <children>
-                  <Label alignment="CENTER" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Recientes" textAlignment="CENTER" wrapText="false">
+                        <Button fx:id="recentOffer01" layoutX="1.0" layoutY="33.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="182.0" text="Reciente" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="33.0" />
+                        <Label alignment="CENTER" prefHeight="33.0" prefWidth="181.0" style="&#10;" text="Recientes" textAlignment="CENTER" wrapText="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
+                           <font>
+                              <Font size="18.0" fx:id="x11" />
+                           </font>
+                           <textFill>
+                              <Color blue="0.624" green="0.624" red="0.624" fx:id="x21" />
+                           </textFill>
+                        </Label>
+                        <Separator layoutX="-19.0" layoutY="34.0" prefHeight="0.0" prefWidth="201.0" AnchorPane.leftAnchor="-19.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="34.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </ScrollPane>
+            <ScrollPane fx:id="scrollPaneRecent" fitToWidth="true" hbarPolicy="AS_NEEDED" prefHeight="269.0" prefWidth="200.0">
+               <content>
+                <AnchorPane fx:id="AnchorPaneAssigned" prefHeight="267.0" prefWidth="198.0">
+                     <children>
+                        <Button fx:id="offer0" layoutX="1.0" layoutY="33.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="182.0" text="Oferta" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="33.0" />
+                  <Label alignment="CENTER" prefHeight="33.0" prefWidth="181.0" style="&#10;" text="Asignadas" textAlignment="CENTER" wrapText="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
                     <font>
                       <Font size="18.0" fx:id="x1" />
                     </font>
@@ -63,32 +100,25 @@
                       <Color blue="0.624" green="0.624" red="0.624" fx:id="x2" />
                     </textFill>
                   </Label>
-                        <Button layoutY="-6.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="200.0" text="Button" />
-                        <Button layoutY="35.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="200.0" text="Button" />
-                        <Button layoutY="76.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="200.0" text="Button" />
-                        <Button layoutY="117.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="200.0" text="Button" />
+                        <Separator layoutX="-19.0" layoutY="34.0" prefHeight="0.0" prefWidth="201.0" AnchorPane.leftAnchor="-19.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="34.0" />
                      </children>
                   </AnchorPane>
                </content>
             </ScrollPane>
-        <ScrollPane maxWidth="421.0" prefHeight="534.0" prefWidth="421.0">
-          <content>
-            <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="430.0">
-              <children>
-                <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" style="&#10;" text="Asignadas" textAlignment="CENTER" textFill="$x2" wrapText="false" />
-                        <Button layoutY="-3.0" mnemonicParsing="false" prefHeight="89.0" prefWidth="430.0" text="Oferta" AnchorPane.bottomAnchor="459.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-3.0" />
-                        <Button layoutY="86.0" mnemonicParsing="false" prefHeight="89.0" prefWidth="430.0" text="Oferta" />
-                        <Button layoutY="175.0" mnemonicParsing="false" prefHeight="89.0" prefWidth="430.0" text="Oferta" />
-                        <Button layoutY="264.0" mnemonicParsing="false" prefHeight="89.0" prefWidth="430.0" text="Oferta" />
-                        <Button layoutY="353.0" mnemonicParsing="false" prefHeight="89.0" prefWidth="430.0" text="Oferta" />
-                        <Button layoutY="442.0" mnemonicParsing="false" prefHeight="89.0" prefWidth="430.0" text="Oferta" />
-              </children>
-            </AnchorPane>
-          </content>
-        </ScrollPane>
-        <AnchorPane SplitPane.resizableWithParent="false">
+        <AnchorPane>
           <children>
-            <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" style="&#10;" text="Informacion Oferta" textAlignment="CENTER" textFill="$x2" wrapText="false" />
+            <Label fx:id="emptySignInfoOffer" alignment="CENTER" font="$x1" layoutX="-5.0" layoutY="1.0" prefHeight="27.0" prefWidth="457.0" style="&#10;" text="Informacion Oferta" textAlignment="CENTER" textFill="$x2" wrapText="false" AnchorPane.leftAnchor="-5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="1.0" />
+                  <Label alignment="CENTER" font="$x1" layoutX="15.0" layoutY="52.0" style="&#10;" text="Nombre:" textAlignment="CENTER" textFill="$x2" wrapText="false" AnchorPane.leftAnchor="15.0" />
+                  <Label alignment="CENTER" font="$x1" layoutX="15.0" layoutY="101.0" style="&#10;" text="DNI:" textAlignment="CENTER" textFill="$x2" wrapText="false" AnchorPane.leftAnchor="15.0" />
+                  <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="226.0" style="&#10;" text="Sala:" textAlignment="CENTER" textFill="$x2" wrapText="false" AnchorPane.leftAnchor="14.0" />
+                  <Label alignment="CENTER" font="$x1" layoutX="15.0" layoutY="199.0" style="&#10;" text="Precio:" textAlignment="CENTER" textFill="$x2" wrapText="false" AnchorPane.leftAnchor="15.0" />
+                  <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="134.0" style="&#10;" text="Instrumetos:" textAlignment="CENTER" textFill="$x2" wrapText="false" AnchorPane.leftAnchor="14.0" />
+                  <Separator layoutX="4.0" layoutY="16.0" orientation="VERTICAL" prefHeight="251.0" prefWidth="21.0" visible="false" />
+                  <Label fx:id="nameSurnameBox" alignment="CENTER" font="$x1" layoutX="91.0" layoutY="52.0" style="&#10;" text="null" textAlignment="CENTER" textFill="$x2" wrapText="false" />
+                  <Label fx:id="idBox" alignment="CENTER" font="$x1" layoutX="53.0" layoutY="101.0" style="&#10;" text="null" textAlignment="CENTER" textFill="$x2" wrapText="false" />
+                  <Label fx:id="instrumetsBox" alignment="CENTER" font="$x1" layoutX="121.0" layoutY="134.0" style="&#10;" text="null" textAlignment="CENTER" textFill="$x2" wrapText="false" />
+                  <Label fx:id="priceBox" alignment="CENTER" font="$x1" layoutX="70.0" layoutY="199.0" style="&#10;" text="null" textAlignment="CENTER" textFill="$x2" wrapText="false" />
+                  <Label fx:id="roomBox" alignment="CENTER" font="$x1" layoutX="55.0" layoutY="226.0" style="&#10;" text="null" textAlignment="CENTER" textFill="$x2" wrapText="false" />
           </children>
         </AnchorPane>
       </items>
