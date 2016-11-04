@@ -5,7 +5,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="354.0" prefWidth="271.0" type="ScrollPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.OfferWindowController">
+<ScrollPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="354.0" prefWidth="271.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.OfferWindowController">
   <content>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="383.0" prefWidth="315.0">
          <children>
@@ -16,7 +16,7 @@
             <CheckBox fx:id="Teclado" layoutX="19.0" layoutY="247.0" mnemonicParsing="false" text="Teclado" AnchorPane.leftAnchor="22.0" />
             <CheckBox fx:id="Guitarra" layoutX="19.0" layoutY="230.0" mnemonicParsing="false" text="Guitarra" AnchorPane.leftAnchor="22.0" />
             <CheckBox fx:id="Bajo" layoutX="19.0" layoutY="264.0" mnemonicParsing="false" text="Bajo" AnchorPane.leftAnchor="22.0" />
-            <Button fx:id="Create" layoutX="191.0" layoutY="307.0" mnemonicParsing="false" onAction="#createOffer" text="Crear" />
+            <Button fx:id="Create" cancelButton="true" defaultButton="true" layoutX="191.0" layoutY="307.0" mnemonicParsing="false" onAction="#createOffer" text="Crear" />
             <Label layoutX="18.0" layoutY="306.0" prefHeight="26.0" prefWidth="45.0" text="Precio:$" />
             <CheckBox fx:id="Microfono" layoutX="22.0" layoutY="281.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="93.0" text="Microfono" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="281.0" />
             <Label layoutX="19.0" layoutY="63.0" text="DNI:" />
@@ -28,10 +28,10 @@
             <TextField fx:id="EndEntry" layoutX="73.0" layoutY="179.0" prefHeight="25.0" prefWidth="44.0" />
             <Label layoutX="18.0" layoutY="183.0" text="Fin" />
             <Label fx:id="TotalPrice" layoutX="64.0" layoutY="311.0" prefHeight="17.0" prefWidth="44.0" text="0" />
-            <Button layoutX="117.0" layoutY="307.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="63.0" text="Cancelar" />
+            <Button fx:id="cancel" cancelButton="true" layoutX="117.0" layoutY="307.0" mnemonicParsing="false" onAction="#cancelOffer" prefHeight="25.0" prefWidth="63.0" text="Cancelar" />
             <Label layoutX="103.0" layoutY="230.0" text="Valor Reserva" />
             <TextField fx:id="adittionalValue" layoutX="180.0" layoutY="226.0" prefHeight="25.0" prefWidth="44.0" />
             <Separator layoutX="67.0" layoutY="7.0" orientation="VERTICAL" prefHeight="334.0" prefWidth="11.0" visible="false" />
          </children></AnchorPane>
   </content>
-</fx:root>
+</ScrollPane>

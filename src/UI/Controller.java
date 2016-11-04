@@ -21,7 +21,7 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable{
 
-
+    public static OfferWindow offerWindow;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -142,7 +142,7 @@ public class Controller implements Initializable{
     void addOffer() throws IOException {
 
             Stage stage = new Stage();
-            OfferWindow offerWindow = new OfferWindow();
+            offerWindow = new OfferWindow();
             offerWindow.start(stage);
 
        // Manager.getRecentOffers().add(Manager.getOffer());

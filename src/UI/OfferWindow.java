@@ -23,5 +23,6 @@ public class OfferWindow extends Application {
         primaryStage.setScene(new Scene(root, 400, 400));
         primaryStage.setResizable(false);
         primaryStage.showAndWait();
+
     }
 }
