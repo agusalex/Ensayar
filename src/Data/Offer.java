@@ -14,7 +14,7 @@ public class Offer implements Serializable{
     private static final Integer pricePerHour = 30;
     private static final Integer priceHalfHour = pricePerHour / 2;
     private Client client;
-    private Calendar dateAvailable = Calendar.getInstance();
+    private Calendar dateAvailable ;
     private Schedule schedule;
     private ArrayList<Instruments> instruments;
     private int duration;
@@ -54,6 +54,10 @@ public class Offer implements Serializable{
         }
     }
 
+    public void setAvailableTomorrow(){
+        dateAvailable= Calendar.getInstance();
+        dateAvailable.add(Calendar.DATE,1);
+    }
 
     public int getPrice() {return price;}
     public  void  subastar( int cantidad){ this.price += cantidad;}

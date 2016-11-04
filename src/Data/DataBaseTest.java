@@ -22,7 +22,7 @@ public class DataBaseTest {
     public void load() throws Exception {
         DataBase db = DataBase.getDb();
         db.load();
-
+        System.out.println(db.getOffers());
     }
 
 
