@@ -121,7 +121,7 @@ public class Controller implements Initializable{
         offerWindow = new OfferWindow();
         offerWindow.start(stage);
 
-        //TODO esto es solo para imprimirla solo hay que sacar la linea de impresion
+        //TODO esto es solo para imprimir la oferta solo hay que sacar la linea de impresion
         if(Manager.getOffer() != null) {
             System.out.println(Manager.getOffer());
             Manager.getRecentOffers().add(Manager.getOffer());
