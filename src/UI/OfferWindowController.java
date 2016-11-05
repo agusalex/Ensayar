@@ -88,16 +88,7 @@ public class OfferWindowController {
 
     @FXML
     void createOffer(ActionEvent event) {
-        //TODO comprobar validez de campos (me encargo yo agus)
-       /* ArrayList<String> errorLog = new ArrayList<String>();  //esto lleva cuenta de que errores hubo
-        String nameErrorMessage = "Nombre invalido. Ingrese una palabra con carácteres validos , Ejemplo: 'Javier Marenco'";
-        String mobileErrorMessage = "Numero invalido. Ingrese un numero de celular valido de 10 digitos. Ejemplo : 1530944567";
-        String IDErrorMessage = "Numero invalido. Ingrese un numero de documento valido de 8 digitos. Ejemplo : 20134625";
-        String startHourErrorMessage = "Hora invalida. Hora de inicio debe ser entre 0 y 23";
-        String endHourErrorMessage = "Hora de finalizacion invalida. Hora e fin debe ser de 1 a 24";
-        String startMinMessage = "Solo se permiten como mintutos de inicio 0 o 30.";
-        String endMinErrorMessage = "Solo se permiten como mintuos de fin 0 o 30";
-*/
+
         boolean noErrorsFound = true;  //esto revisa si encontre alguno de los errores de arriba
 
         ArrayList<Offer.Instruments> offerInst = new ArrayList<Offer.Instruments>();
@@ -119,22 +110,28 @@ public class OfferWindowController {
             System.out.println("error nombre");
             noErrorsFound = false;
             nameError.setVisible(true);
-           // errorLog.add(nameErrorMessage);
+            nameEntry.setText("");
         }
+        else nameError.setVisible(false);
+
         String phone = PhoneEntry.getText();
         if(isInt(phone) == false || phone.length() > 10 || phone.length() < 10){
             System.out.println("phone error");
             noErrorsFound = false;
             PhoneError.setVisible(true);
-          // errorLog.add(mobileErrorMessage);
+            PhoneEntry.setText("");
         }
+        else PhoneError.setVisible(false);
+
         String ID = IDEntry.getText();
         if(isInt(ID) == false || ID.length() < 8 || ID.length() > 8  ){
             System.out.println("dni error");
             noErrorsFound = false;
             IDError.setVisible(true);
-            //errorLog.add(IDErrorMessage);
+            IDEntry.setText("");
         }
+        else IDError.setVisible(false);
+
         if(noErrorsFound == true){
             client = new Client(name);
             client.setID(ID);
@@ -150,12 +147,20 @@ public class OfferWindowController {
             System.out.println("error en horarios");
             noErrorsFound = false;
             invalidHourError.setVisible(true);
+            StartEntry.setText("");
+            EndEntry.setText("");
+            MinEntry.setText("");
+            MinEndEntry.setText("");
+            hourError.setVisible(false);
         }
-        int startHours=0 ;
-        int endHours=0 ;
-        int startMins=0 ;
-        int endMins=0 ;
-        Schedule hours=null ;
+        else invalidHourError.setVisible(false);
+
+
+        int startHours = 0;
+        int endHours = 0;
+        int startMins = 0;
+        int endMins = 0;
+        Schedule hours = null ;
 
         if(noErrorsFound == true) {
              startHours = Integer.parseInt(StartEntry.getText());
@@ -167,27 +172,34 @@ public class OfferWindowController {
                 System.out.println("error en horarios con numeros");
                 noErrorsFound = false;
                 invalidHourError.setVisible(true);
-              //  errorLog.add(startHourErrorMessage);
+                StartEntry.setText("");
+                EndEntry.setText("");
             }
+            else invalidHourError.setVisible(false);
 
             if(startBeforeEnd(startHours,endHours) == false) {
                 System.out.println("error en principio y fin");
                 noErrorsFound = false;
                 hourError.setVisible(true);
+                StartEntry.setText("");
+                EndEntry.setText("");
             }
+            else hourError.setVisible(false);
 
             if(validMin(startMins) == false || validMin(endMins) == false){
                 System.out.println("error en min");
                 noErrorsFound = false;
                 minutesError.setVisible(true);
-               // errorLog.add(startMinMessage);
+                MinEntry.setText("");
+                MinEndEntry.setText("");
             }
+            else minutesError.setVisible(false);
+
             if(noErrorsFound == true)
                 hours = new Schedule(startHours, startMins, endHours, endMins);
         }
         if(noErrorsFound == true)
             Manager.setOffer(offerInst,hours,client);
-
 
         if(noErrorsFound == false)
             System.out.println("error");
@@ -203,10 +215,7 @@ public class OfferWindowController {
     private void cancelOffer(ActionEvent event) {
         Stage stage = (Stage) TotalPrice.getScene().getWindow();
         stage.close();
-
-
     }
-
 
     private boolean isValidName(String name){
         if(name.length() == 0)
@@ -220,7 +229,6 @@ public class OfferWindowController {
         }
         return true;
     }
-
 
     private boolean isInt(String number){
         if(number.length() == 0)
