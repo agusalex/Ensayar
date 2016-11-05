@@ -32,6 +32,12 @@
             <Label layoutX="103.0" layoutY="230.0" text="Valor Reserva" />
             <TextField fx:id="adittionalValue" layoutX="180.0" layoutY="226.0" prefHeight="25.0" prefWidth="44.0" />
             <Separator layoutX="67.0" layoutY="7.0" orientation="VERTICAL" prefHeight="334.0" prefWidth="11.0" visible="false" />
+            <TextField fx:id="MinEntry" layoutX="154.0" layoutY="146.0" prefHeight="25.0" prefWidth="43.0" />
+            <TextField fx:id="MinEndEntry" layoutX="154.0" layoutY="179.0" prefHeight="25.0" prefWidth="44.0" />
+            <Label layoutX="127.0" layoutY="150.0" prefHeight="17.0" prefWidth="24.0" text="Hs" />
+            <Label layoutX="127.0" layoutY="183.0" prefHeight="17.0" prefWidth="24.0" text="Hs" />
+            <Label layoutX="212.0" layoutY="150.0" prefHeight="17.0" prefWidth="24.0" text="Min" />
+            <Label layoutX="212.0" layoutY="178.0" prefHeight="28.0" prefWidth="24.0" text="Min" />
          </children></AnchorPane>
   </content>
 </ScrollPane>

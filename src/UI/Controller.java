@@ -59,22 +59,7 @@ public class Controller implements Initializable{
 
     }
 
-    private void addRecentOffers(){
-        AnchorPane recent = AnchorPaneRecent;
-        Button demo = recentOffer0;
-        ObservableList<Node> children = recent.getChildren();
-        double start = children.get(children.size()-1).getLayoutY();
-        int x = 0;
 
-        for(Offer offer :Manager.getRecentOffers()){
-            Button n = new Button(offer.getClient()+"  "+offer.getSchedule());
-            n.setLayoutY(start+x*94);//TODO 94 deberia ser dinamico segun tamaño bton
-            //n.setTextAlignment(offer0.getTextAlignment());
-            n.prefWidthProperty().bind(demo.widthProperty()); //RE IMPORTANTE ESTE COMANDO
-            recent.getChildren().add(n);
-            x++;
-        }
-    }
     private void addAssignedOffers(){
         AnchorPane assigned = AnchorPaneAssigned;
         Button demo = offer0;
@@ -136,11 +121,12 @@ public class Controller implements Initializable{
         offerWindow = new OfferWindow();
         offerWindow.start(stage);
 
-
-       // Manager.getRecentOffers().add(Manager.getOffer());
-
-        System.out.println("ofertas");
-
+        //TODO esto es solo para imprimirla solo hay que sacar la linea de impresion
+        if(Manager.getOffer() != null) {
+            System.out.println(Manager.getOffer());
+            Manager.getRecentOffers().add(Manager.getOffer());
+            addRecentOffer();
+        }
     }
 
     @FXML
