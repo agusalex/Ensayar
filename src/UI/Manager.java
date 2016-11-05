@@ -21,9 +21,8 @@ public class Manager {
 
     private Manager() {
         ArrayList<Offer> dataBaseOffers = new ArrayList<Offer>();
-        System.out.print("Inicialidado");
-        recentOffers=new ArrayList<Offer>();
-        assignedOffers=new ArrayList<Offer>();
+        recentOffers = new ArrayList<Offer>();
+        assignedOffers = new ArrayList<Offer>();
         DataBase.getDb().load();
 
         dataBaseOffers = DataBase.getDb().getOffers();
@@ -35,17 +34,12 @@ public class Manager {
             else {
                 assignedOffers.add(offer);
             }
-
         }
     }
 
 
     public static Manager getManager() {
         return manager;
-    }
-
-    public static void setManager(Manager manager) {
-        Manager.manager = manager;
     }
 
     public static ArrayList<Offer> getRecentOffers() {
@@ -64,12 +58,14 @@ public class Manager {
         Manager.assignedOffers = assignedOffers;
     }
 
+    public static void emptyOffer(){ Manager.temporaryOffer = null;}
+
     public static void setOffer(ArrayList<Offer.Instruments> instruments, Schedule schedule, Client client){
         Manager.temporaryOffer = new Offer (instruments,schedule,client);
     }
 
     public static Offer getOffer(){
-        return Manager.getOffer();
+        return Manager.temporaryOffer;
     }
 
 

@@ -3,9 +3,10 @@ package UI;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.stage.Window;
+import javafx.stage.Stage;
 
 public class OfferWindowController {
+
 
     @FXML
     private CheckBox Microfono;
@@ -49,16 +50,15 @@ public class OfferWindowController {
     @FXML
     private TextField nameEntry;
 
-
-
     @FXML
     private ScrollPane window;
+
 
     @FXML
     void createOffer(ActionEvent event) {
 
-        Window stage = nameEntry.getScene().getWindow();
-        stage.hide();
+        Stage stage = (Stage) TotalPrice.getScene().getWindow();
+        stage.close();
 
 
         //ArrayList<Offer.Instruments> offerInst = new ArrayList<Offer.Instruments>();
@@ -73,17 +73,15 @@ public class OfferWindowController {
         //Schedule hours = new Schedule (start.getText(), end.getText());
 
         //TODO setear oferta
-       // Manager.setOffer(offerInst,schedule,client);
+        // Manager.setOffer(offerInst,schedule,client);
         System.out.print("sadsa");
 
-
-
     }
-    @FXML
-   private void cancelOffer(ActionEvent event) {
 
-        Window stage = nameEntry.getScene().getWindow();
-        stage.hide();
+    @FXML
+    private void cancelOffer(ActionEvent event) {
+        Stage stage = (Stage) TotalPrice.getScene().getWindow();
+        stage.close();
 
 
     }

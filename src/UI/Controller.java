@@ -33,8 +33,6 @@ public class Controller implements Initializable{
     @FXML
     private void eraseAll(){
 
-        System.out.println("Borra Todo");
-
         ObservableList<Node> Assigned = AnchorPaneAssigned.getChildren();
         ObservableList<Node> unAssigned = AnchorPaneRecent.getChildren();
         ArrayList<Node> bkp= new  ArrayList<Node>();
@@ -49,7 +47,6 @@ public class Controller implements Initializable{
             Assigned.add(n);
 
 
-
         bkp= new  ArrayList<Node>();
         for(Node n : AnchorPaneRecent.getChildren())
             if (!(n instanceof Button)||n== recentOffer0)
@@ -57,22 +54,20 @@ public class Controller implements Initializable{
 
 
         unAssigned.clear();
-
         for (Node n : bkp)
             unAssigned.add(n);
-
 
     }
 
     private void addRecentOffers(){
-        AnchorPane recent= AnchorPaneRecent;
-        Button demo=recentOffer0;
+        AnchorPane recent = AnchorPaneRecent;
+        Button demo = recentOffer0;
         ObservableList<Node> children = recent.getChildren();
-        double start=children.get(children.size()-1).getLayoutY();
-        int x=0;
+        double start = children.get(children.size()-1).getLayoutY();
+        int x = 0;
 
         for(Offer offer :Manager.getRecentOffers()){
-            Button n=new Button(offer.getClient()+"  "+offer.getSchedule());
+            Button n = new Button(offer.getClient()+"  "+offer.getSchedule());
             n.setLayoutY(start+x*94);//TODO 94 deberia ser dinamico segun tamaño bton
             //n.setTextAlignment(offer0.getTextAlignment());
             n.prefWidthProperty().bind(demo.widthProperty()); //RE IMPORTANTE ESTE COMANDO
@@ -81,10 +76,10 @@ public class Controller implements Initializable{
         }
     }
     private void addAssignedOffers(){
-        AnchorPane assigned= AnchorPaneAssigned;
-        Button demo=offer0;
+        AnchorPane assigned = AnchorPaneAssigned;
+        Button demo = offer0;
         ObservableList<Node> children = assigned.getChildren();
-        double start=children.get(children.size()-1).getLayoutY();
+        double start = children.get(children.size()-1).getLayoutY();
         int x=0;
 
         for(Offer offer :Manager.getAssignedOffers()){
@@ -98,7 +93,6 @@ public class Controller implements Initializable{
     }
     private Node getRecentVisualOffer(int i){
 
-
         int size=AnchorPaneRecent.getChildren().size();
         if(i<0||i>size-3)
             throw new IndexOutOfBoundsException();
@@ -106,6 +100,7 @@ public class Controller implements Initializable{
 
     return AnchorPaneRecent.getChildren().get(i+3);
     }
+
     private Node getAssignedVisualOffer(int i){
         int size=AnchorPaneAssigned.getChildren().size();
         if(i<0||i>size-3)
@@ -113,20 +108,19 @@ public class Controller implements Initializable{
 
         return AnchorPaneAssigned.getChildren().get(i+3);
     }
+
     private void addRecentOffer(){
 
-        AnchorPane assigned= AnchorPaneRecent;
-        Button demo=recentOffer0;
+        AnchorPane assigned = AnchorPaneRecent;
+        Button demo = recentOffer0;
 
         ObservableList<Node> children = assigned.getChildren();
 
+        double start = children.get(children.size()-1).getLayoutY();
+        int x = 0;
 
-
-        double start=children.get(children.size()-1).getLayoutY();
-        int x=0;
-
-        for(Offer offer :Manager.getRecentOffers()){
-            Button n=new Button(offer.getClient()+"  "+offer.getSchedule());
+        for(Offer offer : Manager.getRecentOffers()){
+            Button n = new Button(offer.getClient()+"  "+offer.getSchedule());
             n.setLayoutY(start+x*94);//TODO 94 deberia ser dinamico segun tamaño bton
             //n.setTextAlignment(offer0.getTextAlignment());
             n.prefWidthProperty().bind(demo.widthProperty()); //RE IMPORTANTE ESTE COMANDO
@@ -134,19 +128,16 @@ public class Controller implements Initializable{
            x++;
         }
 
-
-
     }
 
     @FXML
     void addOffer() throws IOException {
+        Stage stage = new Stage();
+        offerWindow = new OfferWindow();
+        offerWindow.start(stage);
 
-            Stage stage = new Stage();
-            offerWindow = new OfferWindow();
-            offerWindow.start(stage);
 
        // Manager.getRecentOffers().add(Manager.getOffer());
-
 
         System.out.println("ofertas");
 
