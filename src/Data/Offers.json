@@ -1,0 +1,176 @@
+[
+  {
+    "price": 330,
+    "client": {
+      "ID": "8",
+      "Name": "Maxi",
+      "Mobile": "1591382942"
+    },
+    "dateAvailable": {
+      "year": 2016,
+      "month": 10,
+      "dayOfMonth": 3,
+      "hourOfDay": 14,
+      "minute": 43,
+      "second": 44
+    },
+    "schedule": {
+      "start": {
+        "year": 2016,
+        "month": 10,
+        "dayOfMonth": 3,
+        "hourOfDay": 4,
+        "minute": 30,
+        "second": 44
+      },
+      "end": {
+        "year": 2016,
+        "month": 10,
+        "dayOfMonth": 3,
+        "hourOfDay": 9,
+        "minute": 30,
+        "second": 44
+      },
+      "starth": 4,
+      "endH": 9,
+      "startMins": 30,
+      "endMins": 30
+    },
+    "instruments": [
+      "BATERIA",
+      "TECLADO",
+      "BATERIA"
+    ],
+    "duration": 5,
+    "durationInMin": 0,
+    "nonHalfHour": 0
+  },
+  {
+    "price": 270,
+    "client": {
+      "ID": "7",
+      "Name": "Pustilnik",
+      "Mobile": "1587943845"
+    },
+
+    "schedule": {
+      "start": {
+        "year": 2016,
+        "month": 10,
+        "dayOfMonth": 3,
+        "hourOfDay": 2,
+        "minute": 0,
+        "second": 44
+      },
+      "end": {
+        "year": 2016,
+        "month": 10,
+        "dayOfMonth": 3,
+        "hourOfDay": 7,
+        "minute": 30,
+        "second": 44
+      },
+      "starth": 2,
+      "endH": 7,
+      "startMins": 0,
+      "endMins": 30
+    },
+    "instruments": [
+      "GUITARRA",
+      "BATERIA"
+    ],
+    "duration": 5,
+    "durationInMin": 30,
+    "nonHalfHour": 0
+  },
+  {
+    "price": 270,
+    "client": {
+      "ID": "7",
+      "Name": "Pustilnik",
+      "Mobile": "1569156839"
+    },
+    "dateAvailable": {
+      "year": 2016,
+      "month": 10,
+      "dayOfMonth": 3,
+      "hourOfDay": 14,
+      "minute": 43,
+      "second": 44
+    },
+    "schedule": {
+      "start": {
+        "year": 2016,
+        "month": 10,
+        "dayOfMonth": 3,
+        "hourOfDay": 2,
+        "minute": 30,
+        "second": 44
+      },
+      "end": {
+        "year": 2016,
+        "month": 10,
+        "dayOfMonth": 3,
+        "hourOfDay": 7,
+        "minute": 30,
+        "second": 44
+      },
+      "starth": 2,
+      "endH": 7,
+      "startMins": 30,
+      "endMins": 30
+    },
+    "instruments": [
+      "GUITARRA",
+      "BATERIA"
+    ],
+    "duration": 5,
+    "durationInMin": 0,
+    "nonHalfHour": 0
+  },
+  {
+    "price": 290,
+    "client": {
+      "ID": "5",
+      "Name": "Roberto",
+      "Mobile": "1506050040"
+    },
+    "dateAvailable": {
+      "year": 2016,
+      "month": 10,
+      "dayOfMonth": 3,
+      "hourOfDay": 14,
+      "minute": 43,
+      "second": 44
+    },
+    "schedule": {
+      "start": {
+        "year": 2016,
+        "month": 10,
+        "dayOfMonth": 3,
+        "hourOfDay": 2,
+        "minute": 0,
+        "second": 44
+      },
+      "end": {
+        "year": 2016,
+        "month": 10,
+        "dayOfMonth": 3,
+        "hourOfDay": 7,
+        "minute": 0,
+        "second": 44
+      },
+      "starth": 2,
+      "endH": 7,
+      "startMins": 0,
+      "endMins": 0
+    },
+    "instruments": [
+      "BATERIA",
+      "BATERIA"
+    ],
+    "duration": 5,
+    "durationInMin": 0,
+    "nonHalfHour": 0
+  }
+]
