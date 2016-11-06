@@ -57,6 +57,10 @@ public class Controller implements Initializable{
         for (Node n : bkp)
             unAssigned.add(n);
 
+        Manager.getRecentOffers().clear();
+        Manager.getAssignedOffers().clear();
+        Manager.updateDB();
+
     }
 
 

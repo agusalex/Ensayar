@@ -34,13 +34,12 @@
             <Label layoutX="98.0" layoutY="204.0" prefHeight="17.0" prefWidth="24.0" text="hs" AnchorPane.topAnchor="204.0" />
             <Label layoutX="162.0" layoutY="161.0" prefHeight="27.0" prefWidth="40.0" text="Min" AnchorPane.topAnchor="161.0" />
             <Label layoutX="161.0" layoutY="203.0" prefHeight="28.0" prefWidth="43.0" text="Min" AnchorPane.topAnchor="203.0" />
-            <Label fx:id="nameError" layoutX="75.0" layoutY="48.0" prefHeight="17.0" prefWidth="148.0" text="Ingrese un nombre valido" visible="false" />
-            <Label fx:id="IDError" layoutX="69.0" layoutY="93.0" text="Ingrese un DNI valido" visible="false" />
-            <Label fx:id="PhoneError" layoutX="71.0" layoutY="134.0" text="Ingrese un numero valido" visible="false" />
-            <Label fx:id="minutesError" layoutX="205.0" layoutY="183.0" prefHeight="17.0" prefWidth="143.0" text="Minutos validos : 0  o 30" visible="false" />
-            <Label fx:id="priceError" layoutX="104.0" layoutY="273.0" text="Ingrese un precio valido entre 100 y 1000" visible="false" />
-            <Label fx:id="hourError" layoutX="75.0" layoutY="230.0" prefHeight="17.0" prefWidth="233.0" text="Hora de inicio debe ser menor que la de fin" visible="false" />
-            <Label fx:id="invalidHourError" layoutX="83.0" layoutY="230.0" prefHeight="17.0" prefWidth="129.0" text="Ingrese horarios validos" visible="false" />
+            <Label fx:id="nameError" layoutX="75.0" layoutY="48.0" prefHeight="17.0" prefWidth="148.0" text="Ingrese un nombre valido" textFill="#cc4b2b" visible="false" />
+            <Label fx:id="IDError" layoutX="69.0" layoutY="93.0" text="Ingrese un DNI valido" textFill="#cc4b2b" visible="false" />
+            <Label fx:id="PhoneError" layoutX="71.0" layoutY="134.0" text="Ingrese un numero valido" textFill="#cc4b2b" visible="false" />
+            <Label fx:id="minutesError" layoutX="205.0" layoutY="183.0" prefHeight="17.0" prefWidth="143.0" text="Minutos validos : 0  o 30" textFill="#cc4b2b" visible="false" />
+            <Label fx:id="priceError" layoutX="104.0" layoutY="273.0" text="Ingrese un precio valido entre 100 y 1000" textFill="#cc4b2b" visible="false" />
+            <Label fx:id="hourError" layoutX="60.0" layoutY="183.0" prefHeight="27.0" prefWidth="270.0" text="Hora de inicio debe ser menor que la de fin" textFill="#cc4b2b" visible="false" />
             <ChoiceBox fx:id="startH" layoutX="60.0" layoutY="159.0" minHeight="14.0" minWidth="14.0" prefHeight="24.0" prefWidth="37.0" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="159.0" />
             <ChoiceBox fx:id="endH" layoutX="57.0" layoutY="205.0" minHeight="14.0" minWidth="14.0" prefHeight="24.0" prefWidth="37.0" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="205.0" />
             <ChoiceBox fx:id="startMin" layoutX="122.0" layoutY="161.0" minHeight="14.0" minWidth="14.0" prefHeight="24.0" prefWidth="37.0" AnchorPane.topAnchor="161.0" />

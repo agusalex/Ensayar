@@ -44,7 +44,7 @@ public class Offer implements Serializable{
         }
 
         public static int comboValue(ArrayList<Instruments> combo){
-            if(combo == null || combo.size() == 0)
+            if(combo == null )
                 throw new RuntimeException("No existe ningun combo de instrumentos");
 
             int ret = 0;

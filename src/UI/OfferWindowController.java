@@ -111,8 +111,6 @@ public class OfferWindowController implements Initializable {
     @FXML
     private Label IDError;
 
-    @FXML
-    private Label invalidHourError;
 
 
     @FXML
@@ -181,36 +179,27 @@ public class OfferWindowController implements Initializable {
 
 
 
-        if(!isInt(startHour) || !isInt(endHour) || !isInt(startmin) || !isInt(endmin)) {
-            System.out.println("error en horarios");
-            noErrorsFound = false;
-            invalidHourError.setVisible(true);
-            hourError.setVisible(false);
-        }
-        else invalidHourError.setVisible(false);
-
-
         int startHours = Integer.parseInt(startHour);
         int endHours = Integer.parseInt(endHour);
         int startMins = Integer.parseInt(startmin);
         int endMins = Integer.parseInt(endmin);
         Schedule hours = null ;
 
-        if(noErrorsFound == true) {
 
 
-            if(validStartHour(startHours) == false || validEndHour(endHours) == false){
+
+        if(validStartHour(startHours) == false || validEndHour(endHours) == false){
 
                 System.out.println("error en horarios con numeros");
                 noErrorsFound = false;
-                invalidHourError.setVisible(true);
+                hourError.setVisible(true);
                 startH.setValue(startH.getItems().get(0));
                 endH.setValue(endH.getItems().get(0));
                 startMin.setValue(startMin.getItems().get(0));
                 endMin.setValue(endMin.getItems().get(0));
 
             }
-            else invalidHourError.setVisible(false);
+            else hourError.setVisible(false);
 
             if(startBeforeEnd(startHours,endHours) == false) {
                 System.out.println("error en principio y fin");
@@ -236,7 +225,7 @@ public class OfferWindowController implements Initializable {
 
             if(noErrorsFound == true)
                 hours = new Schedule(startHours, startMins, endHours, endMins);
-        }
+
         if(noErrorsFound == true)
             Manager.setOffer(offerInst,hours,client);
 

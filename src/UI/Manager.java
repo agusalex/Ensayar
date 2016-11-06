@@ -47,6 +47,7 @@ public class Manager {
     }
 
     public static void updateDB(){
+        DataBase.getDb().getOffers().clear();
         for (Offer offer:recentOffers)
             DataBase.getDb().getOffers().add(offer);
 
