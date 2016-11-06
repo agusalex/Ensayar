@@ -4,10 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -60,27 +57,34 @@ public class DataBase {
 
         try {
             if (f.exists()) {
-                try {
-                    this.offers = gson.fromJson(new FileReader(this.dir), listType);
-                } catch (Exception e) {
-                    System.out.println("Archivo corrupto, generando instancia vacia");
-                    archivoCorrupto = true;
-                }
-                if (offers == null)
-                    System.out.println("Archivo vacio, creando uno nuevo...");
 
-            } else {
-                //ESTO ES PARA QUE, SI EL ARCHIVO NO EXISTE, SE CREA UNO VACIO, QUE DESPUES SE MODIFICA SEGUN LO QUE GUARDE EL USUARIO
-                BufferedWriter br = new BufferedWriter(new FileWriter(this.dir));
-                br.close();
+                this.offers = gson.fromJson(new FileReader(this.dir), listType);
+
+                if(this.offers==null)
+                    throw new FileNotFoundException("Archivo existente pero corrupto");
+
+            }
+            else{
+                throw new FileNotFoundException("Archivo inexistente");
             }
 
+
+
         } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("No se encuentra el archivo especificado");
+            try{
+                BufferedWriter br = new BufferedWriter(new FileWriter(this.dir));
+                this.offers= new ArrayList<Offer>();
+                save();
+                load();
+            } catch (Exception b){
+                System.out.println(b.getMessage()+" Error de Acceso al directorio");
+            }
+
+
         }
 
     }
+
 
 
     public void Export(String FilePath){

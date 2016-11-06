@@ -1,13 +1,14 @@
 <component name="libraryTable">
   <library name="librerias">
     <CLASSES>
-      <root url="file://R:/JARS/librerias" />
+      <root url="file://$PROJECT_DIR$/librerias" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="file://R:/JARS/librerias" />
+      <root url="file://$PROJECT_DIR$/librerias" />
+      <root url="jar://$USER_HOME$/.ideaLibSources/junit-4.12-sources.jar!/" />
     </SOURCES>
-    <jarDirectory url="file://R:/JARS/librerias" recursive="false" />
-    <jarDirectory url="file://R:/JARS/librerias" recursive="false" type="SOURCES" />
+    <jarDirectory url="file://$PROJECT_DIR$/librerias" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/librerias" recursive="false" type="SOURCES" />
   </library>
 </component>

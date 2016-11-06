@@ -110,7 +110,7 @@ public class Schedule {
 
     @Override
     public String toString(){
-        return "Hora de inicio: "+ this.starth+" hs "+this.startMins+" minutos\n"+
-                "Hora de finalizacion "+ this.endH+" hs "+ this.endMins+" minutos.";
+            return "Horario: "+ this.starth+":"+this.startMins+"hs a "
+                    + this.endH+":"+ this.endMins+"hs\n";
     }
 }

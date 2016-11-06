@@ -46,6 +46,20 @@ public class Manager {
         return recentOffers;
     }
 
+    public static void updateDB(){
+        for (Offer offer:recentOffers)
+            DataBase.getDb().getOffers().add(offer);
+
+        for(Offer offer :assignedOffers)
+            DataBase.getDb().getOffers().add(offer);
+
+        DataBase.getDb().save();
+
+
+
+    }
+
+
     public static void setRecentOffers(ArrayList<Offer> recentOffers) {
         Manager.recentOffers = recentOffers;
     }

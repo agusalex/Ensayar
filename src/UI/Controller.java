@@ -25,8 +25,8 @@ public class Controller implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        addAssignedOffers();
-        addRecentOffer();
+        showAssignedOffers();
+        showRecentOffers();
 
 
     }
@@ -60,7 +60,7 @@ public class Controller implements Initializable{
     }
 
 
-    private void addAssignedOffers(){
+    private void showAssignedOffers(){
         AnchorPane assigned = AnchorPaneAssigned;
         Button demo = offer0;
         ObservableList<Node> children = assigned.getChildren();
@@ -94,7 +94,7 @@ public class Controller implements Initializable{
         return AnchorPaneAssigned.getChildren().get(i+3);
     }
 
-    private void addRecentOffer(){
+    private void showRecentOffers(){
 
         AnchorPane assigned = AnchorPaneRecent;
         Button demo = recentOffer0;
@@ -105,7 +105,7 @@ public class Controller implements Initializable{
         int x = 0;
 
         for(Offer offer : Manager.getRecentOffers()){
-            Button n = new Button(offer.getClient()+"  "+offer.getSchedule());
+            Button n = new Button(offer.getClient()+""+offer.getSchedule());
             n.setLayoutY(start+x*94);//TODO 94 deberia ser dinamico segun tamaño bton
             //n.setTextAlignment(offer0.getTextAlignment());
             n.prefWidthProperty().bind(demo.widthProperty()); //RE IMPORTANTE ESTE COMANDO
@@ -125,7 +125,8 @@ public class Controller implements Initializable{
         if(Manager.getOffer() != null) {
             System.out.println(Manager.getOffer());
             Manager.getRecentOffers().add(Manager.getOffer());
-            addRecentOffer();
+            showRecentOffers();
+            Manager.updateDB();
         }
     }
 
