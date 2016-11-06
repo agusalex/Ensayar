@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
@@ -13,6 +14,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import negocio.Comparador;
 
 import java.io.IOException;
 import java.net.URL;
@@ -145,7 +148,46 @@ public class Controller implements Initializable{
         }
     }
 
+    @FXML
+    void closeProgram(ActionEvent event) {
+        Stage stage = (Stage) nameSurnameBox.getScene().getWindow();
+        stage.close();
+    }
 
+    @FXML
+    void about(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.initStyle(StageStyle.UTILITY);
+        alert.setTitle("Sobre Ensayos");
+        alert.setHeaderText(null);
+        alert.setContentText("Por Maxi Lencina & Agus Alexander");
+
+        alert.showAndWait();
+
+    }
+
+    @FXML
+    void sortByDate(ActionEvent event) {
+        Manager.Sort(Comparador.porHorario());
+        eraseAllVisual();
+        showRecentOffers();
+        showAssignedOffers();
+    }
+
+    @FXML
+    void sortByPrice(ActionEvent event) {
+        Manager.Sort(Comparador.porBeneficio());
+        eraseAllVisual();
+        showRecentOffers();
+        showAssignedOffers();
+    }
+    @FXML
+    void sortByDuration(ActionEvent event) {
+        Manager.Sort(Comparador.porPeso());
+        eraseAllVisual();
+        showRecentOffers();
+        showAssignedOffers();
+    }
 
 
     @FXML

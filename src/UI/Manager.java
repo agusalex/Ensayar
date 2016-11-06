@@ -6,6 +6,8 @@ import Data.Offer;
 import Data.Schedule;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Created by Max on 11/4/2016.
@@ -40,6 +42,12 @@ public class Manager {
 
     public static Manager getManager() {
         return manager;
+    }
+
+    public static void Sort(Comparator<Offer> comparador){
+        Collections.sort(recentOffers,comparador);
+        Collections.sort(assignedOffers,comparador);
+
     }
 
     public static ArrayList<Offer> getRecentOffers() {
