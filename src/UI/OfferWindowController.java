@@ -112,7 +112,6 @@ public class OfferWindowController implements Initializable {
     private Label IDError;
 
 
-
     @FXML
     void createOffer(ActionEvent event) {
 

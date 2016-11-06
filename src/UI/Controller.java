@@ -2,6 +2,7 @@ package UI;
 
 import Data.Offer;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -27,12 +28,18 @@ public class Controller implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         showAssignedOffers();
         showRecentOffers();
-
-
     }
+
     @FXML
     private void eraseAll(){
+        eraseAllVisual();
+        Manager.getRecentOffers().clear();
+        Manager.getAssignedOffers().clear();
+        Manager.updateDB();
 
+    }
+
+    public void eraseAllVisual(){
         ObservableList<Node> Assigned = AnchorPaneAssigned.getChildren();
         ObservableList<Node> unAssigned = AnchorPaneRecent.getChildren();
         ArrayList<Node> bkp= new  ArrayList<Node>();
@@ -56,11 +63,6 @@ public class Controller implements Initializable{
         unAssigned.clear();
         for (Node n : bkp)
             unAssigned.add(n);
-
-        Manager.getRecentOffers().clear();
-        Manager.getAssignedOffers().clear();
-        Manager.updateDB();
-
     }
 
 
@@ -68,9 +70,10 @@ public class Controller implements Initializable{
         AnchorPane assigned = AnchorPaneAssigned;
         Button demo = offer0;
         ObservableList<Node> children = assigned.getChildren();
-        double start = children.get(children.size()-1).getLayoutY();
+        double start =0;
+        if(children.size()>1){
+            start = children.get(children.size()-1).getLayoutY();}
         int x=0;
-
         for(Offer offer :Manager.getAssignedOffers()){
             Button n=new Button(offer.getClient()+"  "+offer.getSchedule());
             n.setLayoutY(start+x*94);//TODO 94 deberia ser dinamico segun tamaño bton
@@ -104,10 +107,10 @@ public class Controller implements Initializable{
         Button demo = recentOffer0;
 
         ObservableList<Node> children = assigned.getChildren();
-
-        double start = children.get(children.size()-1).getLayoutY();
+        double start =0;
+        if(children.size()>1){
+          start = children.get(children.size()-1).getLayoutY();}
         int x = 0;
-
 
 
 
@@ -141,6 +144,87 @@ public class Controller implements Initializable{
             Manager.updateDB();
         }
     }
+
+
+
+
+    @FXML
+    void deleteOffer(ActionEvent event) {
+        for (int i=0;i<AnchorPaneRecent.getChildren().size()-3;i++) {
+            Node offer=getRecentVisualOffer(i);
+            if(offer.isFocused())
+                deleteVisualOffer(offer);
+
+        }
+    }
+
+    void deleteVisualOffer(Node offer){
+        ObservableList<Node> Assigned = AnchorPaneAssigned.getChildren();
+        ObservableList<Node> unAssigned = AnchorPaneRecent.getChildren();
+        ArrayList<Node> bkp= new  ArrayList<Node>();
+        boolean isRecentOffer=false;
+        boolean isAssignedOffer=false;
+        int indexDelete=0;
+        int auxI=0;
+        for(Node n : AnchorPaneAssigned.getChildren()) {
+
+            if (!(n instanceof Button) || n == offer0 ) {
+                bkp.add(n);
+            }
+            else if(n!=offer){
+                auxI++;
+            }
+            else{
+                indexDelete=auxI;
+                isAssignedOffer=true;
+            }
+
+        }
+
+        Assigned.clear();
+        for (Node n : bkp) {
+            Assigned.add(n);
+        }
+
+        bkp= new  ArrayList<Node>();
+
+
+
+
+        auxI=0;
+        for(Node n : AnchorPaneRecent.getChildren()) {
+
+            if (!(n instanceof Button) || n == recentOffer0) {
+                bkp.add(n);
+            }
+            else if(n!=offer){
+                auxI++;
+            }
+            else{
+                indexDelete=auxI;
+                isRecentOffer=true;
+            }
+
+        }
+
+        unAssigned.clear();
+        for (Node n : bkp)
+            unAssigned.add(n);
+
+
+        if(isAssignedOffer){
+            Manager.getAssignedOffers().remove(indexDelete);
+            Manager.updateDB();
+        }
+        else if(isRecentOffer) {
+            Manager.getRecentOffers().remove(indexDelete);
+            Manager.updateDB();
+        }
+
+        showAssignedOffers();
+        showRecentOffers();
+    }
+
 
 
 
