@@ -138,6 +138,8 @@ public class Controller implements Initializable{
         }
     }
 
+
+
     @FXML
     private Button offer0;
 

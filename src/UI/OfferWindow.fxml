@@ -12,9 +12,9 @@
             <Separator layoutX="17.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="0.0" visible="false" />
             <Label layoutX="15.0" layoutY="27.0" text="Nombre:" />
             <TextField fx:id="nameEntry" layoutX="72.0" layoutY="23.0" prefHeight="25.0" prefWidth="172.0" />
-            <CheckBox fx:id="Bateria" layoutX="15.0" layoutY="239.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="64.0" text="Bateria" AnchorPane.leftAnchor="15.0" />
+            <CheckBox fx:id="Bateria" layoutX="15.0" layoutY="239.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="64.0" text="Bateria" AnchorPane.leftAnchor="17.0" />
             <CheckBox fx:id="Teclado" layoutX="17.0" layoutY="273.0" mnemonicParsing="false" text="Teclado" AnchorPane.leftAnchor="17.0" />
-            <CheckBox fx:id="Guitarra" layoutX="16.0" layoutY="256.0" mnemonicParsing="false" text="Guitarra" AnchorPane.leftAnchor="16.0" />
+            <CheckBox fx:id="Guitarra" layoutX="16.0" layoutY="256.0" mnemonicParsing="false" text="Guitarra" AnchorPane.leftAnchor="17.0" />
             <CheckBox fx:id="Bajo" layoutX="17.0" layoutY="290.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="64.0" text="Bajo" AnchorPane.leftAnchor="17.0" />
             <Button fx:id="Create" cancelButton="true" defaultButton="true" layoutX="191.0" layoutY="307.0" mnemonicParsing="false" onAction="#createOffer" text="Crear" />
             <Label layoutX="16.0" layoutY="328.0" prefHeight="26.0" prefWidth="45.0" text="Precio:$" />
@@ -23,21 +23,17 @@
             <TextField fx:id="IDEntry" layoutX="71.0" layoutY="68.0" prefHeight="25.0" prefWidth="110.0" />
             <Label layoutX="14.0" layoutY="116.0" text="Telefono:" />
             <TextField fx:id="PhoneEntry" layoutX="70.0" layoutY="112.0" prefHeight="25.0" prefWidth="112.0" />
-            <Label layoutX="12.0" layoutY="159.0" text="Inicio" />
-            <TextField fx:id="StartEntry" layoutX="75.0" layoutY="155.0" prefHeight="25.0" prefWidth="43.0" />
-            <TextField fx:id="EndEntry" layoutX="75.0" layoutY="197.0" prefHeight="25.0" prefWidth="44.0" />
-            <Label layoutX="12.0" layoutY="205.0" text="Fin" />
+            <Label layoutX="12.0" layoutY="159.0" text="Inicio" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="159.0" />
+            <Label layoutX="12.0" layoutY="205.0" text="Fin" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="205.0" />
             <Label fx:id="TotalPrice" layoutX="59.0" layoutY="333.0" prefHeight="17.0" prefWidth="44.0" text="0" />
             <Button fx:id="cancel" cancelButton="true" layoutX="117.0" layoutY="307.0" mnemonicParsing="false" onAction="#cancelOffer" prefHeight="25.0" prefWidth="63.0" text="Cancelar" />
             <Label layoutX="103.0" layoutY="256.0" text="Valor Reserva" />
             <TextField fx:id="adittionalValue" layoutX="176.0" layoutY="252.0" prefHeight="25.0" prefWidth="44.0" />
             <Separator layoutX="67.0" layoutY="7.0" orientation="VERTICAL" prefHeight="334.0" prefWidth="11.0" visible="false" />
-            <TextField fx:id="MinEntry" layoutX="155.0" layoutY="155.0" prefHeight="25.0" prefWidth="43.0" />
-            <TextField fx:id="MinEndEntry" layoutX="153.0" layoutY="197.0" prefHeight="25.0" prefWidth="44.0" />
-            <Label layoutX="127.0" layoutY="159.0" prefHeight="17.0" prefWidth="24.0" text="Hs" />
-            <Label layoutX="127.0" layoutY="201.0" prefHeight="17.0" prefWidth="24.0" text="Hs" />
-            <Label layoutX="211.0" layoutY="159.0" prefHeight="17.0" prefWidth="24.0" text="Min" />
-            <Label layoutX="212.0" layoutY="196.0" prefHeight="28.0" prefWidth="24.0" text="Min" />
+            <Label layoutX="98.0" layoutY="159.0" prefHeight="17.0" prefWidth="24.0" text="hs" AnchorPane.leftAnchor="98.0" AnchorPane.topAnchor="159.0" />
+            <Label layoutX="98.0" layoutY="204.0" prefHeight="17.0" prefWidth="24.0" text="hs" AnchorPane.topAnchor="204.0" />
+            <Label layoutX="162.0" layoutY="161.0" prefHeight="27.0" prefWidth="40.0" text="Min" AnchorPane.topAnchor="161.0" />
+            <Label layoutX="161.0" layoutY="203.0" prefHeight="28.0" prefWidth="43.0" text="Min" AnchorPane.topAnchor="203.0" />
             <Label fx:id="nameError" layoutX="75.0" layoutY="48.0" prefHeight="17.0" prefWidth="148.0" text="Ingrese un nombre valido" visible="false" />
             <Label fx:id="IDError" layoutX="69.0" layoutY="93.0" text="Ingrese un DNI valido" visible="false" />
             <Label fx:id="PhoneError" layoutX="71.0" layoutY="134.0" text="Ingrese un numero valido" visible="false" />
@@ -45,6 +41,10 @@
             <Label fx:id="priceError" layoutX="104.0" layoutY="273.0" text="Ingrese un precio valido entre 100 y 1000" visible="false" />
             <Label fx:id="hourError" layoutX="75.0" layoutY="230.0" prefHeight="17.0" prefWidth="233.0" text="Hora de inicio debe ser menor que la de fin" visible="false" />
             <Label fx:id="invalidHourError" layoutX="83.0" layoutY="230.0" prefHeight="17.0" prefWidth="129.0" text="Ingrese horarios validos" visible="false" />
+            <ChoiceBox fx:id="startH" layoutX="60.0" layoutY="159.0" minHeight="14.0" minWidth="14.0" prefHeight="24.0" prefWidth="37.0" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="159.0" />
+            <ChoiceBox fx:id="endH" layoutX="57.0" layoutY="205.0" minHeight="14.0" minWidth="14.0" prefHeight="24.0" prefWidth="37.0" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="205.0" />
+            <ChoiceBox fx:id="startMin" layoutX="122.0" layoutY="161.0" minHeight="14.0" minWidth="14.0" prefHeight="24.0" prefWidth="37.0" AnchorPane.topAnchor="161.0" />
+            <ChoiceBox fx:id="endMin" layoutX="122.0" layoutY="205.0" minHeight="14.0" minWidth="14.0" prefHeight="24.0" prefWidth="37.0" AnchorPane.topAnchor="205.0" />
          </children></AnchorPane>
   </content>
 </ScrollPane>

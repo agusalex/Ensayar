@@ -5,14 +5,55 @@ import Data.Offer;
 import Data.Schedule;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
-public class OfferWindowController {
+public class OfferWindowController implements Initializable {
+
+    public static OfferWindow offerWindow;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
 
 
+        for(int x=0;x<9;x++) {
+            startH.getItems().add("0" + x);
+            endH.getItems().add("0" + x);
+        }
+        for(int x=10;x<24;x++) {
+            startH.getItems().add(Integer.toString(x));
+            endH.getItems().add(Integer.toString(x));
+        }
+
+        startMin.getItems().add("00");
+        startMin.getItems().add("30");
+        endMin.getItems().add("00");
+        endMin.getItems().add("30");
+
+        startH.setValue(startH.getItems().get(0));
+        endH.setValue(endH.getItems().get(0));
+        startMin.setValue(startMin.getItems().get(0));
+        endMin.setValue(endMin.getItems().get(0));
+
+
+
+
+
+    }
+
+    @FXML
+    private ChoiceBox<String> startH;
+    @FXML
+    private ChoiceBox<String> endMin;
+    @FXML
+    private ChoiceBox<String> endH;
+    @FXML
+    private ChoiceBox<String> startMin;
     @FXML
     private CheckBox Microfono;
 
@@ -29,16 +70,10 @@ public class OfferWindowController {
     private CheckBox Bateria;
 
     @FXML
-    private TextField StartEntry;
-
-    @FXML
     private TextField PhoneEntry;
 
     @FXML
     private CheckBox Guitarra;
-
-    @FXML
-    private TextField EndEntry;
 
     @FXML
     private Button Create;
@@ -57,12 +92,6 @@ public class OfferWindowController {
 
     @FXML
     private ScrollPane window;
-
-    @FXML
-    private TextField MinEntry;
-
-    @FXML
-    private TextField MinEndEntry;
 
     @FXML
     private Label nameError;
@@ -90,6 +119,16 @@ public class OfferWindowController {
     void createOffer(ActionEvent event) {
 
         boolean noErrorsFound = true;  //esto revisa si encontre alguno de los errores de arriba
+
+
+        String startHour =Integer.toString(Integer.parseInt(startH.getValue()));
+        String endHour = Integer.toString(Integer.parseInt(endH.getValue()));
+        String startmin = Integer.toString(Integer.parseInt(startMin.getValue()));
+        String endmin = Integer.toString(Integer.parseInt(endMin.getValue()));
+
+
+
+
 
         ArrayList<Offer.Instruments> offerInst = new ArrayList<Offer.Instruments>();
         if(Bateria.isSelected())
@@ -138,42 +177,38 @@ public class OfferWindowController {
             client.setMobile(phone);
         }
 
-        String startHour = StartEntry.getText();
-        String endHour = EndEntry.getText();
-        String startMin = MinEntry.getText();
-        String endMin = MinEndEntry.getText();
 
-        if(!isInt(startHour) || !isInt(endHour) || !isInt(startMin) || !isInt(endMin)) {
+
+
+
+        if(!isInt(startHour) || !isInt(endHour) || !isInt(startmin) || !isInt(endmin)) {
             System.out.println("error en horarios");
             noErrorsFound = false;
             invalidHourError.setVisible(true);
-            StartEntry.setText("");
-            EndEntry.setText("");
-            MinEntry.setText("");
-            MinEndEntry.setText("");
             hourError.setVisible(false);
         }
         else invalidHourError.setVisible(false);
 
 
-        int startHours = 0;
-        int endHours = 0;
-        int startMins = 0;
-        int endMins = 0;
+        int startHours = Integer.parseInt(startHour);
+        int endHours = Integer.parseInt(endHour);
+        int startMins = Integer.parseInt(startmin);
+        int endMins = Integer.parseInt(endmin);
         Schedule hours = null ;
 
         if(noErrorsFound == true) {
-             startHours = Integer.parseInt(StartEntry.getText());
-             endHours = Integer.parseInt(EndEntry.getText());
-             startMins = Integer.parseInt(MinEntry.getText());
-             endMins = Integer.parseInt(MinEndEntry.getText());
+
 
             if(validStartHour(startHours) == false || validEndHour(endHours) == false){
+
                 System.out.println("error en horarios con numeros");
                 noErrorsFound = false;
                 invalidHourError.setVisible(true);
-                StartEntry.setText("");
-                EndEntry.setText("");
+                startH.setValue(startH.getItems().get(0));
+                endH.setValue(endH.getItems().get(0));
+                startMin.setValue(startMin.getItems().get(0));
+                endMin.setValue(endMin.getItems().get(0));
+
             }
             else invalidHourError.setVisible(false);
 
@@ -181,8 +216,10 @@ public class OfferWindowController {
                 System.out.println("error en principio y fin");
                 noErrorsFound = false;
                 hourError.setVisible(true);
-                StartEntry.setText("");
-                EndEntry.setText("");
+                startH.setValue(startH.getItems().get(0));
+                endH.setValue(endH.getItems().get(0));
+                startMin.setValue(startMin.getItems().get(0));
+                endMin.setValue(endMin.getItems().get(0));
             }
             else hourError.setVisible(false);
 
@@ -190,8 +227,10 @@ public class OfferWindowController {
                 System.out.println("error en min");
                 noErrorsFound = false;
                 minutesError.setVisible(true);
-                MinEntry.setText("");
-                MinEndEntry.setText("");
+                startH.setValue(startH.getItems().get(0));
+                endH.setValue(endH.getItems().get(0));
+                startMin.setValue(startMin.getItems().get(0));
+                endMin.setValue(endMin.getItems().get(0));
             }
             else minutesError.setVisible(false);
 
