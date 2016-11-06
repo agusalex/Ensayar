@@ -59,7 +59,7 @@ public class Client {
     }
 
     public String toString(){
-        return "\nNombre: "+ this.Name+ " \nDNI: "
+        return "Nombre: "+ this.Name+ " \nDNI: "
                 + this.ID+ " \nTelefono: "+this.Mobile+"\n";
     }
 

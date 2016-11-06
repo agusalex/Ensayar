@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -20,7 +21,11 @@ public class OfferWindow extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("OfferWindow.fxml"));
+
         primaryStage.setTitle("Ensayos");
+        primaryStage.setTitle("Ensayos");
+        Image icon=new Image("/UI/addOffer.png");
+        primaryStage.getIcons().add(icon);
         primaryStage.setScene(new Scene(root, 400, 400));
         primaryStage.setResizable(false);
         primaryStage.initModality(Modality.APPLICATION_MODAL);

@@ -110,7 +110,27 @@ public class Schedule {
 
     @Override
     public String toString(){
-            return "Horario: "+ this.starth+":"+this.startMins+"hs a "
-                    + this.endH+":"+ this.endMins+"hs\n";
+        String startH=Integer.toString(this.starth);
+        String endH=Integer.toString(this.endH);
+        String startMins=Integer.toString(this.startMins);
+        String endMins=Integer.toString(this.endMins);
+
+
+        if(startH.length() == 1)
+            startH=0+startH;
+
+        if(Integer.toString(this.endH).length()==1)
+            endH=0+endH;
+
+        if(Integer.toString(this.startMins).length()==1)
+            startMins=0+startMins;
+
+        if(Integer.toString(this.endMins).length()==1)
+            endMins=0+endMins;
+
+
+
+            return "Horario: "+ startH+":"+startMins+"hs -> "
+                    + endH+":"+ endMins+"hs";
     }
 }

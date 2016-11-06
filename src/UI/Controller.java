@@ -104,15 +104,23 @@ public class Controller implements Initializable{
         double start = children.get(children.size()-1).getLayoutY();
         int x = 0;
 
+
+
+
         for(Offer offer : Manager.getRecentOffers()){
             Button n = new Button(offer.getClient()+""+offer.getSchedule());
-            n.setLayoutY(start+x*94);//TODO 94 deberia ser dinamico segun tamaño bton
-            //n.setTextAlignment(offer0.getTextAlignment());
+            n.setLayoutY(start+(x*cantLines(n.getText())*19));
             n.prefWidthProperty().bind(demo.widthProperty()); //RE IMPORTANTE ESTE COMANDO
             assigned.getChildren().add(n);
-           x++;
+            x++;
         }
 
+    }
+
+
+    public int cantLines(String str){
+        String[] lines = str.split("\r\n|\r|\n");
+        return lines.length;
     }
 
     @FXML
