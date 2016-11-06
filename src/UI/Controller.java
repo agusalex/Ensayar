@@ -22,6 +22,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import static UI.Manager.getAssignedOffers;
+
 
 public class Controller implements Initializable{
 
@@ -44,7 +46,7 @@ public class Controller implements Initializable{
     private void eraseAll(){
         eraseAllVisual();
         Manager.getRecentOffers().clear();
-        Manager.getAssignedOffers().clear();
+        getAssignedOffers().clear();
         Manager.resetDB();
 
     }
@@ -91,12 +93,13 @@ public class Controller implements Initializable{
         Button demo = offer0;
         ObservableList<Node> children = assigned.getChildren();
         double start =0;
-        if(children.size()>1){
+        if(children.size()>1){// FIXME ESTO ESTA HORRIBLE MEJORAR MANEJO DE ARREGLOS
             start = children.get(children.size()-1).getLayoutY();}
         int x=0;
-        for(Offer offer :Manager.getAssignedOffers()){
+        for(Offer offer : getAssignedOffers()){
             Button n=new Button(offer.getClient()+""+offer.getSchedule());
-            n.setLayoutY(start+(x*cantLines(n.getText())*19));//TODO 94 deberia ser dinamico segun tamaño bton
+            n.setOnAction(demo.getOnAction());
+            n.setLayoutY(start+(x*cantLines(n.getText())*19));
             n.prefWidthProperty().bind(demo.widthProperty()); //RE IMPORTANTE ESTE COMANDO
             assigned.getChildren().add(n);
             x++;
@@ -128,7 +131,7 @@ public class Controller implements Initializable{
 
         ObservableList<Node> children = assigned.getChildren();
         double start =0;
-        if(children.size()>1){
+        if(children.size()>1){                     // FIXME ESTO ESTA HORRIBLE MEJORAR MANEJO DE ARREGLOS
           start = children.get(children.size()-1).getLayoutY();}
         int x = 0;
 
@@ -137,12 +140,54 @@ public class Controller implements Initializable{
         for(Offer offer : Manager.getRecentOffers()){
             Button n = new Button(offer.getClient()+""+offer.getSchedule());
             n.setLayoutY(start+(x*cantLines(n.getText())*19));
+            n.setOnAction(demo.getOnAction());
             n.prefWidthProperty().bind(demo.widthProperty()); //RE IMPORTANTE ESTE COMANDO
             assigned.getChildren().add(n);
             x++;
         }
 
     }
+
+
+    private void showOfferInfo(Offer offer){//FIXME AGRGAR HORARIOS Y TELEFONO
+        nameSurnameBox.setText(offer.getClient().getName());
+        idBox.setText((offer.getClient().getID()));
+        instrumetsBox.setText(offer.getInstruments().toString());
+        priceBox.setText(Integer.toString(offer.getPrice()));
+        roomBox.setText("1");
+
+    }
+
+
+
+    @FXML
+    private void OfferInfo(ActionEvent event){
+        Node offer=(Node)event.getSource();
+        int index=-1;
+        for (Node node :AnchorPaneAssigned.getChildren()
+             ) {
+            if(node==offer) {
+                index = AnchorPaneAssigned.getChildren().indexOf(node);
+                Offer oferta=Manager.getAssignedOffers().get(index - 3);//FIXME ESTO ESTA HORRIBLE
+                showOfferInfo(oferta);
+
+            }
+
+        }
+        for (Node node :AnchorPaneRecent.getChildren()
+                ) {
+            if(node==offer) {
+                index = AnchorPaneRecent.getChildren().indexOf(node);
+                Offer oferta=Manager.getRecentOffers().get(index - 3); //FIXME ESTO ESTA HORRIBLE, ARREGLAR MANERA DE ACCEDERA LOS INDICES INTER-ARREGLOS VISUAL Y REAL
+                showOfferInfo(oferta);
+            }
+
+
+        }
+
+
+    }
+
 
 
     public int cantLines(String str){
@@ -156,7 +201,7 @@ public class Controller implements Initializable{
         offerWindow = new OfferWindow();
         offerWindow.start(stage);
 
-        //TODO esto es solo para imprimir la oferta solo hay que sacar la linea de impresion
+
         if(Manager.getOffer() != null) {
             System.out.println(Manager.getOffer());
             Manager.getRecentOffers().add(Manager.getOffer());
@@ -207,13 +252,13 @@ public class Controller implements Initializable{
     }
     @FXML
     void moveOffertoAssigned(ActionEvent event) {
-        for (int i=0;i<AnchorPaneRecent.getChildren().size()-3;i++) {
+        for (int i=0;i<AnchorPaneRecent.getChildren().size()-3;i++) {// FIXME ESTO ESTA HORRIBLE MEJORAR MANEJO DE ARREGLOS
             Node offerV=getRecentVisualOffer(i);
             if(offerV.isFocused()) {
-               int index= AnchorPaneRecent.getChildren().indexOf(offerV)-3;
+               int index= AnchorPaneRecent.getChildren().indexOf(offerV)-3;// FIXME ESTO ESTA HORRIBLE MEJORAR MANEJO DE ARREGLOS
                 Offer offer=Manager.getRecentOffers().get(index);
                 offer.setAvailableTomorrow();
-                Manager.getAssignedOffers().add(offer);
+                getAssignedOffers().add(offer);
                 Manager.getRecentOffers().remove(index);
                 Manager.resetDB();
                 eraseAllVisual();
@@ -226,13 +271,13 @@ public class Controller implements Initializable{
 
     @FXML
     void deleteOffer(ActionEvent event) {
-        for (int i=0;i<AnchorPaneRecent.getChildren().size()-3;i++) {
+        for (int i=0;i<AnchorPaneRecent.getChildren().size()-3;i++) {// FIXME ESTO ESTA HORRIBLE MEJORAR MANEJO DE ARREGLOS
             Node offer=getRecentVisualOffer(i);
             if(offer.isFocused())
                 deleteVisualOffer(offer);
 
         }
-        for (int i=0;i<AnchorPaneAssigned.getChildren().size()-3;i++) {
+        for (int i=0;i<AnchorPaneAssigned.getChildren().size()-3;i++) {// FIXME ESTO ESTA HORRIBLE MEJORAR MANEJO DE ARREGLOS
             Node offer=getAssignedVisualOffer(i);
             if(offer.isFocused())
                 deleteVisualOffer(offer);
@@ -295,7 +340,7 @@ public class Controller implements Initializable{
 
 
         if(isAssignedOffer){
-            Manager.getAssignedOffers().remove(indexDelete);
+            getAssignedOffers().remove(indexDelete);
             Manager.resetDB();
         }
         else if(isRecentOffer) {
