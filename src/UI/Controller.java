@@ -34,11 +34,28 @@ public class Controller implements Initializable{
     }
 
     @FXML
+    void update(ActionEvent event) {
+        Manager.loadDB();
+        showAssignedOffers();
+        showRecentOffers();
+    }
+
+    @FXML
     private void eraseAll(){
         eraseAllVisual();
         Manager.getRecentOffers().clear();
         Manager.getAssignedOffers().clear();
-        Manager.updateDB();
+        Manager.resetDB();
+
+    }
+
+    @FXML
+    private void eraseRecent(){
+        eraseAllVisual();
+        Manager.getRecentOffers().clear();
+        Manager.resetDB();
+        showRecentOffers();
+        showAssignedOffers();
 
     }
 
@@ -78,8 +95,8 @@ public class Controller implements Initializable{
             start = children.get(children.size()-1).getLayoutY();}
         int x=0;
         for(Offer offer :Manager.getAssignedOffers()){
-            Button n=new Button(offer.getClient()+"  "+offer.getSchedule());
-            n.setLayoutY(start+x*94);//TODO 94 deberia ser dinamico segun tamaño bton
+            Button n=new Button(offer.getClient()+""+offer.getSchedule());
+            n.setLayoutY(start+(x*cantLines(n.getText())*19));//TODO 94 deberia ser dinamico segun tamaño bton
             n.prefWidthProperty().bind(demo.widthProperty()); //RE IMPORTANTE ESTE COMANDO
             assigned.getChildren().add(n);
             x++;
@@ -144,7 +161,7 @@ public class Controller implements Initializable{
             System.out.println(Manager.getOffer());
             Manager.getRecentOffers().add(Manager.getOffer());
             showRecentOffers();
-            Manager.updateDB();
+            Manager.resetDB();
         }
     }
 
@@ -188,12 +205,35 @@ public class Controller implements Initializable{
         showRecentOffers();
         showAssignedOffers();
     }
+    @FXML
+    void moveOffertoAssigned(ActionEvent event) {
+        for (int i=0;i<AnchorPaneRecent.getChildren().size()-3;i++) {
+            Node offerV=getRecentVisualOffer(i);
+            if(offerV.isFocused()) {
+               int index= AnchorPaneRecent.getChildren().indexOf(offerV)-3;
+                Offer offer=Manager.getRecentOffers().get(index);
+                offer.setAvailableTomorrow();
+                Manager.getAssignedOffers().add(offer);
+                Manager.getRecentOffers().remove(index);
+                Manager.resetDB();
+                eraseAllVisual();
+                showAssignedOffers();
+                showRecentOffers();
 
+            }
+        }
+    }
 
     @FXML
     void deleteOffer(ActionEvent event) {
         for (int i=0;i<AnchorPaneRecent.getChildren().size()-3;i++) {
             Node offer=getRecentVisualOffer(i);
+            if(offer.isFocused())
+                deleteVisualOffer(offer);
+
+        }
+        for (int i=0;i<AnchorPaneAssigned.getChildren().size()-3;i++) {
+            Node offer=getAssignedVisualOffer(i);
             if(offer.isFocused())
                 deleteVisualOffer(offer);
 
@@ -256,11 +296,11 @@ public class Controller implements Initializable{
 
         if(isAssignedOffer){
             Manager.getAssignedOffers().remove(indexDelete);
-            Manager.updateDB();
+            Manager.resetDB();
         }
         else if(isRecentOffer) {
             Manager.getRecentOffers().remove(indexDelete);
-            Manager.updateDB();
+            Manager.resetDB();
         }
 
         showAssignedOffers();

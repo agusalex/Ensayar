@@ -22,6 +22,36 @@ public class Manager {
 
 
     private Manager() {
+    loadDB();
+    }
+
+
+    public static Manager getManager() {
+        return manager;
+    }
+
+    public static void Sort(Comparator<Offer> comparador){
+        Collections.sort(recentOffers,comparador);
+        Collections.sort(assignedOffers,comparador);
+
+    }
+
+    public static ArrayList<Offer> getRecentOffers() {
+        return recentOffers;
+    }
+
+    public static void resetDB(){
+        DataBase.getDb().getOffers().clear();
+        for (Offer offer:recentOffers)
+            DataBase.getDb().getOffers().add(offer);
+
+        for(Offer offer :assignedOffers)
+            DataBase.getDb().getOffers().add(offer);
+
+        DataBase.getDb().save();
+
+    }
+    public static void loadDB(){
         ArrayList<Offer> dataBaseOffers = new ArrayList<Offer>();
         recentOffers = new ArrayList<Offer>();
         assignedOffers = new ArrayList<Offer>();
@@ -40,33 +70,6 @@ public class Manager {
     }
 
 
-    public static Manager getManager() {
-        return manager;
-    }
-
-    public static void Sort(Comparator<Offer> comparador){
-        Collections.sort(recentOffers,comparador);
-        Collections.sort(assignedOffers,comparador);
-
-    }
-
-    public static ArrayList<Offer> getRecentOffers() {
-        return recentOffers;
-    }
-
-    public static void updateDB(){
-        DataBase.getDb().getOffers().clear();
-        for (Offer offer:recentOffers)
-            DataBase.getDb().getOffers().add(offer);
-
-        for(Offer offer :assignedOffers)
-            DataBase.getDb().getOffers().add(offer);
-
-        DataBase.getDb().save();
-
-
-
-    }
 
 
     public static void setRecentOffers(ArrayList<Offer> recentOffers) {

@@ -1,0 +1,130 @@
+[
+  {
+    "price": 220,
+    "client": {
+      "ID": "2",
+      "Name": "Agustin",
+      "Mobile": "1517851052"
+    },
+    "schedule": {
+      "start": {
+        "year": 2016,
+        "month": 10,
+        "dayOfMonth": 6,
+        "hourOfDay": 4,
+        "minute": 0,
+        "second": 58
+      },
+      "end": {
+        "year": 2016,
+        "month": 10,
+        "dayOfMonth": 6,
+        "hourOfDay": 9,
+        "minute": 30,
+        "second": 58
+      },
+      "starth": 4,
+      "endH": 9,
+      "startMins": 0,
+      "endMins": 30
+    },
+    "instruments": [
+      "BATERIA"
+    ],
+    "duration": 5,
+    "durationInMin": 30,
+    "nonHalfHour": 0
+  },
+  {
+    "price": 370,
+    "client": {
+      "ID": "11",
+      "Name": "Josefina",
+      "Mobile": "1502061054"
+    },
+    "dateAvailable": {
+      "year": 2016,
+      "month": 10,
+      "dayOfMonth": 7,
+      "hourOfDay": 3,
+      "minute": 11,
+      "second": 21
+    },
+    "schedule": {
+      "start": {
+        "year": 2016,
+        "month": 10,
+        "dayOfMonth": 6,
+        "hourOfDay": 4,
+        "minute": 0,
+        "second": 58
+      },
+      "end": {
+        "year": 2016,
+        "month": 10,
+        "dayOfMonth": 6,
+        "hourOfDay": 9,
+        "minute": 0,
+        "second": 58
+      },
+      "starth": 4,
+      "endH": 9,
+      "startMins": 0,
+      "endMins": 0
+    },
+    "instruments": [
+      "GUITARRA",
+      "GUITARRA",
+      "BATERIA",
+      "BAJO"
+    ],
+    "duration": 5,
+    "durationInMin": 0,
+    "nonHalfHour": 0
+  },
+  {
+    "price": 290,
+    "client": {
+      "ID": "13",
+      "Name": "Alberto",
+      "Mobile": "1532267174"
+    },
+    "dateAvailable": {
+      "year": 2016,
+      "month": 10,
+      "dayOfMonth": 7,
+      "hourOfDay": 3,
+      "minute": 11,
+      "second": 34
+    },
+    "schedule": {
+      "start": {
+        "year": 2016,
+        "month": 10,
+        "dayOfMonth": 6,
+        "hourOfDay": 4,
+        "minute": 0,
+        "second": 58
+      },
+      "end": {
+        "year": 2016,
+        "month": 10,
+        "dayOfMonth": 6,
+        "hourOfDay": 9,
+        "minute": 30,
+        "second": 58
+      },
+      "starth": 4,
+      "endH": 9,
+      "startMins": 0,
+      "endMins": 30
+    },
+    "instruments": [
+      "BATERIA",
+      "BATERIA"
+    ],
+    "duration": 5,
+    "durationInMin": 30,
+    "nonHalfHour": 0
+  }
+]

@@ -45,8 +45,8 @@
             <MenuItem mnemonicParsing="false" text="Cerrar Dia" />
             <MenuItem mnemonicParsing="false" text="Desasignar Ofertas" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Agregar a Asignadas" />
-            <MenuItem mnemonicParsing="false" text="Borrar Recientes" />
+                  <MenuItem mnemonicParsing="false" onAction="#moveOffertoAssigned" text="Agregar a Asignadas" />
+            <MenuItem mnemonicParsing="false" onAction="#eraseRecent" text="Borrar Recientes" />
           </items>
         </Menu>
             <Menu mnemonicParsing="false" text="Ver">
@@ -58,11 +58,12 @@
                         <MenuItem mnemonicParsing="false" onAction="#sortByDuration" text="Carga Horaria" />
                     </items>
                   </Menu>
+                  <MenuItem mnemonicParsing="false" onAction="#update" text="Actualizar" />
                </items>
             </Menu>
         <Menu mnemonicParsing="false" text="Ayuda">
           <items>
-            <MenuItem mnemonicParsing="false" onAction="#about" onMenuValidation="#about" text="Sobre Ensayos" />
+            <MenuItem mnemonicParsing="false" onAction="#about" text="Sobre Ensayos" />
           </items>
         </Menu>
       </menus>
