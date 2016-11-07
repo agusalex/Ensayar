@@ -7,13 +7,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import negocio.Comparador;
@@ -102,10 +100,11 @@ public class Controller implements Initializable{
         AnchorPane assigned = AnchorPaneAssigned;
         Button demo = offer0;
         ObservableList<Node> children = assigned.getChildren();
-        double start =0;
-        if(children.size()>1){// FIXME ESTO ESTA HORRIBLE MEJORAR MANEJO DE ARREGLOS
-            start = children.get(children.size()-1).getLayoutY();}
+        double start =offer0.getLayoutY();
+
+
         int x=0;
+
         for(Offer offer : Manager.getAssignedOffers()){
             Button n=new Button(offer.getClient()+""+offer.getSchedule());
             n.setOnAction(demo.getOnAction());
@@ -139,10 +138,8 @@ public class Controller implements Initializable{
         AnchorPane assigned = AnchorPaneRecent;
         Button demo = recentOffer0;
         ObservableList<Node> children = assigned.getChildren();
-        double start =0;
-        if(children.size()>1){                     // FIXME ESTO ESTA HORRIBLE MEJORAR MANEJO DE ARREGLOS
-          start = children.get(children.size()-1).getLayoutY();}
-        int x = 0;
+        double start =recentOffer0.getLayoutY();
+        int x=0;
 
         for(Offer offer : Manager.getRecentOffers()){
             Button n = new Button(offer.getClient()+""+offer.getSchedule());
@@ -158,37 +155,59 @@ public class Controller implements Initializable{
 
 
     private void showOfferInfo(Offer offer){//FIXME AGRGAR HORARIOS Y TELEFONO
+       if(offer!=null){
+
         nameSurnameBox.setText(offer.getClient().getName());
         idBox.setText((offer.getClient().getID()));
         instrumetsBox.setText(offer.getInstruments().toString());
         priceBox.setText(Integer.toString(offer.getPrice()));
-        roomBox.setText("1");
+        roomBox.setText("1");}
+        else{
+           throw new NullPointerException("Seleccion es null");
+       }
+
+
 
     }
 
+
+    private Offer getLogicOffer(Node node) {
+        if(node instanceof Button) {
+            Parent Anchor = node.getParent();
+            int index = Anchor.getChildrenUnmodifiable().indexOf(node);
+
+            if (index <= 2)
+                throw new IndexOutOfBoundsException("El elemento visual no corresponde a una oferta logica=" + index);
+
+
+            if (Anchor == AnchorPaneAssigned) {
+                if (index -3> Manager.getAssignedOffers().size())
+                    throw new IndexOutOfBoundsException("El elemento visual no corresponde a una oferta logica=" + index);
+
+                return Manager.getAssignedOffers().get(index - 3);
+            }
+            if (Anchor == AnchorPaneRecent) {
+                if (index-3 > Manager.getRecentOffers().size())
+                    throw new IndexOutOfBoundsException("El elemento visual no corresponde a una oferta logica=" + index);
+
+                return Manager.getRecentOffers().get(index - 3);
+
+            }
+        }
+
+        throw new IllegalArgumentException("no es una oferta");
+
+
+    }
+
+
     @FXML
     private void OfferInfo(ActionEvent event){
+        System.out.println("Mostrando INFO...\n\n\n\n");
         Node offer=(Node)event.getSource();
-        int index=-1;
-        for (Node node :AnchorPaneAssigned.getChildren()
-             ) {
-            if(node==offer) {
-                index = AnchorPaneAssigned.getChildren().indexOf(node);
-                Offer oferta=Manager.getAssignedOffers().get(index - 3);//FIXME ESTO ESTA HORRIBLE
-                showOfferInfo(oferta);
 
-            }
-
-        }
-        for (Node node :AnchorPaneRecent.getChildren()
-                ) {
-            if(node==offer) {
-                index = AnchorPaneRecent.getChildren().indexOf(node);
-                Offer oferta=Manager.getRecentOffers().get(index - 3); //FIXME ESTO ESTA HORRIBLE, ARREGLAR MANERA DE ACCEDERA LOS INDICES INTER-ARREGLOS VISUAL Y REAL
-                showOfferInfo(oferta);
-            }
-
-        }
+        Offer oferta= getLogicOffer(offer);
+        showOfferInfo(oferta);
 
     }
 
@@ -222,7 +241,7 @@ public class Controller implements Initializable{
     }
 
     @FXML
-    void about(ActionEvent event) {
+    void about() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.initStyle(StageStyle.UTILITY);
         alert.setTitle("Sobre Ensayos");
@@ -233,7 +252,7 @@ public class Controller implements Initializable{
     }
 
     @FXML
-    void sortByDate(ActionEvent event) {
+    void sortByDate() {
         Manager.Sort(Comparador.porHorario());
         eraseAllVisual();
         showRecentOffers();
@@ -242,7 +261,7 @@ public class Controller implements Initializable{
     }
 
     @FXML
-    void sortByPrice(ActionEvent event) {
+    void sortByPrice() {
         Manager.Sort(Comparador.porBeneficio());
         eraseAllVisual();
         showRecentOffers();
@@ -251,7 +270,7 @@ public class Controller implements Initializable{
     }
 
     @FXML
-    void sortByPrice_Hour(ActionEvent event) {
+    void sortByPrice_Hour() {
         Manager.Sort(Comparador.porCociente());
         eraseAllVisual();
         showRecentOffers();
@@ -260,7 +279,7 @@ public class Controller implements Initializable{
     }
 
     @FXML
-    void sortByDuration(ActionEvent event) {
+    void sortByDuration() {
         Manager.Sort(Comparador.porPeso());
         eraseAllVisual();
         showRecentOffers();
@@ -270,7 +289,7 @@ public class Controller implements Initializable{
 
 
     @FXML
-    void moveOffertoAssigned(ActionEvent event) {
+    void moveOffertoAssigned() {
         for (int i=0;i<AnchorPaneRecent.getChildren().size()-3;i++) {// FIXME ESTO ESTA HORRIBLE MEJORAR MANEJO DE ARREGLOS
             Node offerV=getRecentVisualOffer(i);   // en este metodo busca el elemento en i+3;
             if(offerV.isFocused()) {
@@ -290,9 +309,9 @@ public class Controller implements Initializable{
 
 
     @FXML   //FIXME AL PASAR UNA OFERTA A RECIENTE NO SE QUEDA AHI AL CARGAR EL ARCHIVO AL CERRAR Y ABRIR
-    void moveOfferToRecent(ActionEvent event) {
+    void moveOfferToRecent() {
         for(Offer of : Manager.getAssignedOffers()){
-            of.setToday();
+            of.setNotAssigned();
             Manager.getRecentOffers().add(of);
         }
         Manager.getAssignedOffers().clear();
@@ -318,7 +337,7 @@ public class Controller implements Initializable{
         }
     }
 
-    void deleteVisualOffer(Node offer){
+   private void deleteVisualOffer(Node offer){
         ObservableList<Node> Assigned = AnchorPaneAssigned.getChildren();
         ObservableList<Node> unAssigned = AnchorPaneRecent.getChildren();
         ArrayList<Node> bkp= new  ArrayList<Node>();
@@ -407,7 +426,7 @@ public class Controller implements Initializable{
         }
 
         for(Offer of : DataBase.getDb().getOffers()){
-            if(solution.contiene(of) == false)
+            if(!solution.contiene(of))
                 Manager.getRecentOffers().add(of);
         }
         Manager.resetDB();
@@ -433,7 +452,7 @@ public class Controller implements Initializable{
         }
 
         for(Offer of : DataBase.getDb().getOffers()){
-            if(solution.contiene(of) == false)
+            if(!solution.contiene(of))
                 Manager.getRecentOffers().add(of);
         }
         Manager.resetDB();
@@ -459,7 +478,7 @@ public class Controller implements Initializable{
         }
 
         for(Offer of : DataBase.getDb().getOffers()){
-            if(solution.contiene(of) == false)
+            if(!solution.contiene(of))
                 Manager.getRecentOffers().add(of);
         }
         Manager.resetDB();
@@ -473,8 +492,6 @@ public class Controller implements Initializable{
     @FXML
     private Button offer0;
 
-    @FXML
-    private SplitPane splitPane;
 
     @FXML
     private Label idBox;
@@ -499,23 +516,6 @@ public class Controller implements Initializable{
     @FXML
     private Label nameSurnameBox;
 
-    @FXML
-    private Color x21;
-
-    @FXML
-    private Font x11;
-
-    @FXML
-    private Font x1;
-
-    @FXML
-    private Color x2;
-
-    @FXML
-    private Font x3;
-
-    @FXML
-    private Color x4;
 
 
 }

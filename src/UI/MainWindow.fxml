@@ -79,7 +79,7 @@
     </MenuBar>
     <SplitPane dividerPositions="0.22605790645879734, 0.5" focusTraversable="true" prefHeight="251.0" prefWidth="900.0" VBox.vgrow="ALWAYS">
       <items>
-            <ScrollPane fitToWidth="true" hbarPolicy="AS_NEEDED" layoutX="10.0" layoutY="10.0" onMouseClicked="#about" prefHeight="269.0" prefWidth="200.0">
+            <ScrollPane fitToWidth="true" hbarPolicy="AS_NEEDED" layoutX="10.0" layoutY="10.0" prefHeight="269.0" prefWidth="200.0">
                <content>
                   <AnchorPane fx:id="AnchorPaneRecent" prefHeight="431.0" prefWidth="141.0">
                      <children>
