@@ -1,6 +1,5 @@
 package UI;
 
-import Data.DataBase;
 import Data.Offer;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,7 +13,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import negocio.*;
+import negocio.Comparador;
+import negocio.Solver;
+import negocio.SolverExacto;
+import negocio.SolverGoloso;
 
 import java.io.IOException;
 import java.net.URL;
@@ -345,50 +347,32 @@ public class Controller implements Initializable{
     @FXML
     void bestOffers(ActionEvent event) {
 
-    }
-
-
-    private void calculateBy(Solver solver){
-        Instancia instance = new Instancia();
-        for(Offer of : DataBase.getDb().getOffers())
-            instance.agregarObjeto(of);
-
-        Subconjunto solution = solver.resolver(instance);
-
-        Manager.getAssignedOffers().clear();
-        Manager.getRecentOffers().clear();
-
-        for(Offer of : solution.getOffers()){
-            of.setAvailableTomorrow();
-            Manager.getAssignedOffers().add(of);
-        }
-
-        for(Offer of : DataBase.getDb().getOffers()){
-            if(!solution.contiene(of))
-                Manager.getRecentOffers().add(of);
-        }
-        Manager.resetDB();
+       Solver bruteForce=new SolverExacto();
+        Manager.calculateOffersBy(bruteForce);
         refreshVisual();
     }
+
 
     @FXML
     void price_Hour(ActionEvent event) {
         Solver cociente=new SolverGoloso(SolverGoloso.Criterios.COCIENTE);
-        calculateBy(cociente);
+        Manager.calculateOffersBy(cociente);
+        refreshVisual();
     }
 
     @FXML
     void highestPrice(ActionEvent event) {
         Solver precio=new SolverGoloso(SolverGoloso.Criterios.PRECIO);
-        calculateBy(precio);
+        Manager.calculateOffersBy(precio);
+        refreshVisual();
     }
 
     @FXML
     void moreHours(ActionEvent event) {
         Solver cargaHoraria=new SolverGoloso(SolverGoloso.Criterios.HORARIO);
-        calculateBy(cargaHoraria);
+        Manager.calculateOffersBy(cargaHoraria);
+        refreshVisual();
     }
-
 
 
     @FXML

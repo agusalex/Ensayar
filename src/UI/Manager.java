@@ -4,6 +4,9 @@ import Data.Client;
 import Data.DataBase;
 import Data.Offer;
 import Data.Schedule;
+import negocio.Instancia;
+import negocio.Solver;
+import negocio.Subconjunto;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -46,6 +49,32 @@ public class Manager {
         DataBase.getDb().save();
 
     }
+
+
+    public static void calculateOffersBy(Solver solver){
+        Instancia instance = new Instancia();
+        for(Offer of : DataBase.getDb().getOffers())
+            instance.agregarObjeto(of);
+
+        Subconjunto solution = solver.resolver(instance);
+
+        Manager.getAssignedOffers().clear();
+        Manager.getRecentOffers().clear();
+
+        for(Offer of : solution.getOffers()){
+            of.setAvailableTomorrow();
+            Manager.getAssignedOffers().add(of);
+        }
+
+        for(Offer of : DataBase.getDb().getOffers()){
+            if(!solution.contiene(of))
+                Manager.getRecentOffers().add(of);
+        }
+        Manager.resetDB();
+
+    }
+
+
 
     public static void loadDB(){
         ArrayList<Offer> dataBaseOffers = new ArrayList<Offer>();
