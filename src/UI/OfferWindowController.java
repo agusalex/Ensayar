@@ -35,10 +35,7 @@ public class OfferWindowController implements Initializable {
         endMin.getItems().add("00");
         endMin.getItems().add("30");
 
-        startH.setValue(startH.getItems().get(0));
-        endH.setValue(endH.getItems().get(0));
-        startMin.setValue(startMin.getItems().get(0));
-        endMin.setValue(endMin.getItems().get(0));
+        setDefaultHoursAndMinutes();
 
 
 
@@ -118,15 +115,6 @@ public class OfferWindowController implements Initializable {
         boolean noErrorsFound = true;  //esto revisa si encontre alguno de los errores de arriba
 
 
-        String startHour =Integer.toString(Integer.parseInt(startH.getValue()));
-        String endHour = Integer.toString(Integer.parseInt(endH.getValue()));
-        String startmin = Integer.toString(Integer.parseInt(startMin.getValue()));
-        String endmin = Integer.toString(Integer.parseInt(endMin.getValue()));
-
-
-
-
-
         ArrayList<Offer.Instruments> offerInst = new ArrayList<Offer.Instruments>();
         if(Bateria.isSelected())
             offerInst.add(Offer.Instruments.BATERIA);
@@ -139,7 +127,8 @@ public class OfferWindowController implements Initializable {
         if(Microfono.isSelected())
             offerInst.add(Offer.Instruments.MICROFONO);
 
-    //Validando inputs
+
+        //Validando inputs - Cliente
         Client client = null ;
         String name = nameEntry.getText();
         if(isValidName(name) == false ){
@@ -151,7 +140,7 @@ public class OfferWindowController implements Initializable {
         else nameError.setVisible(false);
 
         String phone = PhoneEntry.getText();
-        if(isInt(phone) == false || phone.length() > 10 || phone.length() < 10){
+        if(isInt(phone) == false || phone.length() != 10){
             System.out.println("phone error");
             noErrorsFound = false;
             PhoneError.setVisible(true);
@@ -160,7 +149,7 @@ public class OfferWindowController implements Initializable {
         else PhoneError.setVisible(false);
 
         String ID = IDEntry.getText();
-        if(isInt(ID) == false || ID.length() < 8 || ID.length() > 8  ){
+        if(isInt(ID) == false || ID.length()!= 8 ){
             System.out.println("dni error");
             noErrorsFound = false;
             IDError.setVisible(true);
@@ -173,10 +162,11 @@ public class OfferWindowController implements Initializable {
             client.setID(ID);
             client.setMobile(phone);
         }
-
-
-
-
+//Validando inputs - horarios
+        String startHour =Integer.toString(Integer.parseInt(startH.getValue()));
+        String endHour = Integer.toString(Integer.parseInt(endH.getValue()));
+        String startmin = Integer.toString(Integer.parseInt(startMin.getValue()));
+        String endmin = Integer.toString(Integer.parseInt(endMin.getValue()));
 
         int startHours = Integer.parseInt(startHour);
         int endHours = Integer.parseInt(endHour);
@@ -185,57 +175,54 @@ public class OfferWindowController implements Initializable {
         Schedule hours = null ;
 
 
-
-
         if(validStartHour(startHours) == false || validEndHour(endHours) == false){
+            System.out.println("error en horarios con numeros");
+            noErrorsFound = false;
+            hourError.setVisible(true);
+            setDefaultHoursAndMinutes();
+        }
+        else hourError.setVisible(false);
 
-                System.out.println("error en horarios con numeros");
-                noErrorsFound = false;
-                hourError.setVisible(true);
-                startH.setValue(startH.getItems().get(0));
-                endH.setValue(endH.getItems().get(0));
-                startMin.setValue(startMin.getItems().get(0));
-                endMin.setValue(endMin.getItems().get(0));
+        if(startBeforeEnd(startHours,endHours) == false) {
+            System.out.println("error en principio y fin");
+            noErrorsFound = false;
+            hourError.setVisible(true);
+            setDefaultHoursAndMinutes();
+        }
+        else hourError.setVisible(false);
 
-            }
-            else hourError.setVisible(false);
+        if(validMin(startMins) == false || validMin(endMins) == false){
+            System.out.println("error en min");
+            noErrorsFound = false;
+            minutesError.setVisible(true);
+            setDefaultHoursAndMinutes();
+        }
+        else minutesError.setVisible(false);
 
-            if(startBeforeEnd(startHours,endHours) == false) {
-                System.out.println("error en principio y fin");
-                noErrorsFound = false;
-                hourError.setVisible(true);
-                startH.setValue(startH.getItems().get(0));
-                endH.setValue(endH.getItems().get(0));
-                startMin.setValue(startMin.getItems().get(0));
-                endMin.setValue(endMin.getItems().get(0));
-            }
-            else hourError.setVisible(false);
+        if(noErrorsFound == true) {
+            hours = new Schedule(startHours, startMins, endHours, endMins);
+        }
 
-            if(validMin(startMins) == false || validMin(endMins) == false){
-                System.out.println("error en min");
-                noErrorsFound = false;
-                minutesError.setVisible(true);
-                startH.setValue(startH.getItems().get(0));
-                endH.setValue(endH.getItems().get(0));
-                startMin.setValue(startMin.getItems().get(0));
-                endMin.setValue(endMin.getItems().get(0));
-            }
-            else minutesError.setVisible(false);
+        if(noErrorsFound == true) {
+            Manager.setOffer(offerInst, hours, client);
+        }
 
-            if(noErrorsFound == true)
-                hours = new Schedule(startHours, startMins, endHours, endMins);
-
-        if(noErrorsFound == true)
-            Manager.setOffer(offerInst,hours,client);
-
-        if(noErrorsFound == false)
-            System.out.println("error");
-
-        else{
+        if(noErrorsFound == true) {
             Stage stage = (Stage) TotalPrice.getScene().getWindow();
             stage.close();
         }
 
+
+        if(noErrorsFound == false)
+            System.out.println("error");
+
+    }
+
+    private void setDefaultHoursAndMinutes() {
+        startH.setValue(startH.getItems().get(0));
+        endH.setValue(endH.getItems().get(0));
+        startMin.setValue(startMin.getItems().get(0));
+        endMin.setValue(endMin.getItems().get(0));
     }
 
     @FXML

@@ -42,8 +42,16 @@
             <MenuItem mnemonicParsing="false" onAction="#deleteOffer" text="Quitar Oferta" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" text="Calcular Ofertas" />
+                  <Menu mnemonicParsing="false" text="Calcular">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#bestOffers" text="Mejor oferta" />
+                        <MenuItem mnemonicParsing="false" onAction="#price_Hour" text="Precio/Carga horaria" />
+                        <MenuItem mnemonicParsing="false" onAction="#highestPrice" text="Mejor precio" />
+                        <MenuItem mnemonicParsing="false" onAction="#moreHours" text="Mas horas" />
+                    </items>
+                  </Menu>
             <MenuItem mnemonicParsing="false" text="Cerrar Dia" />
-            <MenuItem mnemonicParsing="false" text="Desasignar Ofertas" />
+            <MenuItem mnemonicParsing="false" onAction="#moveOfferToRecent" text="Desasignar Ofertas" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" onAction="#moveOffertoAssigned" text="Agregar a Asignadas" />
             <MenuItem mnemonicParsing="false" onAction="#eraseRecent" text="Borrar Recientes" />
@@ -56,6 +64,7 @@
                       <MenuItem mnemonicParsing="false" onAction="#sortByDate" text="Horario" />
                         <MenuItem mnemonicParsing="false" onAction="#sortByPrice" text="Precio" />
                         <MenuItem mnemonicParsing="false" onAction="#sortByDuration" text="Carga Horaria" />
+                        <MenuItem mnemonicParsing="false" onAction="#sortByPrice_Hour" text="Precio/CargaHoraria" />
                     </items>
                   </Menu>
                   <MenuItem mnemonicParsing="false" onAction="#update" text="Actualizar" />
@@ -72,7 +81,7 @@
       <items>
             <ScrollPane fitToWidth="true" hbarPolicy="AS_NEEDED" layoutX="10.0" layoutY="10.0" onMouseClicked="#about" prefHeight="269.0" prefWidth="200.0">
                <content>
-                  <AnchorPane fx:id="AnchorPaneRecent" prefHeight="267.0" prefWidth="198.0">
+                  <AnchorPane fx:id="AnchorPaneRecent" prefHeight="431.0" prefWidth="141.0">
                      <children>
                         <Button fx:id="recentOffer0" layoutX="1.0" layoutY="33.0" mnemonicParsing="false" onAction="#OfferInfo" prefHeight="48.0" prefWidth="182.0" text="Reciente" visible="false" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="33.0" />
                         <Label alignment="CENTER" prefHeight="33.0" prefWidth="181.0" style="&#10;" text="Recientes" textAlignment="CENTER" wrapText="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">

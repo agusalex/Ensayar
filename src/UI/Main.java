@@ -15,10 +15,9 @@ public class Main extends Application {
 
         Parent root = FXMLLoader.load(getClass().getResource("MainWindow.fxml"));
         primaryStage.setTitle("Ensayos");
-        Image icon=new Image("/UI/ensayos.png");
+        Image icon = new Image("/UI/ensayos.png");
         primaryStage.getIcons().add(icon);
         primaryStage.setScene(new Scene(root, 800, 400));
-
         primaryStage.show();
 
 

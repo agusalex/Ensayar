@@ -26,9 +26,7 @@ public class Manager {
     }
 
 
-    public static Manager getManager() {
-        return manager;
-    }
+    public static Manager getManager() {return manager;}
 
     public static void Sort(Comparator<Offer> comparador){
         Collections.sort(recentOffers,comparador);
@@ -36,9 +34,6 @@ public class Manager {
 
     }
 
-    public static ArrayList<Offer> getRecentOffers() {
-        return recentOffers;
-    }
 
     public static void resetDB(){
         DataBase.getDb().getOffers().clear();
@@ -51,6 +46,7 @@ public class Manager {
         DataBase.getDb().save();
 
     }
+
     public static void loadDB(){
         ArrayList<Offer> dataBaseOffers = new ArrayList<Offer>();
         recentOffers = new ArrayList<Offer>();
@@ -70,7 +66,9 @@ public class Manager {
     }
 
 
-
+    public static ArrayList<Offer> getRecentOffers() {
+        return recentOffers;
+    }
 
     public static void setRecentOffers(ArrayList<Offer> recentOffers) {
         Manager.recentOffers = recentOffers;

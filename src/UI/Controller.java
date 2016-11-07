@@ -1,5 +1,6 @@
 package UI;
 
+import Data.DataBase;
 import Data.Offer;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,6 +17,9 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import negocio.Comparador;
+import negocio.Instancia;
+import negocio.SolverGoloso;
+import negocio.Subconjunto;
 
 import java.io.IOException;
 import java.net.URL;
@@ -29,6 +33,12 @@ public class Controller implements Initializable{
 
     public static OfferWindow offerWindow;
 
+    public Calculation calculation;
+
+    public enum Calculation {
+        PRICE, HOURS, BEST, PRICE_HOUR
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         showAssignedOffers();
@@ -37,7 +47,7 @@ public class Controller implements Initializable{
 
     @FXML
     void update(ActionEvent event) {
-        Manager.loadDB();
+        eraseAllVisual();
         showAssignedOffers();
         showRecentOffers();
     }
@@ -96,7 +106,7 @@ public class Controller implements Initializable{
         if(children.size()>1){// FIXME ESTO ESTA HORRIBLE MEJORAR MANEJO DE ARREGLOS
             start = children.get(children.size()-1).getLayoutY();}
         int x=0;
-        for(Offer offer : getAssignedOffers()){
+        for(Offer offer : Manager.getAssignedOffers()){
             Button n=new Button(offer.getClient()+""+offer.getSchedule());
             n.setOnAction(demo.getOnAction());
             n.setLayoutY(start+(x*cantLines(n.getText())*19));
@@ -110,7 +120,7 @@ public class Controller implements Initializable{
 
         int size=AnchorPaneRecent.getChildren().size();
         if(i<0||i>size-3)
-            throw new IndexOutOfBoundsException();
+            throw new IndexOutOfBoundsException("no hay botonoes a que acceder");
 
 
     return AnchorPaneRecent.getChildren().get(i+3);
@@ -119,7 +129,7 @@ public class Controller implements Initializable{
     private Node getAssignedVisualOffer(int i){
         int size=AnchorPaneAssigned.getChildren().size();
         if(i<0||i>size-3)
-            throw new IndexOutOfBoundsException();
+            throw new IndexOutOfBoundsException("no hay botones a que acceder");
 
         return AnchorPaneAssigned.getChildren().get(i+3);
     }
@@ -128,14 +138,11 @@ public class Controller implements Initializable{
 
         AnchorPane assigned = AnchorPaneRecent;
         Button demo = recentOffer0;
-
         ObservableList<Node> children = assigned.getChildren();
         double start =0;
         if(children.size()>1){                     // FIXME ESTO ESTA HORRIBLE MEJORAR MANEJO DE ARREGLOS
           start = children.get(children.size()-1).getLayoutY();}
         int x = 0;
-
-
 
         for(Offer offer : Manager.getRecentOffers()){
             Button n = new Button(offer.getClient()+""+offer.getSchedule());
@@ -149,6 +156,7 @@ public class Controller implements Initializable{
     }
 
 
+
     private void showOfferInfo(Offer offer){//FIXME AGRGAR HORARIOS Y TELEFONO
         nameSurnameBox.setText(offer.getClient().getName());
         idBox.setText((offer.getClient().getID()));
@@ -157,8 +165,6 @@ public class Controller implements Initializable{
         roomBox.setText("1");
 
     }
-
-
 
     @FXML
     private void OfferInfo(ActionEvent event){
@@ -182,12 +188,9 @@ public class Controller implements Initializable{
                 showOfferInfo(oferta);
             }
 
-
         }
 
-
     }
-
 
 
     public int cantLines(String str){
@@ -201,12 +204,14 @@ public class Controller implements Initializable{
         offerWindow = new OfferWindow();
         offerWindow.start(stage);
 
-
-        if(Manager.getOffer() != null) {
-            System.out.println(Manager.getOffer());
-            Manager.getRecentOffers().add(Manager.getOffer());
+        //esta oferta se obtiene en el metodo "createOffer" de la clase "OfferWindowController"
+        Offer offerToAdd = Manager.getOffer();
+        if(offerToAdd != null) {
+            System.out.println(offerToAdd);
+            Manager.getRecentOffers().add(offerToAdd);
+            eraseAllVisual();
             showRecentOffers();
-            Manager.resetDB();
+            showAssignedOffers();
         }
     }
 
@@ -223,7 +228,6 @@ public class Controller implements Initializable{
         alert.setTitle("Sobre Ensayos");
         alert.setHeaderText(null);
         alert.setContentText("Por Maxi Lencina & Agus Alexander");
-
         alert.showAndWait();
 
     }
@@ -234,6 +238,7 @@ public class Controller implements Initializable{
         eraseAllVisual();
         showRecentOffers();
         showAssignedOffers();
+        this.calculation = Calculation.BEST;
     }
 
     @FXML
@@ -242,23 +247,37 @@ public class Controller implements Initializable{
         eraseAllVisual();
         showRecentOffers();
         showAssignedOffers();
+        this.calculation = Calculation.PRICE;
     }
+
+    @FXML
+    void sortByPrice_Hour(ActionEvent event) {
+        Manager.Sort(Comparador.porCociente());
+        eraseAllVisual();
+        showRecentOffers();
+        showAssignedOffers();
+        this.calculation = Calculation.PRICE_HOUR;
+    }
+
     @FXML
     void sortByDuration(ActionEvent event) {
         Manager.Sort(Comparador.porPeso());
         eraseAllVisual();
         showRecentOffers();
         showAssignedOffers();
+        this.calculation = Calculation.HOURS;
     }
+
+
     @FXML
     void moveOffertoAssigned(ActionEvent event) {
         for (int i=0;i<AnchorPaneRecent.getChildren().size()-3;i++) {// FIXME ESTO ESTA HORRIBLE MEJORAR MANEJO DE ARREGLOS
-            Node offerV=getRecentVisualOffer(i);
+            Node offerV=getRecentVisualOffer(i);   // en este metodo busca el elemento en i+3;
             if(offerV.isFocused()) {
                int index= AnchorPaneRecent.getChildren().indexOf(offerV)-3;// FIXME ESTO ESTA HORRIBLE MEJORAR MANEJO DE ARREGLOS
                 Offer offer=Manager.getRecentOffers().get(index);
                 offer.setAvailableTomorrow();
-                getAssignedOffers().add(offer);
+                Manager.getAssignedOffers().add(offer);
                 Manager.getRecentOffers().remove(index);
                 Manager.resetDB();
                 eraseAllVisual();
@@ -267,6 +286,20 @@ public class Controller implements Initializable{
 
             }
         }
+    }
+
+
+    @FXML
+    void moveOfferToRecent(ActionEvent event) {
+        for(Offer of : Manager.getAssignedOffers()){
+            of.setToday();
+            Manager.getRecentOffers().add(of);
+        }
+        Manager.getAssignedOffers().clear();
+        Manager.resetDB();
+        eraseAllVisual();
+        showRecentOffers();
+        showAssignedOffers();
     }
 
     @FXML
@@ -292,6 +325,7 @@ public class Controller implements Initializable{
         boolean isRecentOffer=false;
         boolean isAssignedOffer=false;
         int indexDelete=0;
+
         int auxI=0;
         for(Node n : AnchorPaneAssigned.getChildren()) {
 
@@ -316,8 +350,6 @@ public class Controller implements Initializable{
         bkp= new  ArrayList<Node>();
 
 
-
-
         auxI=0;
         for(Node n : AnchorPaneRecent.getChildren()) {
 
@@ -331,7 +363,6 @@ public class Controller implements Initializable{
                 indexDelete=auxI;
                 isRecentOffer=true;
             }
-
         }
 
         unAssigned.clear();
@@ -340,7 +371,7 @@ public class Controller implements Initializable{
 
 
         if(isAssignedOffer){
-            getAssignedOffers().remove(indexDelete);
+            Manager.getAssignedOffers().remove(indexDelete);
             Manager.resetDB();
         }
         else if(isRecentOffer) {
@@ -352,6 +383,90 @@ public class Controller implements Initializable{
         showRecentOffers();
     }
 
+
+
+    @FXML
+    void bestOffers(ActionEvent event) {
+
+    }
+
+    @FXML
+    void price_Hour(ActionEvent event) {
+        Instancia instance = new Instancia();
+        for(Offer of : DataBase.getDb().getOffers())
+            instance.agregarObjeto(of);
+        SolverGoloso solverGoloso = new SolverGoloso(SolverGoloso.Criterios.COCIENTE);
+        Subconjunto solution = solverGoloso.resolver(instance);
+
+        Manager.getAssignedOffers().clear();
+        Manager.getRecentOffers().clear();
+
+        for(Offer of : solution.getOffers()){
+            of.setAvailableTomorrow();
+            Manager.getAssignedOffers().add(of);
+        }
+
+        for(Offer of : DataBase.getDb().getOffers()){
+            if(solution.contiene(of) == false)
+                Manager.getRecentOffers().add(of);
+        }
+        Manager.resetDB();
+        eraseAllVisual();
+        showAssignedOffers();
+        showRecentOffers();
+    }
+
+    @FXML
+    void highestPrice(ActionEvent event) {
+        Instancia instance = new Instancia();
+        for(Offer of : DataBase.getDb().getOffers())
+            instance.agregarObjeto(of);
+        SolverGoloso solverGoloso = new SolverGoloso(SolverGoloso.Criterios.PRECIO);
+        Subconjunto solution = solverGoloso.resolver(instance);
+
+        Manager.getAssignedOffers().clear();
+        Manager.getRecentOffers().clear();
+
+        for(Offer of : solution.getOffers()){
+            of.setAvailableTomorrow();
+            Manager.getAssignedOffers().add(of);
+        }
+
+        for(Offer of : DataBase.getDb().getOffers()){
+            if(solution.contiene(of) == false)
+                Manager.getRecentOffers().add(of);
+        }
+        Manager.resetDB();
+        eraseAllVisual();
+        showAssignedOffers();
+        showRecentOffers();
+    }
+
+    @FXML
+    void moreHours(ActionEvent event) {
+        Instancia instance = new Instancia();
+        for(Offer of : DataBase.getDb().getOffers())
+            instance.agregarObjeto(of);
+        SolverGoloso solverGoloso = new SolverGoloso(SolverGoloso.Criterios.HORARIO);
+        Subconjunto solution = solverGoloso.resolver(instance);
+
+        Manager.getAssignedOffers().clear();
+        Manager.getRecentOffers().clear();
+
+        for(Offer of : solution.getOffers()){
+            of.setAvailableTomorrow();
+            Manager.getAssignedOffers().add(of);
+        }
+
+        for(Offer of : DataBase.getDb().getOffers()){
+            if(solution.contiene(of) == false)
+                Manager.getRecentOffers().add(of);
+        }
+        Manager.resetDB();
+        eraseAllVisual();
+        showAssignedOffers();
+        showRecentOffers();
+    }
 
 
 

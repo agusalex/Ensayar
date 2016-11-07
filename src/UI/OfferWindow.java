@@ -24,7 +24,7 @@ public class OfferWindow extends Application {
 
         primaryStage.setTitle("Ensayos");
         primaryStage.setTitle("Ensayos");
-        Image icon=new Image("/UI/addOffer.png");
+        Image icon = new Image("/UI/addOffer.png");
         primaryStage.getIcons().add(icon);
         primaryStage.setScene(new Scene(root, 400, 400));
         primaryStage.setResizable(false);
