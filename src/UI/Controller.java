@@ -289,7 +289,7 @@ public class Controller implements Initializable{
     }
 
 
-    @FXML
+    @FXML   //FIXME AL PASAR UNA OFERTA A RECIENTE NO SE QUEDA AHI AL CARGAR EL ARCHIVO AL CERRAR Y ABRIR
     void moveOfferToRecent(ActionEvent event) {
         for(Offer of : Manager.getAssignedOffers()){
             of.setToday();

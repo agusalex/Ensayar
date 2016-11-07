@@ -59,6 +59,10 @@ public class Offer implements Serializable{
         dateAvailable.add(Calendar.DATE,1);
     }
 
+    public void setToday(){
+        dateAvailable.add(Calendar.DATE,-1);
+    }
+
     public int getPrice() {return price;}
     public  void  subastar( int cantidad){ this.price += cantidad;}
 
