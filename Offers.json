@@ -4,79 +4,6 @@
     "client": {
       "ID": "2",
       "Name": "Agustin",
-      "Mobile": "1573223937"
-    },
-    "schedule": {
-      "start": {
-        "year": 2016,
-        "month": 10,
-        "dayOfMonth": 7,
-        "hourOfDay": 3,
-        "minute": 30,
-        "second": 48
-      },
-      "end": {
-        "year": 2016,
-        "month": 10,
-        "dayOfMonth": 7,
-        "hourOfDay": 8,
-        "minute": 0,
-        "second": 48
-      },
-      "starth": 3,
-      "endH": 8,
-      "startMins": 30,
-      "endMins": 0
-    },
-    "instruments": [
-      "BATERIA"
-    ],
-    "duration": 4,
-    "durationInMin": 30,
-    "nonHalfHour": 0
-  },
-  {
-    "price": 250,
-    "client": {
-      "ID": "7",
-      "Name": "Pustilnik",
-      "Mobile": "1535429186"
-    },
-    "schedule": {
-      "start": {
-        "year": 2016,
-        "month": 10,
-        "dayOfMonth": 7,
-        "hourOfDay": 1,
-        "minute": 0,
-        "second": 48
-      },
-      "end": {
-        "year": 2016,
-        "month": 10,
-        "dayOfMonth": 7,
-        "hourOfDay": 6,
-        "minute": 0,
-        "second": 48
-      },
-      "starth": 1,
-      "endH": 6,
-      "startMins": 0,
-      "endMins": 0
-    },
-    "instruments": [
-      "GUITARRA",
-      "GUITARRA"
-    ],
-    "duration": 5,
-    "durationInMin": 0,
-    "nonHalfHour": 0
-  },
-  {
-    "price": 190,
-    "client": {
-      "ID": "2",
-      "Name": "Agustin",
       "Mobile": "1590445936"
     },
     "schedule": {
@@ -147,6 +74,95 @@
     },
     "instruments": [
       "GUITARRA",
+      "BATERIA"
+    ],
+    "duration": 4,
+    "durationInMin": 30,
+    "nonHalfHour": 0
+  },
+  {
+    "price": 250,
+    "client": {
+      "ID": "7",
+      "Name": "Pustilnik",
+      "Mobile": "1535429186"
+    },
+    "dateAvailable": {
+      "year": 2016,
+      "month": 10,
+      "dayOfMonth": 8,
+      "hourOfDay": 2,
+      "minute": 46,
+      "second": 38
+    },
+    "schedule": {
+      "start": {
+        "year": 2016,
+        "month": 10,
+        "dayOfMonth": 7,
+        "hourOfDay": 1,
+        "minute": 0,
+        "second": 48
+      },
+      "end": {
+        "year": 2016,
+        "month": 10,
+        "dayOfMonth": 7,
+        "hourOfDay": 6,
+        "minute": 0,
+        "second": 48
+      },
+      "starth": 1,
+      "endH": 6,
+      "startMins": 0,
+      "endMins": 0
+    },
+    "instruments": [
+      "GUITARRA",
+      "GUITARRA"
+    ],
+    "duration": 5,
+    "durationInMin": 0,
+    "nonHalfHour": 0
+  },
+  {
+    "price": 190,
+    "client": {
+      "ID": "2",
+      "Name": "Agustin",
+      "Mobile": "1573223937"
+    },
+    "dateAvailable": {
+      "year": 2016,
+      "month": 10,
+      "dayOfMonth": 8,
+      "hourOfDay": 2,
+      "minute": 46,
+      "second": 41
+    },
+    "schedule": {
+      "start": {
+        "year": 2016,
+        "month": 10,
+        "dayOfMonth": 7,
+        "hourOfDay": 3,
+        "minute": 30,
+        "second": 48
+      },
+      "end": {
+        "year": 2016,
+        "month": 10,
+        "dayOfMonth": 7,
+        "hourOfDay": 8,
+        "minute": 0,
+        "second": 48
+      },
+      "starth": 3,
+      "endH": 8,
+      "startMins": 30,
+      "endMins": 0
+    },
+    "instruments": [
       "BATERIA"
     ],
     "duration": 4,

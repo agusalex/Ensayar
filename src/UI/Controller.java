@@ -14,10 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import negocio.Comparador;
-import negocio.Instancia;
-import negocio.SolverGoloso;
-import negocio.Subconjunto;
+import negocio.*;
 
 import java.io.IOException;
 import java.net.URL;
@@ -62,11 +59,10 @@ public class Controller implements Initializable{
     }
     @FXML
     private void eraseRecent(){
-        eraseAllVisual();
+
         Manager.getRecentOffers().clear();
         Manager.resetDB();
-        showRecentOffers();
-        showAssignedOffers();
+        refreshVisual();
     }
 
     public void eraseAllVisual(){
@@ -187,8 +183,6 @@ public class Controller implements Initializable{
 
     @FXML
     private void OfferInfo(ActionEvent event){
-
-
         Node offer=(Node)event.getSource();
         selectedElement=offer;
         Offer oferta= getLogicOffer(offer);
@@ -198,8 +192,6 @@ public class Controller implements Initializable{
 
 
     private void showOfferInfo(Offer offer){//FIXME AGRGAR HORARIOS Y TELEFONO
-
-
         if(offer!=null){
             nameSurnameBox.setText(offer.getClient().getName());
             idBox.setText((offer.getClient().getID()));
@@ -355,13 +347,13 @@ public class Controller implements Initializable{
 
     }
 
-    @FXML
-    void price_Hour(ActionEvent event) {
+
+    private void calculateBy(Solver solver){
         Instancia instance = new Instancia();
         for(Offer of : DataBase.getDb().getOffers())
             instance.agregarObjeto(of);
-        SolverGoloso solverGoloso = new SolverGoloso(SolverGoloso.Criterios.COCIENTE);
-        Subconjunto solution = solverGoloso.resolver(instance);
+
+        Subconjunto solution = solver.resolver(instance);
 
         Manager.getAssignedOffers().clear();
         Manager.getRecentOffers().clear();
@@ -377,54 +369,24 @@ public class Controller implements Initializable{
         }
         Manager.resetDB();
         refreshVisual();
+    }
+
+    @FXML
+    void price_Hour(ActionEvent event) {
+        Solver cociente=new SolverGoloso(SolverGoloso.Criterios.COCIENTE);
+        calculateBy(cociente);
     }
 
     @FXML
     void highestPrice(ActionEvent event) {
-        Instancia instance = new Instancia();
-        for(Offer of : DataBase.getDb().getOffers())
-            instance.agregarObjeto(of);
-        SolverGoloso solverGoloso = new SolverGoloso(SolverGoloso.Criterios.PRECIO);
-        Subconjunto solution = solverGoloso.resolver(instance);
-
-        Manager.getAssignedOffers().clear();
-        Manager.getRecentOffers().clear();
-
-        for(Offer of : solution.getOffers()){
-            of.setAvailableTomorrow();
-            Manager.getAssignedOffers().add(of);
-        }
-
-        for(Offer of : DataBase.getDb().getOffers()){
-            if(!solution.contiene(of))
-                Manager.getRecentOffers().add(of);
-        }
-        Manager.resetDB();
-        refreshVisual();
+        Solver precio=new SolverGoloso(SolverGoloso.Criterios.PRECIO);
+        calculateBy(precio);
     }
 
     @FXML
     void moreHours(ActionEvent event) {
-        Instancia instance = new Instancia();
-        for(Offer of : DataBase.getDb().getOffers())
-            instance.agregarObjeto(of);
-        SolverGoloso solverGoloso = new SolverGoloso(SolverGoloso.Criterios.HORARIO);
-        Subconjunto solution = solverGoloso.resolver(instance);
-
-        Manager.getAssignedOffers().clear();
-        Manager.getRecentOffers().clear();
-
-        for(Offer of : solution.getOffers()){
-            of.setAvailableTomorrow();
-            Manager.getAssignedOffers().add(of);
-        }
-
-        for(Offer of : DataBase.getDb().getOffers()){
-            if(!solution.contiene(of))
-                Manager.getRecentOffers().add(of);
-        }
-        Manager.resetDB();
-        refreshVisual();
+        Solver cargaHoraria=new SolverGoloso(SolverGoloso.Criterios.HORARIO);
+        calculateBy(cargaHoraria);
     }
 
 
