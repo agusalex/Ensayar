@@ -59,9 +59,20 @@ public class Manager {
 
             if (offer.getDateAvailable() == null)
                 recentOffers.add(offer);
-            else {
+            else{
                 assignedOffers.add(offer);
             }
+            /*else if(offer.getDateAvailable().after(Calendar.getInstance())){
+                assignedOffers.add(offer);
+            }
+            else if (offer.getDateAvailable().equals(Calendar.getInstance())) {
+                assignedOffers.add(offer);
+            }
+            else if((offer.getDateAvailable().before(Calendar.getInstance()))){
+                //NO LA AGREGO SI ES VIEJA
+
+            }*/
+
         }
     }
 

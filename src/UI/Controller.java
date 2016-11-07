@@ -33,6 +33,8 @@ public class Controller implements Initializable{
 
     public Calculation calculation;
 
+    public Node selectedElement=null;
+
     public enum Calculation {
         PRICE, HOURS, BEST, PRICE_HOUR
     }
@@ -45,9 +47,10 @@ public class Controller implements Initializable{
 
     @FXML
     void update(ActionEvent event) {
-        eraseAllVisual();
-        showAssignedOffers();
-        showRecentOffers();
+        Manager.resetDB();
+        Manager.loadDB();
+        refreshVisual();
+
     }
 
     @FXML
@@ -56,9 +59,7 @@ public class Controller implements Initializable{
         Manager.getRecentOffers().clear();
         getAssignedOffers().clear();
         Manager.resetDB();
-
     }
-
     @FXML
     private void eraseRecent(){
         eraseAllVisual();
@@ -66,7 +67,6 @@ public class Controller implements Initializable{
         Manager.resetDB();
         showRecentOffers();
         showAssignedOffers();
-
     }
 
     public void eraseAllVisual(){
@@ -154,22 +154,6 @@ public class Controller implements Initializable{
 
 
 
-    private void showOfferInfo(Offer offer){//FIXME AGRGAR HORARIOS Y TELEFONO
-       if(offer!=null){
-
-        nameSurnameBox.setText(offer.getClient().getName());
-        idBox.setText((offer.getClient().getID()));
-        instrumetsBox.setText(offer.getInstruments().toString());
-        priceBox.setText(Integer.toString(offer.getPrice()));
-        roomBox.setText("1");}
-        else{
-           throw new NullPointerException("Seleccion es null");
-       }
-
-
-
-    }
-
 
     private Offer getLogicOffer(Node node) {
         if(node instanceof Button) {
@@ -181,13 +165,13 @@ public class Controller implements Initializable{
 
 
             if (Anchor == AnchorPaneAssigned) {
-                if (index -3> Manager.getAssignedOffers().size())
+                if (index -3>= Manager.getAssignedOffers().size())
                     throw new IndexOutOfBoundsException("El elemento visual no corresponde a una oferta logica=" + index);
 
                 return Manager.getAssignedOffers().get(index - 3);
             }
             if (Anchor == AnchorPaneRecent) {
-                if (index-3 > Manager.getRecentOffers().size())
+                if (index-3 >= Manager.getRecentOffers().size())
                     throw new IndexOutOfBoundsException("El elemento visual no corresponde a una oferta logica=" + index);
 
                 return Manager.getRecentOffers().get(index - 3);
@@ -203,14 +187,32 @@ public class Controller implements Initializable{
 
     @FXML
     private void OfferInfo(ActionEvent event){
-        System.out.println("Mostrando INFO...\n\n\n\n");
-        Node offer=(Node)event.getSource();
 
+
+        Node offer=(Node)event.getSource();
+        selectedElement=offer;
         Offer oferta= getLogicOffer(offer);
         showOfferInfo(oferta);
 
     }
 
+
+    private void showOfferInfo(Offer offer){//FIXME AGRGAR HORARIOS Y TELEFONO
+
+
+        if(offer!=null){
+            nameSurnameBox.setText(offer.getClient().getName());
+            idBox.setText((offer.getClient().getID()));
+            instrumetsBox.setText(offer.getInstruments().toString());
+            priceBox.setText(Integer.toString(offer.getPrice()));
+            roomBox.setText("1");}
+        else{
+            throw new NullPointerException("Seleccion es null");
+        }
+
+
+
+    }
 
     public int cantLines(String str){
         String[] lines = str.split("\r\n|\r|\n");
@@ -290,118 +292,62 @@ public class Controller implements Initializable{
 
     @FXML
     void moveOffertoAssigned() {
-        for (int i=0;i<AnchorPaneRecent.getChildren().size()-3;i++) {// FIXME ESTO ESTA HORRIBLE MEJORAR MANEJO DE ARREGLOS
-            Node offerV=getRecentVisualOffer(i);   // en este metodo busca el elemento en i+3;
-            if(offerV.isFocused()) {
-               int index= AnchorPaneRecent.getChildren().indexOf(offerV)-3;// FIXME ESTO ESTA HORRIBLE MEJORAR MANEJO DE ARREGLOS
-                Offer offer=Manager.getRecentOffers().get(index);
-                offer.setAvailableTomorrow();
-                Manager.getAssignedOffers().add(offer);
-                Manager.getRecentOffers().remove(index);
-                Manager.resetDB();
-                eraseAllVisual();
-                showAssignedOffers();
-                showRecentOffers();
-
-            }
+        if(selectedElement instanceof Button && selectedElement.getParent()==AnchorPaneRecent){
+            Offer oferta= getLogicOffer(selectedElement);
+            Manager.getRecentOffers().remove(oferta);
+            oferta.setAvailableTomorrow();//TODO LLamar a el calendario para que elija cuando va a estar disponible
+            Manager.getAssignedOffers().add(oferta);
+            refreshVisual();
         }
     }
 
 
-    @FXML   //FIXME AL PASAR UNA OFERTA A RECIENTE NO SE QUEDA AHI AL CARGAR EL ARCHIVO AL CERRAR Y ABRIR
-    void moveOfferToRecent() {
+    @FXML
+    void moveOffersToRecent() {
         for(Offer of : Manager.getAssignedOffers()){
             of.setNotAssigned();
             Manager.getRecentOffers().add(of);
         }
         Manager.getAssignedOffers().clear();
         Manager.resetDB();
-        eraseAllVisual();
-        showRecentOffers();
-        showAssignedOffers();
+        refreshVisual();
     }
 
     @FXML
     void deleteOffer(ActionEvent event) {
-        for (int i=0;i<AnchorPaneRecent.getChildren().size()-3;i++) {// FIXME ESTO ESTA HORRIBLE MEJORAR MANEJO DE ARREGLOS
-            Node offer=getRecentVisualOffer(i);
-            if(offer.isFocused())
-                deleteVisualOffer(offer);
+        if(selectedElement instanceof Button &&selectedElement.isFocused()) {
 
-        }
-        for (int i=0;i<AnchorPaneAssigned.getChildren().size()-3;i++) {// FIXME ESTO ESTA HORRIBLE MEJORAR MANEJO DE ARREGLOS
-            Node offer=getAssignedVisualOffer(i);
-            if(offer.isFocused())
-                deleteVisualOffer(offer);
+            if(selectedElement.getParent()==AnchorPaneRecent){
+                Manager.getRecentOffers().remove(getLogicOffer(selectedElement));
+            }
+            else if(selectedElement.getParent()==AnchorPaneAssigned){
+                Manager.getAssignedOffers().remove(getLogicOffer(selectedElement));
+            }
+            deleteVisualOffer(selectedElement);
+            Manager.resetDB();
+
 
         }
     }
 
    private void deleteVisualOffer(Node offer){
-        ObservableList<Node> Assigned = AnchorPaneAssigned.getChildren();
-        ObservableList<Node> unAssigned = AnchorPaneRecent.getChildren();
-        ArrayList<Node> bkp= new  ArrayList<Node>();
-        boolean isRecentOffer=false;
-        boolean isAssignedOffer=false;
-        int indexDelete=0;
+           if (offer.getParent() == AnchorPaneAssigned)
+               AnchorPaneAssigned.getChildren().remove(offer);
 
-        int auxI=0;
-        for(Node n : AnchorPaneAssigned.getChildren()) {
+           else if (offer.getParent() == AnchorPaneRecent)
+               AnchorPaneRecent.getChildren().remove(offer);
+           else {
+               throw new IndexOutOfBoundsException("Offerta no encontrada elemento a eliminar no es un boton");
+           }
+       refreshVisual();
 
-            if (!(n instanceof Button) || n == offer0 ) {
-                bkp.add(n);
-            }
-            else if(n!=offer){
-                auxI++;
-            }
-            else{
-                indexDelete=auxI;
-                isAssignedOffer=true;
-            }
+    }
 
-        }
-
-        Assigned.clear();
-        for (Node n : bkp) {
-            Assigned.add(n);
-        }
-
-        bkp= new  ArrayList<Node>();
-
-
-        auxI=0;
-        for(Node n : AnchorPaneRecent.getChildren()) {
-
-            if (!(n instanceof Button) || n == recentOffer0) {
-                bkp.add(n);
-            }
-            else if(n!=offer){
-                auxI++;
-            }
-            else{
-                indexDelete=auxI;
-                isRecentOffer=true;
-            }
-        }
-
-        unAssigned.clear();
-        for (Node n : bkp)
-            unAssigned.add(n);
-
-
-        if(isAssignedOffer){
-            Manager.getAssignedOffers().remove(indexDelete);
-            Manager.resetDB();
-        }
-        else if(isRecentOffer) {
-            Manager.getRecentOffers().remove(indexDelete);
-            Manager.resetDB();
-        }
-
+    private void refreshVisual() {
+        eraseAllVisual();
         showAssignedOffers();
         showRecentOffers();
     }
-
 
 
     @FXML
@@ -430,9 +376,7 @@ public class Controller implements Initializable{
                 Manager.getRecentOffers().add(of);
         }
         Manager.resetDB();
-        eraseAllVisual();
-        showAssignedOffers();
-        showRecentOffers();
+        refreshVisual();
     }
 
     @FXML
@@ -456,9 +400,7 @@ public class Controller implements Initializable{
                 Manager.getRecentOffers().add(of);
         }
         Manager.resetDB();
-        eraseAllVisual();
-        showAssignedOffers();
-        showRecentOffers();
+        refreshVisual();
     }
 
     @FXML
@@ -482,9 +424,7 @@ public class Controller implements Initializable{
                 Manager.getRecentOffers().add(of);
         }
         Manager.resetDB();
-        eraseAllVisual();
-        showAssignedOffers();
-        showRecentOffers();
+        refreshVisual();
     }
 
 

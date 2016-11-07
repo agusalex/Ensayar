@@ -1,10 +1,10 @@
 [
   {
-    "price": 220,
+    "price": 190,
     "client": {
-      "ID": "9",
-      "Name": "Roberto",
-      "Mobile": "1584653272"
+      "ID": "2",
+      "Name": "Agustin",
+      "Mobile": "1573223937"
     },
     "schedule": {
       "start": {
@@ -13,7 +13,7 @@
         "dayOfMonth": 7,
         "hourOfDay": 3,
         "minute": 30,
-        "second": 7
+        "second": 48
       },
       "end": {
         "year": 2016,
@@ -21,47 +21,10 @@
         "dayOfMonth": 7,
         "hourOfDay": 8,
         "minute": 0,
-        "second": 7
+        "second": 48
       },
       "starth": 3,
       "endH": 8,
-      "startMins": 30,
-      "endMins": 0
-    },
-    "instruments": [
-      "GUITARRA",
-      "GUITARRA"
-    ],
-    "duration": 4,
-    "durationInMin": 30,
-    "nonHalfHour": 0
-  },
-  {
-    "price": 190,
-    "client": {
-      "ID": "7",
-      "Name": "Pustilnik",
-      "Mobile": "1553846290"
-    },
-    "schedule": {
-      "start": {
-        "year": 2016,
-        "month": 10,
-        "dayOfMonth": 7,
-        "hourOfDay": 4,
-        "minute": 30,
-        "second": 7
-      },
-      "end": {
-        "year": 2016,
-        "month": 10,
-        "dayOfMonth": 7,
-        "hourOfDay": 9,
-        "minute": 0,
-        "second": 7
-      },
-      "starth": 4,
-      "endH": 9,
       "startMins": 30,
       "endMins": 0
     },
@@ -73,11 +36,48 @@
     "nonHalfHour": 0
   },
   {
+    "price": 250,
+    "client": {
+      "ID": "7",
+      "Name": "Pustilnik",
+      "Mobile": "1535429186"
+    },
+    "schedule": {
+      "start": {
+        "year": 2016,
+        "month": 10,
+        "dayOfMonth": 7,
+        "hourOfDay": 1,
+        "minute": 0,
+        "second": 48
+      },
+      "end": {
+        "year": 2016,
+        "month": 10,
+        "dayOfMonth": 7,
+        "hourOfDay": 6,
+        "minute": 0,
+        "second": 48
+      },
+      "starth": 1,
+      "endH": 6,
+      "startMins": 0,
+      "endMins": 0
+    },
+    "instruments": [
+      "GUITARRA",
+      "GUITARRA"
+    ],
+    "duration": 5,
+    "durationInMin": 0,
+    "nonHalfHour": 0
+  },
+  {
     "price": 190,
     "client": {
-      "ID": "5",
-      "Name": "Roberto",
-      "Mobile": "1524471759"
+      "ID": "2",
+      "Name": "Agustin",
+      "Mobile": "1590445936"
     },
     "schedule": {
       "start": {
@@ -86,7 +86,7 @@
         "dayOfMonth": 7,
         "hourOfDay": 1,
         "minute": 30,
-        "second": 7
+        "second": 48
       },
       "end": {
         "year": 2016,
@@ -94,7 +94,7 @@
         "dayOfMonth": 7,
         "hourOfDay": 6,
         "minute": 0,
-        "second": 7
+        "second": 48
       },
       "starth": 1,
       "endH": 6,
@@ -109,19 +109,19 @@
     "nonHalfHour": 0
   },
   {
-    "price": 300,
+    "price": 240,
     "client": {
-      "ID": "6",
-      "Name": "Juan",
-      "Mobile": "1527418607"
+      "ID": "2",
+      "Name": "Agustin",
+      "Mobile": "1528141232"
     },
     "dateAvailable": {
       "year": 2016,
       "month": 10,
       "dayOfMonth": 8,
-      "hourOfDay": 1,
-      "minute": 45,
-      "second": 0
+      "hourOfDay": 2,
+      "minute": 36,
+      "second": 11
     },
     "schedule": {
       "start": {
@@ -130,7 +130,7 @@
         "dayOfMonth": 7,
         "hourOfDay": 2,
         "minute": 30,
-        "second": 7
+        "second": 48
       },
       "end": {
         "year": 2016,
@@ -138,7 +138,7 @@
         "dayOfMonth": 7,
         "hourOfDay": 7,
         "minute": 0,
-        "second": 7
+        "second": 48
       },
       "starth": 2,
       "endH": 7,
@@ -146,10 +146,8 @@
       "endMins": 0
     },
     "instruments": [
-      "TECLADO",
-      "BAJO",
-      "TECLADO",
-      "BAJO"
+      "GUITARRA",
+      "BATERIA"
     ],
     "duration": 4,
     "durationInMin": 30,

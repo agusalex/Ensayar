@@ -51,7 +51,7 @@
                     </items>
                   </Menu>
             <MenuItem mnemonicParsing="false" text="Cerrar Dia" />
-            <MenuItem mnemonicParsing="false" onAction="#moveOfferToRecent" text="Desasignar Ofertas" />
+            <MenuItem mnemonicParsing="false" onAction="#moveOffersToRecent" text="Desasignar Ofertas" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" onAction="#moveOffertoAssigned" text="Agregar a Asignadas" />
             <MenuItem mnemonicParsing="false" onAction="#eraseRecent" text="Borrar Recientes" />
