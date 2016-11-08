@@ -69,12 +69,7 @@ public class Subconjunto
 	public String toString()
 	{
 
-
-
 		Collections.sort(objetos,Comparador.porHorario());
-
-
-
 
 		String s = "{";
 		for (Offer o: objetos)

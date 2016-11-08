@@ -8,10 +8,6 @@ public class Instancia {
 
 	private final ArrayList<Offer> offers;
 
-
-
-
-
 	public enum Sorting{
 		DURACION,PRECIO,COCIENTE;
 	}
@@ -38,9 +34,6 @@ public class Instancia {
 		return offers.size();
 	}
 
-	public boolean hasAviableOffers(){
-		return this.getOffers().size() != 0;
-	}
 
 	@SuppressWarnings("unchecked")
 	public ArrayList<Offer> cloneOffers()

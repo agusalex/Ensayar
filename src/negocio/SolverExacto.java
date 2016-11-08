@@ -48,7 +48,7 @@ public class SolverExacto implements Solver
 			generarDesde(k+1);
 
 
-}
+	}
 
 	private void analizarActual()
 	{

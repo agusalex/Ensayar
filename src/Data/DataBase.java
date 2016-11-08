@@ -23,16 +23,17 @@ public class DataBase {
 
     private DataBase(){}
 
-    public ArrayList<Offer> getOffers() {return offers;}
-
-    public void setOffers(ArrayList<Offer> offers) {this.offers = offers;}
-
     public static DataBase getDb() {
         if(db == null){
             db = new DataBase();
         }
         return db;
     }
+
+    public ArrayList<Offer> getOffers() {return offers;}
+
+    public void setOffers(ArrayList<Offer> offers) {this.offers = offers;}
+
 
     public void save(){
         Type listType = new TypeToken<List<Offer>>() {}.getType();

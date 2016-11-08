@@ -122,13 +122,13 @@ public class Manager {
         Manager.assignedOffers = assignedOffers;
     }
 
-    public static void emptyOffer(){ Manager.temporaryOffer = null;}
+    public static void emptyTemporaryOffer(){ Manager.temporaryOffer = null;}
 
     public static void setOffer(ArrayList<Offer.Instruments> instruments, Schedule schedule, Client client){
         Manager.temporaryOffer = new Offer (instruments,schedule,client);
     }
 
-    public static Offer getOffer(){
+    public static Offer getTemporaryOffer(){
         return Manager.temporaryOffer;
     }
 

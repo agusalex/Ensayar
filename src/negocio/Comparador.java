@@ -86,7 +86,7 @@ public class Comparador
 	{
 		return new Comparator<Offer>()
 		{
-
+			@Override
 			public int compare(Offer uno, Offer otro)
 			{
 				if(uno.getDuration() == 0 || otro.getDuration() == 0){

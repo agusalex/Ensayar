@@ -23,8 +23,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import static UI.Manager.getAssignedOffers;
-
 
 public class Controller implements Initializable{
 
@@ -40,6 +38,7 @@ public class Controller implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        Manager.loadDB();
         showAssignedOffers();
         showRecentOffers();
     }
@@ -49,25 +48,25 @@ public class Controller implements Initializable{
         Manager.resetDB();
         Manager.loadDB();
         refreshVisual();
-
     }
 
     @FXML
     private void eraseAll(){
         eraseAllVisual();
         Manager.getRecentOffers().clear();
-        getAssignedOffers().clear();
+        Manager.getAssignedOffers().clear();
         Manager.resetDB();
     }
+
     @FXML
     private void eraseRecent(){
-
         Manager.getRecentOffers().clear();
         Manager.resetDB();
+        Manager.loadDB();
         refreshVisual();
     }
 
-    public void eraseAllVisual(){
+    private void eraseAllVisual(){
         ObservableList<Node> Assigned = AnchorPaneAssigned.getChildren();
         ObservableList<Node> unAssigned = AnchorPaneRecent.getChildren();
         ArrayList<Node> bkp= new  ArrayList<Node>();
@@ -114,13 +113,11 @@ public class Controller implements Initializable{
 
     }
     private Node getRecentVisualOffer(int i){
-
         int size=AnchorPaneRecent.getChildren().size();
         if(i<0||i>size-3)
             throw new IndexOutOfBoundsException("no hay botonoes a que acceder");
 
-
-    return AnchorPaneRecent.getChildren().get(i+3);
+        return AnchorPaneRecent.getChildren().get(i+3);
     }
 
     private Node getAssignedVisualOffer(int i){
@@ -152,7 +149,6 @@ public class Controller implements Initializable{
 
 
 
-
     private Offer getLogicOffer(Node node) {
         if(node instanceof Button) {
             Parent Anchor = node.getParent();
@@ -161,24 +157,22 @@ public class Controller implements Initializable{
             if (index <= 2)
                 throw new IndexOutOfBoundsException("El elemento visual no corresponde a una oferta logica=" + index);
 
-
             if (Anchor == AnchorPaneAssigned) {
-                if (index -3>= Manager.getAssignedOffers().size())
+                if (index -3 >= Manager.getAssignedOffers().size())
                     throw new IndexOutOfBoundsException("El elemento visual no corresponde a una oferta logica=" + index);
 
                 return Manager.getAssignedOffers().get(index - 3);
             }
+
             if (Anchor == AnchorPaneRecent) {
                 if (index-3 >= Manager.getRecentOffers().size())
                     throw new IndexOutOfBoundsException("El elemento visual no corresponde a una oferta logica=" + index);
 
                 return Manager.getRecentOffers().get(index - 3);
-
             }
         }
 
         throw new IllegalArgumentException("no es una oferta");
-
 
     }
 
@@ -189,24 +183,21 @@ public class Controller implements Initializable{
         selectedElement=offer;
         Offer oferta= getLogicOffer(offer);
         showOfferInfo(oferta);
-
     }
 
 
-    private void showOfferInfo(Offer offer){//FIXME AGRGAR HORARIOS Y TELEFONO
-        if(offer!=null){
+    private void showOfferInfo(Offer offer) {//FIXME AGRGAR HORARIOS Y TELEFONO
+        if (offer != null) {
             nameSurnameBox.setText(offer.getClient().getName());
             idBox.setText((offer.getClient().getID()));
             instrumetsBox.setText(offer.getInstruments().toString());
             priceBox.setText(Integer.toString(offer.getPrice()));
-            roomBox.setText("1");}
-        else{
+            roomBox.setText("1");
+        } else {
             throw new NullPointerException("Seleccion es null");
         }
-
-
-
     }
+
 
     public int cantLines(String str){
         String[] lines = str.split("\r\n|\r|\n");
@@ -220,7 +211,7 @@ public class Controller implements Initializable{
         offerWindow.start(stage);
 
         //esta oferta se obtiene en el metodo "createOffer" de la clase "OfferWindowController"
-        Offer offerToAdd = Manager.getOffer();
+        Offer offerToAdd = Manager.getTemporaryOffer();
         if(offerToAdd != null) {
             System.out.println(offerToAdd);
             Manager.getRecentOffers().add(offerToAdd);
@@ -228,6 +219,7 @@ public class Controller implements Initializable{
             showRecentOffers();
             showAssignedOffers();
         }
+        Manager.emptyTemporaryOffer();
     }
 
     @FXML
@@ -309,7 +301,7 @@ public class Controller implements Initializable{
 
     @FXML
     void deleteOffer(ActionEvent event) {
-        if(selectedElement instanceof Button &&selectedElement.isFocused()) {
+        if(selectedElement instanceof Button && selectedElement.isFocused()) {
 
             if(selectedElement.getParent()==AnchorPaneRecent){
                 Manager.getRecentOffers().remove(getLogicOffer(selectedElement));
@@ -319,8 +311,6 @@ public class Controller implements Initializable{
             }
             deleteVisualOffer(selectedElement);
             Manager.resetDB();
-
-
         }
     }
 

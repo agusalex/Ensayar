@@ -21,8 +21,6 @@ public class Schedule {
 
     public Schedule(int startH,int startM,int endH,int endM){
 
-
-
         if(endH==24&&endM>0)
             throw new IllegalArgumentException("El horario no puede terminar mas de las 24");
 

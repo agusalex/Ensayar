@@ -271,5 +271,5 @@ public class OfferWindowController implements Initializable {
         return  min == 30 || min == 0;
     }
 
-
+//
 }
