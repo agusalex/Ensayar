@@ -47,8 +47,8 @@ public class Manager {
             DataBase.getDb().getOffers().add(offer);
 
         DataBase.getDb().save();
-
     }
+
 
 
     public static void calculateOffersBy(Solver solver){
@@ -103,6 +103,39 @@ public class Manager {
             }*/
 
         }
+    }
+
+    public static void loadDB(String filePath){
+        ArrayList<Offer> dataBaseOffers = new ArrayList<Offer>();
+        recentOffers = new ArrayList<Offer>();
+        assignedOffers = new ArrayList<Offer>();
+        DataBase.getDb().Import(filePath);
+
+        dataBaseOffers = DataBase.getDb().getOffers();
+
+        for (Offer offer : dataBaseOffers) {
+
+            if (offer.getDateAvailable() == null)
+                recentOffers.add(offer);
+            else{
+                assignedOffers.add(offer);
+            }
+            /*else if(offer.getDateAvailable().after(Calendar.getInstance())){
+                assignedOffers.add(offer);
+            }
+            else if (offer.getDateAvailable().equals(Calendar.getInstance())) {
+                assignedOffers.add(offer);
+            }
+            else if((offer.getDateAvailable().before(Calendar.getInstance()))){
+                //NO LA AGREGO SI ES VIEJA
+
+            }*/
+
+        }
+    }
+
+    public static void saveDB(String filePath){
+        DataBase.getDb().Export(filePath);
     }
 
 

@@ -1,156 +1,292 @@
 [
   {
-    "price": 240,
+    "price": 220,
     "client": {
-      "ID": "2",
-      "Name": "Agustin",
-      "Mobile": "1528141232"
+      "ID": "32456987",
+      "Name": "Fede",
+      "Mobile": "1569873412"
     },
     "schedule": {
       "start": {
         "year": 2016,
         "month": 10,
-        "dayOfMonth": 7,
-        "hourOfDay": 2,
-        "minute": 30,
-        "second": 48
+        "dayOfMonth": 8,
+        "hourOfDay": 3,
+        "minute": 0,
+        "second": 11
       },
       "end": {
         "year": 2016,
         "month": 10,
-        "dayOfMonth": 7,
-        "hourOfDay": 7,
+        "dayOfMonth": 8,
+        "hourOfDay": 5,
         "minute": 0,
-        "second": 48
+        "second": 11
       },
-      "starth": 2,
-      "endH": 7,
-      "startMins": 30,
+      "starth": 3,
+      "endH": 5,
+      "startMins": 0,
       "endMins": 0
     },
     "instruments": [
-      "GUITARRA",
-      "BATERIA"
+      "BATERIA",
+      "BAJO",
+      "TECLADO"
     ],
-    "duration": 4,
-    "durationInMin": 30,
+    "duration": 2,
+    "durationInMin": 0,
     "nonHalfHour": 0
   },
   {
     "price": 250,
     "client": {
-      "ID": "7",
-      "Name": "Pustilnik",
-      "Mobile": "1535429186"
+      "ID": "14321987",
+      "Name": "Emma",
+      "Mobile": "1587451324"
     },
     "schedule": {
       "start": {
         "year": 2016,
         "month": 10,
-        "dayOfMonth": 7,
-        "hourOfDay": 1,
+        "dayOfMonth": 8,
+        "hourOfDay": 5,
         "minute": 0,
-        "second": 48
+        "second": 51
       },
       "end": {
         "year": 2016,
         "month": 10,
-        "dayOfMonth": 7,
-        "hourOfDay": 6,
+        "dayOfMonth": 8,
+        "hourOfDay": 10,
         "minute": 0,
-        "second": 48
+        "second": 51
       },
-      "starth": 1,
-      "endH": 6,
+      "starth": 5,
+      "endH": 10,
       "startMins": 0,
       "endMins": 0
     },
     "instruments": [
-      "GUITARRA",
-      "GUITARRA"
+      "BATERIA",
+      "MICROFONO"
     ],
     "duration": 5,
     "durationInMin": 0,
     "nonHalfHour": 0
   },
   {
-    "price": 190,
+    "price": 170,
     "client": {
-      "ID": "2",
-      "Name": "Agustin",
-      "Mobile": "1573223937"
+      "ID": "12345654",
+      "Name": "Agus",
+      "Mobile": "1523432132"
     },
     "schedule": {
       "start": {
         "year": 2016,
         "month": 10,
-        "dayOfMonth": 7,
-        "hourOfDay": 3,
-        "minute": 30,
-        "second": 48
+        "dayOfMonth": 8,
+        "hourOfDay": 2,
+        "minute": 0,
+        "second": 47
       },
       "end": {
         "year": 2016,
         "month": 10,
-        "dayOfMonth": 7,
-        "hourOfDay": 8,
+        "dayOfMonth": 8,
+        "hourOfDay": 4,
         "minute": 0,
-        "second": 48
+        "second": 47
       },
-      "starth": 3,
-      "endH": 8,
-      "startMins": 30,
+      "starth": 2,
+      "endH": 4,
+      "startMins": 0,
       "endMins": 0
     },
     "instruments": [
-      "BATERIA"
+      "BATERIA",
+      "TECLADO"
     ],
-    "duration": 4,
-    "durationInMin": 30,
+    "duration": 2,
+    "durationInMin": 0,
     "nonHalfHour": 0
   },
   {
-    "price": 190,
+    "price": 270,
     "client": {
-      "ID": "2",
-      "Name": "Agustin",
-      "Mobile": "1590445936"
+      "ID": "23456789",
+      "Name": "Matzi",
+      "Mobile": "1523467890"
+    },
+    "schedule": {
+      "start": {
+        "year": 2016,
+        "month": 10,
+        "dayOfMonth": 8,
+        "hourOfDay": 1,
+        "minute": 0,
+        "second": 25
+      },
+      "end": {
+        "year": 2016,
+        "month": 10,
+        "dayOfMonth": 8,
+        "hourOfDay": 2,
+        "minute": 0,
+        "second": 25
+      },
+      "starth": 1,
+      "endH": 2,
+      "startMins": 0,
+      "endMins": 0
+    },
+    "instruments": [
+      "BATERIA",
+      "BAJO",
+      "GUITARRA",
+      "TECLADO",
+      "MICROFONO"
+    ],
+    "duration": 1,
+    "durationInMin": 0,
+    "nonHalfHour": 0
+  },
+  {
+    "price": 450,
+    "client": {
+      "ID": "12345678",
+      "Name": "asdf",
+      "Mobile": "1523467890"
     },
     "dateAvailable": {
       "year": 2016,
       "month": 10,
-      "dayOfMonth": 8,
-      "hourOfDay": 2,
-      "minute": 55,
-      "second": 43
+      "dayOfMonth": 10,
+      "hourOfDay": 15,
+      "minute": 58,
+      "second": 17
     },
     "schedule": {
       "start": {
         "year": 2016,
         "month": 10,
-        "dayOfMonth": 7,
-        "hourOfDay": 1,
-        "minute": 30,
-        "second": 48
+        "dayOfMonth": 8,
+        "hourOfDay": 15,
+        "minute": 0,
+        "second": 38
       },
       "end": {
         "year": 2016,
         "month": 10,
-        "dayOfMonth": 7,
-        "hourOfDay": 6,
+        "dayOfMonth": 8,
+        "hourOfDay": 22,
         "minute": 0,
-        "second": 48
+        "second": 38
       },
-      "starth": 1,
-      "endH": 6,
-      "startMins": 30,
+      "starth": 15,
+      "endH": 22,
+      "startMins": 0,
       "endMins": 0
     },
     "instruments": [
-      "BATERIA"
+      "BATERIA",
+      "BAJO",
+      "GUITARRA",
+      "TECLADO",
+      "MICROFONO"
     ],
-    "duration": 4,
-    "durationInMin": 30,
+    "duration": 7,
+    "durationInMin": 0,
+    "nonHalfHour": 0
+  },
+  {
+    "price": 150,
+    "client": {
+      "ID": "00000000",
+      "Name": "Pustilnik",
+      "Mobile": "0800333222"
+    },
+    "dateAvailable": {
+      "year": 2016,
+      "month": 10,
+      "dayOfMonth": 10,
+      "hourOfDay": 15,
+      "minute": 58,
+      "second": 17
+    },
+    "schedule": {
+      "start": {
+        "year": 2016,
+        "month": 10,
+        "dayOfMonth": 8,
+        "hourOfDay": 1,
+        "minute": 0,
+        "second": 26
+      },
+      "end": {
+        "year": 2016,
+        "month": 10,
+        "dayOfMonth": 8,
+        "hourOfDay": 6,
+        "minute": 0,
+        "second": 26
+      },
+      "starth": 1,
+      "endH": 6,
+      "startMins": 0,
+      "endMins": 0
+    },
+    "instruments": [],
+    "duration": 5,
+    "durationInMin": 0,
+    "nonHalfHour": 0
+  },
+  {
+    "price": 300,
+    "client": {
+      "ID": "23456098",
+      "Name": "Cosme Fulanito",
+      "Mobile": "1567983213"
+    },
+    "dateAvailable": {
+      "year": 2016,
+      "month": 10,
+      "dayOfMonth": 10,
+      "hourOfDay": 15,
+      "minute": 58,
+      "second": 17
+    },
+    "schedule": {
+      "start": {
+        "year": 2016,
+        "month": 10,
+        "dayOfMonth": 8,
+        "hourOfDay": 6,
+        "minute": 0,
+        "second": 12
+      },
+      "end": {
+        "year": 2016,
+        "month": 10,
+        "dayOfMonth": 8,
+        "hourOfDay": 8,
+        "minute": 0,
+        "second": 12
+      },
+      "starth": 6,
+      "endH": 8,
+      "startMins": 0,
+      "endMins": 0
+    },
+    "instruments": [
+      "BATERIA",
+      "BAJO",
+      "GUITARRA",
+      "TECLADO",
+      "MICROFONO"
+    ],
+    "duration": 2,
+    "durationInMin": 0,
     "nonHalfHour": 0
   }
 ]

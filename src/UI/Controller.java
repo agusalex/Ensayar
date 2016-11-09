@@ -11,6 +11,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import negocio.Comparador;
@@ -18,6 +20,7 @@ import negocio.Solver;
 import negocio.SolverExacto;
 import negocio.SolverGoloso;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -36,33 +39,62 @@ public class Controller implements Initializable{
         PRICE, HOURS, BEST, PRICE_HOUR
     }
 
+    private FileChooser fileChooser;
+    private DirectoryChooser dirChooser;
+    private File selectedDirectory;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         showAssignedOffers();
         showRecentOffers();
+
     }
 
-    @FXML
-    void update() {
-        Manager.resetDB();
-        Manager.loadDB();
-        refreshVisual();
-    }
 
-    @FXML
-    private void eraseAll(){
+
+    private void refreshVisual() {
         eraseAllVisual();
-        Manager.getRecentOffers().clear();
-        Manager.getAssignedOffers().clear();
-        Manager.resetDB();
+        showAssignedOffers();
+        showRecentOffers();
     }
 
-    @FXML
-    private void eraseRecent(){
-        Manager.getRecentOffers().clear();
-        Manager.resetDB();
-        Manager.loadDB();
-        refreshVisual();
+    private void showRecentOffers(){
+
+        AnchorPane assigned = AnchorPaneRecent;
+        Button demo = recentOffer0;
+        ObservableList<Node> children = assigned.getChildren();
+        double start =recentOffer0.getLayoutY();
+        int x=0;
+
+        for(Offer offer : Manager.getRecentOffers()){
+            Button n = new Button(offer.getClient()+""+offer.getSchedule());
+            n.setLayoutY(start+(x*cantLines(n.getText())*19));
+            n.setOnAction(demo.getOnAction());
+            n.prefWidthProperty().bind(demo.widthProperty()); //RE IMPORTANTE ESTE COMANDO
+            assigned.getChildren().add(n);
+            x++;
+        }
+
+    }
+
+    private void showAssignedOffers(){
+        AnchorPane assigned = AnchorPaneAssigned;
+        Button demo = offer0;
+        ObservableList<Node> children = assigned.getChildren();
+        double start =offer0.getLayoutY();
+
+
+        int x=0;
+
+        for(Offer offer : Manager.getAssignedOffers()){
+            Button n=new Button(offer.getClient()+""+offer.getSchedule());
+            n.setOnAction(demo.getOnAction());
+            n.setLayoutY(start+(x*cantLines(n.getText())*19));
+            n.prefWidthProperty().bind(demo.widthProperty()); //RE IMPORTANTE ESTE COMANDO
+            assigned.getChildren().add(n);
+            x++;
+        }
+
     }
 
     private void eraseAllVisual(){
@@ -91,26 +123,30 @@ public class Controller implements Initializable{
             unAssigned.add(n);
     }
 
-
-    private void showAssignedOffers(){
-        AnchorPane assigned = AnchorPaneAssigned;
-        Button demo = offer0;
-        ObservableList<Node> children = assigned.getChildren();
-        double start =offer0.getLayoutY();
-
-
-        int x=0;
-
-        for(Offer offer : Manager.getAssignedOffers()){
-            Button n=new Button(offer.getClient()+""+offer.getSchedule());
-            n.setOnAction(demo.getOnAction());
-            n.setLayoutY(start+(x*cantLines(n.getText())*19));
-            n.prefWidthProperty().bind(demo.widthProperty()); //RE IMPORTANTE ESTE COMANDO
-            assigned.getChildren().add(n);
-            x++;
-        }
-
+    @FXML
+    void update() {
+        Manager.resetDB();
+        Manager.loadDB();
+        refreshVisual();
     }
+
+    @FXML
+    private void eraseAll(){
+        eraseAllVisual();
+        Manager.getRecentOffers().clear();
+        Manager.getAssignedOffers().clear();
+        Manager.resetDB();
+    }
+
+    @FXML
+    private void eraseRecent(){
+        Manager.getRecentOffers().clear();
+        Manager.resetDB();
+        Manager.loadDB();
+        refreshVisual();
+    }
+
+
     private Node getRecentVisualOffer(int i){
         int size=AnchorPaneRecent.getChildren().size();
         if(i<0||i>size-3)
@@ -126,26 +162,6 @@ public class Controller implements Initializable{
 
         return AnchorPaneAssigned.getChildren().get(i+3);
     }
-
-    private void showRecentOffers(){
-
-        AnchorPane assigned = AnchorPaneRecent;
-        Button demo = recentOffer0;
-        ObservableList<Node> children = assigned.getChildren();
-        double start =recentOffer0.getLayoutY();
-        int x=0;
-
-        for(Offer offer : Manager.getRecentOffers()){
-            Button n = new Button(offer.getClient()+""+offer.getSchedule());
-            n.setLayoutY(start+(x*cantLines(n.getText())*19));
-            n.setOnAction(demo.getOnAction());
-            n.prefWidthProperty().bind(demo.widthProperty()); //RE IMPORTANTE ESTE COMANDO
-            assigned.getChildren().add(n);
-            x++;
-        }
-
-    }
-
 
 
     private Offer getLogicOffer(Node node) {
@@ -283,6 +299,7 @@ public class Controller implements Initializable{
             Manager.getRecentOffers().remove(oferta);
             oferta.setAvailableTomorrow();//TODO LLamar a el calendario para que elija cuando va a estar disponible
             Manager.getAssignedOffers().add(oferta);
+            Manager.resetDB();
             refreshVisual();
         }
     }
@@ -327,11 +344,6 @@ public class Controller implements Initializable{
 
     }
 
-    private void refreshVisual() {
-        eraseAllVisual();
-        showAssignedOffers();
-        showRecentOffers();
-    }
 
 
     @FXML
@@ -367,6 +379,55 @@ public class Controller implements Initializable{
         refreshVisual();
     }
 
+    //ventena que indica al usuario donde quiere guardar las ofertas , despues elije si guardarlas ahi o en otro lugar
+    private void setUpFileChooser(){
+        Stage stage = (Stage) nameSurnameBox.getScene().getWindow();
+        fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON","*.json"));
+        dirChooser = new DirectoryChooser();
+        selectedDirectory = dirChooser.showDialog(stage);
+        fileChooser.setInitialDirectory( selectedDirectory);
+    }
+
+    @FXML
+    void importOffers() {
+        setUpFileChooser();
+        Stage stage = (Stage) nameSurnameBox.getScene().getWindow();
+        fileChooser.setTitle("Open Resource File");
+        File offerFile = fileChooser.showOpenDialog(stage);
+        if(offerFile == null) {
+            return;
+        }
+
+        String path = offerFile.getAbsolutePath();
+        Manager.loadDB(path);
+        refreshVisual();
+    }
+
+
+    @FXML
+    void exportOffers() {
+        setUpFileChooser();
+        Stage stage = (Stage) nameSurnameBox.getScene().getWindow();
+        fileChooser.setTitle("Export Offers");
+        File offerFile = fileChooser.showSaveDialog(stage);
+        if(offerFile == null) {
+            return;
+        }
+        String path = offerFile.getAbsolutePath();
+        Manager.saveDB(path);
+        infoSavedFile();
+    }
+
+    void infoSavedFile() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.initStyle(StageStyle.UTILITY);
+        alert.setTitle("Guardado con exito");
+        alert.setHeaderText(null);
+        alert.setContentText("Se ha guardado el archivo con exito");
+        alert.showAndWait();
+
+    }
 
     @FXML
     private Button offer0;

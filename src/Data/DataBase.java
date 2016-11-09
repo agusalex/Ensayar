@@ -13,7 +13,7 @@ import java.util.List;
  * Created by Agus on 23/10/2016.
  */
 public class DataBase {
-    private final String filename = "Offers.json";
+    private static String filename = "Offers.json";
     private static DataBase db;
     private ArrayList<Offer> offers;
     private boolean archivoCorrupto = false;
@@ -33,6 +33,7 @@ public class DataBase {
     public ArrayList<Offer> getOffers() {return offers;}
 
     public void setOffers(ArrayList<Offer> offers) {this.offers = offers;}
+
 
 
     public void save(){
