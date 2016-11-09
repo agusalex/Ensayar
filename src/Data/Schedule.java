@@ -61,12 +61,14 @@ public class Schedule {
 
     public boolean conflictsWith(Schedule that){
 
-        if(this.start.after(that.end)|| this.end.before(that.start)){
+        if(this.start.after(that.end) || this.end.before(that.start)){
             return false;
         }
 
-        else if(this.end.equals(that.start) ||this.start.equals(that.end) )
+        else if(this.endH == that.starth || this.starth == that.endH )
             return false;
+
+
 
         return true;
 

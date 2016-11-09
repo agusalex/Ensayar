@@ -38,13 +38,12 @@ public class Controller implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Manager.loadDB();
         showAssignedOffers();
         showRecentOffers();
     }
 
     @FXML
-    void update(ActionEvent event) {
+    void update() {
         Manager.resetDB();
         Manager.loadDB();
         refreshVisual();
@@ -220,6 +219,7 @@ public class Controller implements Initializable{
             showAssignedOffers();
         }
         Manager.emptyTemporaryOffer();
+        update();
     }
 
     @FXML
@@ -336,7 +336,7 @@ public class Controller implements Initializable{
 
     @FXML
     void bestOffers(ActionEvent event) {
-
+        moveOffersToRecent();
        Solver bruteForce=new SolverExacto();
         Manager.calculateOffersBy(bruteForce);
         refreshVisual();
@@ -345,6 +345,7 @@ public class Controller implements Initializable{
 
     @FXML
     void price_Hour(ActionEvent event) {
+        moveOffersToRecent();
         Solver cociente=new SolverGoloso(SolverGoloso.Criterios.COCIENTE);
         Manager.calculateOffersBy(cociente);
         refreshVisual();
@@ -352,6 +353,7 @@ public class Controller implements Initializable{
 
     @FXML
     void highestPrice(ActionEvent event) {
+        moveOffersToRecent();
         Solver precio=new SolverGoloso(SolverGoloso.Criterios.PRECIO);
         Manager.calculateOffersBy(precio);
         refreshVisual();
@@ -359,6 +361,7 @@ public class Controller implements Initializable{
 
     @FXML
     void moreHours(ActionEvent event) {
+        moveOffersToRecent();
         Solver cargaHoraria=new SolverGoloso(SolverGoloso.Criterios.HORARIO);
         Manager.calculateOffersBy(cargaHoraria);
         refreshVisual();

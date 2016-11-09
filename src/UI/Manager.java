@@ -74,7 +74,7 @@ public class Manager {
 
     }
 
-
+//
 
     public static void loadDB(){
         ArrayList<Offer> dataBaseOffers = new ArrayList<Offer>();
