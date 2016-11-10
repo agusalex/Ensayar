@@ -1,1 +1,147 @@
-[]
+[
+  {
+    "instruments": [
+      "TECLADO",
+      "BAJO",
+      "GUITARRA",
+      "BATERIA"
+    ],
+    "price": 375,
+    "client": {
+      "ID": "2",
+      "Name": "Agustin",
+      "Mobile": "1568950151"
+    },
+    "schedule": {
+      "start": {
+        "year": 2016,
+        "month": 10,
+        "dayOfMonth": 10,
+        "hourOfDay": 3,
+        "minute": 30,
+        "second": 10
+      },
+      "end": {
+        "year": 2016,
+        "month": 10,
+        "dayOfMonth": 10,
+        "hourOfDay": 8,
+        "minute": 30,
+        "second": 10
+      },
+      "starth": 3,
+      "endH": 8,
+      "startMins": 30,
+      "endMins": 30
+    },
+    "duration": 5,
+    "durationInMin": 0
+  },
+  {
+    "instruments": [
+      "BATERIA"
+    ],
+    "price": 205,
+    "client": {
+      "ID": "1",
+      "Name": "Gerardo",
+      "Mobile": "1591383472"
+    },
+    "schedule": {
+      "start": {
+        "year": 2016,
+        "month": 10,
+        "dayOfMonth": 10,
+        "hourOfDay": 4,
+        "minute": 30,
+        "second": 10
+      },
+      "end": {
+        "year": 2016,
+        "month": 10,
+        "dayOfMonth": 10,
+        "hourOfDay": 9,
+        "minute": 0,
+        "second": 10
+      },
+      "starth": 4,
+      "endH": 9,
+      "startMins": 30,
+      "endMins": 0
+    },
+    "duration": 4,
+    "durationInMin": 30
+  },
+  {
+    "instruments": [
+      "TECLADO",
+      "BATERIA",
+      "TECLADO"
+    ],
+    "price": 285,
+    "client": {
+      "ID": "7",
+      "Name": "Pustilnik",
+      "Mobile": "1509932390"
+    },
+    "schedule": {
+      "start": {
+        "year": 2016,
+        "month": 10,
+        "dayOfMonth": 10,
+        "hourOfDay": 3,
+        "minute": 30,
+        "second": 10
+      },
+      "end": {
+        "year": 2016,
+        "month": 10,
+        "dayOfMonth": 10,
+        "hourOfDay": 8,
+        "minute": 0,
+        "second": 10
+      },
+      "starth": 3,
+      "endH": 8,
+      "startMins": 30,
+      "endMins": 0
+    },
+    "duration": 4,
+    "durationInMin": 30
+  },
+  {
+    "instruments": [
+      "BATERIA"
+    ],
+    "price": 235,
+    "client": {
+      "ID": "3",
+      "Name": "Emmanuel",
+      "Mobile": "1535120594"
+    },
+    "schedule": {
+      "start": {
+        "year": 2016,
+        "month": 10,
+        "dayOfMonth": 10,
+        "hourOfDay": 1,
+        "minute": 0,
+        "second": 10
+      },
+      "end": {
+        "year": 2016,
+        "month": 10,
+        "dayOfMonth": 10,
+        "hourOfDay": 6,
+        "minute": 0,
+        "second": 10
+      },
+      "starth": 1,
+      "endH": 6,
+      "startMins": 0,
+      "endMins": 0
+    },
+    "duration": 5,
+    "durationInMin": 0
+  }
+]
