@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import static Data.DataBase.getDb;
+
 /**
  * Created by Max on 11/4/2016.
  */
@@ -39,21 +41,21 @@ public class Manager {
 
 
     public static void resetDB(){
-        DataBase.getDb().getOffers().clear();
+        getDb().getOffers().clear();
         for (Offer offer:recentOffers)
-            DataBase.getDb().getOffers().add(offer);
+            getDb().getOffers().add(offer);
 
         for(Offer offer :assignedOffers)
-            DataBase.getDb().getOffers().add(offer);
+            getDb().getOffers().add(offer);
 
-        DataBase.getDb().save();
+        getDb().save();
     }
 
 
 
     public static void calculateOffersBy(Solver solver){
         Instancia instance = new Instancia();
-        for(Offer of : DataBase.getDb().getOffers())
+        for(Offer of : getDb().getOffers())
             instance.agregarObjeto(of);
 
         Subconjunto solution = solver.resolver(instance);
@@ -66,7 +68,7 @@ public class Manager {
             Manager.getAssignedOffers().add(of);
         }
 
-        for(Offer of : DataBase.getDb().getOffers()){
+        for(Offer of : getDb().getOffers()){
             if(!solution.contiene(of))
                 Manager.getRecentOffers().add(of);
         }
@@ -80,9 +82,9 @@ public class Manager {
         ArrayList<Offer> dataBaseOffers = new ArrayList<Offer>();
         recentOffers = new ArrayList<Offer>();
         assignedOffers = new ArrayList<Offer>();
-        DataBase.getDb().load();
+        getDb().load();
 
-        dataBaseOffers = DataBase.getDb().getOffers();
+        dataBaseOffers = DataBase.getOffers();
 
         for (Offer offer : dataBaseOffers) {
 
@@ -105,37 +107,58 @@ public class Manager {
         }
     }
 
-    public static void loadDB(String filePath){
-        ArrayList<Offer> dataBaseOffers = new ArrayList<Offer>();
+    public static boolean importDB(String filePath){
+
         recentOffers = new ArrayList<Offer>();
         assignedOffers = new ArrayList<Offer>();
-        DataBase.getDb().Import(filePath);
 
-        dataBaseOffers = DataBase.getDb().getOffers();
+        boolean isSuccess=DataBase.Import(filePath);
 
-        for (Offer offer : dataBaseOffers) {
+        if(isSuccess){
+            for (Offer offer : DataBase.getOffers()) {
 
-            if (offer.getDateAvailable() == null)
-                recentOffers.add(offer);
-            else{
-                assignedOffers.add(offer);
+                if (offer.getDateAvailable() == null)
+                    recentOffers.add(offer);
+                else{
+                    assignedOffers.add(offer);
             }
-            /*else if(offer.getDateAvailable().after(Calendar.getInstance())){
-                assignedOffers.add(offer);
             }
-            else if (offer.getDateAvailable().equals(Calendar.getInstance())) {
-                assignedOffers.add(offer);
-            }
-            else if((offer.getDateAvailable().before(Calendar.getInstance()))){
-                //NO LA AGREGO SI ES VIEJA
-
-            }*/
-
         }
+        resetDB();
+
+        return isSuccess;
     }
 
-    public static void saveDB(String filePath){
-        DataBase.getDb().Export(filePath);
+
+
+    public static boolean mergeDB(String filePath){
+
+        boolean isSuccess=DataBase.Import(filePath);
+
+        if(isSuccess){
+            for (Offer offer : DataBase.getOffers()) {
+                boolean alreadyExists=recentOffers.contains(offer)||assignedOffers.contains(offer);
+                if(!alreadyExists) {
+                    if (offer.getDateAvailable() == null)
+                        recentOffers.add(offer);
+                    else {
+                        assignedOffers.add(offer);
+                    }
+                }
+            }
+        }
+        resetDB();
+
+        return isSuccess;
+    }
+
+
+
+
+    public static boolean exportDB(String filePath){
+              DataBase.getDb();
+
+        return DataBase.Export(filePath);
     }
 
 

@@ -401,8 +401,36 @@ public class Controller implements Initializable{
         }
 
         String path = offerFile.getAbsolutePath();
-        Manager.loadDB(path);
+        boolean isSuccess=Manager.importDB(path);
         refreshVisual();
+        if(isSuccess)
+            showMessage("Base de datos importada con exito","Importar","Base de Datos");
+        else{
+            showMessage("Error al importar la Base de datos","Importar: ERROR","Error");
+        }
+    }
+
+
+    @FXML
+    void mergeOffers(){
+        setUpFileChooser();
+        Stage stage = (Stage) nameSurnameBox.getScene().getWindow();
+
+        fileChooser.setTitle("Combinar");
+        File offerFile = fileChooser.showOpenDialog(stage);
+        if(offerFile == null) {
+            return;
+        }
+
+        String path = offerFile.getAbsolutePath();
+        boolean isSuccess=Manager.mergeDB(path);
+
+        refreshVisual();
+        if(isSuccess)
+            showMessage("Base de datos actualizada con exito","Combinar","Base de Datos");
+        else{
+            showMessage("Error al actualizar la Base de datos","Combinar: ERROR","Error");
+        }
     }
 
 
@@ -412,28 +440,48 @@ public class Controller implements Initializable{
         Stage stage = (Stage) nameSurnameBox.getScene().getWindow();
         fileChooser.setTitle("Export Offers");
         File offerFile = fileChooser.showSaveDialog(stage);
+
         if(offerFile == null) {
-            return;
+            showMessage("Error al exportar, Base datos vacia","Error!:Exportar","Base de Datos");
+
         }
+
         String path = offerFile.getAbsolutePath();
-        Manager.saveDB(path);
-        infoSavedFile(new File(path));
+
+        boolean success=Manager.exportDB(path);
+
+        if(offerFile.exists())
+            showMessage("Se ha guardado el archivo con exito","Exportar","Base de Datos");
+        else
+            showMessage("Error al exportar, el archivo no se pudo guardar","Error!: Exportar","Base de Datos");
 }
 
-    void infoSavedFile(File file) {
+
+    void showMessage(String msg, String title,String header) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.initStyle(StageStyle.UTILITY);
-        if(file.exists()){
-        alert.setTitle("Guardado con exito");
-        alert.setHeaderText(null);
-        alert.setContentText("Se ha guardado el archivo con exito");}
-        else{
-            alert.setTitle("Error!");
-            alert.setHeaderText(null);
-            alert.setContentText("No se ha guardado el archivo");}
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(msg);
         alert.showAndWait();
-
     }
+    void showMessage(String msg) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.initStyle(StageStyle.UTILITY);
+        alert.setTitle(null);
+        alert.setHeaderText(null);
+        alert.setContentText(msg);
+        alert.showAndWait();
+    }
+    void showMessage(String msg, String title) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.initStyle(StageStyle.UTILITY);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(msg);
+        alert.showAndWait();
+    }
+
 
     @FXML
     private Button offer0;

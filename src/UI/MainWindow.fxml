@@ -30,6 +30,7 @@
         <Menu mnemonicParsing="false" text="Archivo">
           <items>
             <MenuItem mnemonicParsing="false" onAction="#importOffers" text="Importar Datos" />
+                  <MenuItem mnemonicParsing="false" onAction="#mergeOffers" text="Combinar Datos" />
             <MenuItem mnemonicParsing="false" onAction="#exportOffers" text="Exportar Datos" />
             <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem fx:id="eraseAll" mnemonicParsing="false" onAction="#eraseAll" text="Borrar Todo" />

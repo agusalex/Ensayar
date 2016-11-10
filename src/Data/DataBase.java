@@ -15,11 +15,10 @@ import java.util.List;
 public class DataBase {
     private static String filename = "Offers.json";
     private static DataBase db;
-    private ArrayList<Offer> offers;
+    private static ArrayList<Offer> offers;
     private boolean archivoCorrupto = false;
-
-    private File file = new File (filename);
-    private String dir = file.getAbsolutePath();
+    private static File file = new File (filename);
+    private static String dir = file.getAbsolutePath();
 
     private DataBase(){}
 
@@ -30,16 +29,17 @@ public class DataBase {
         return db;
     }
 
-    public ArrayList<Offer> getOffers() {return offers;}
+    public static ArrayList<Offer> getOffers() {return offers;}
 
-    public void setOffers(ArrayList<Offer> offers) {this.offers = offers;}
+    void setOffers(ArrayList<Offer> offers) {
+        DataBase.offers = offers;}
 
 
 
     public void save(){
         Type listType = new TypeToken<List<Offer>>() {}.getType();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String offers = gson.toJson(this.offers,listType);
+        String offers = gson.toJson(DataBase.offers,listType);
 
         try{
             BufferedWriter fileWriter = new BufferedWriter(new FileWriter(this.filename));
@@ -75,7 +75,7 @@ public class DataBase {
         } catch (Exception e) {
             try{
                 BufferedWriter br = new BufferedWriter(new FileWriter(this.dir));
-                this.offers= new ArrayList<Offer>();
+                offers= new ArrayList<Offer>();
                 save();
                 load();
             } catch (Exception b){
@@ -89,47 +89,59 @@ public class DataBase {
 
 
 
-    public void Export(String FilePath){
+    public static boolean Export(String FilePath){
+       boolean isSuccess=true;
         Type listType = new TypeToken<List<Offer>>() {}.getType();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String offers = gson.toJson(this.offers,listType);
+
+        String offers = gson.toJson(getDb().getOffers(),listType);
 
         try{
             BufferedWriter fileWriter = new BufferedWriter(new FileWriter(FilePath));
             fileWriter.write(offers);
+            if(!new File(FilePath).exists()){
+                isSuccess=false;
+            }
             fileWriter.close();
         }
         catch (Exception e){
             e.printStackTrace();
             System.out.println("Falla en la escritura de archivos");
+            isSuccess=false;
         }
+
+        return isSuccess;
     }
-    public void Import(String FilePath){
+    public static boolean Import(String FilePath){
+        boolean isSuccess=true;
         Gson gson = new Gson();
         File f = new File(FilePath);
         Type listType = new TypeToken<List<Offer>>() {}.getType();
-
+        ArrayList<Offer> offrs=new ArrayList<Offer>();
         try {
             if (f.exists()) {
                 try {
-                    this.offers = gson.fromJson(new FileReader(FilePath), listType);
-                } catch (Exception e) {
-                    System.out.println("Archivo corrupto, generando instancia vacia");
-                    archivoCorrupto = true;
-                }
-                if (offers == null)
-                    System.out.println("Archivo vacio, creando uno nuevo...");
-
-            } else {
+                    offrs = gson.fromJson(new FileReader(FilePath), listType);
+                } catch (Exception e){
+                    isSuccess=false;}
+                if (offrs == null)
+                    isSuccess=false;
+            }
+            else {
                 //ESTO ES PARA QUE, SI EL ARCHIVO NO EXISTE, SE CREA UNO VACIO, QUE DESPUES SE MODIFICA SEGUN LO QUE GUARDE EL USUARIO
-                BufferedWriter br = new BufferedWriter(new FileWriter(this.dir));
+                BufferedWriter br = new BufferedWriter(new FileWriter(dir));
                 br.close();
             }
 
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("No se encuentra el archivo especificado");
+            isSuccess=false;
         }
+        if(isSuccess)
+            getDb().setOffers(offrs);
+
+        return isSuccess;
     }
 
 
