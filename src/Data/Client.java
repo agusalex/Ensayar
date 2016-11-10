@@ -1,15 +1,14 @@
 package Data;
 
-/**
- * Created by Agus on 23/10/2016.
- */
+
+@SuppressWarnings("ALL")
 public class Client {
     private String ID;
     private String Name;
     private String Mobile;
 
-    public Client(String name){
-        this.Name=name;
+    public Client(String name) {
+        this.Name = name;
     }
 
     public String getID() {
@@ -47,20 +46,16 @@ public class Client {
             return ID.equals(client.ID);
         if (Name != null && client.Name != null)
             return Name.equals(client.Name);
-        if(Mobile != null && client.getMobile() != null)
+        if (Mobile != null && client.getMobile() != null)
             return Mobile.equals(client.Mobile);
-        if(ID == null && client.ID == null)
+        if (ID == null && client.ID == null)
             return true;
-        if (Name == null && client.Name == null)
-            return true;
-        if(Mobile == null && client.getMobile() == null)
-            return true;
-        return false;
+        return Name == null && client.Name == null || Mobile == null && client.getMobile() == null;
     }
 
-    public String toString(){
-        return "Nombre: "+ this.Name+ " \nDNI: "
-                + this.ID+ " \nTelefono: "+this.Mobile+"\n";
+    public String toString() {
+        return "Nombre: " + this.Name + " \nDNI: "
+                + this.ID + " \nTelefono: " + this.Mobile + "\n";
     }
 
 }

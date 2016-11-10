@@ -11,47 +11,47 @@ public class Subconjunto
 	private double peso;
 	private double beneficio;
 
-	public Subconjunto()
+	Subconjunto()
 	{
-		objetos = new ArrayList<Offer>();
+		objetos = new ArrayList<>();
 		peso = 0;
 		beneficio = 0;
 	}
 
+	@SuppressWarnings("unused")
 	public double peso()
 	{
 		return peso;
 	}
 
-	public double beneficio()
+	private double beneficio()
 	{
 		return beneficio;
 	}
 
-	public void agregar(Offer obj)
+	void agregar(Offer obj)
 	{
 		objetos.add(obj);
 		peso += obj.getDuration();
 		beneficio += obj.getPrice();
 	}
 
-	public void sacar(Offer obj)
+	void sacar(Offer obj)
 	{
 		objetos.remove(obj);
 		peso -= obj.getDuration();
 		beneficio -= obj.getPrice();
 	}
 
-	public Subconjunto clonar()
+	Subconjunto clonar()
 	{
 		Subconjunto s = new Subconjunto();
-		for (Offer o: objetos)
-			s.agregar(o);
+		objetos.forEach(s::agregar);
 
 		return s;
 	}
 
-	public boolean tieneColisiones(){
+	boolean tieneColisiones(){
 		for(Offer offer1:  this.getOffers()){
 			for(Offer offer2:  this.getOffers()){
 				if(offer1!=offer2){
@@ -78,7 +78,7 @@ public class Subconjunto
 		return s + "}";
 	}
 
-	public boolean tieneMayorBeneficioQue(Subconjunto s)
+	boolean tieneMayorBeneficioQue(Subconjunto s)
 	{
 		return s == null || this.beneficio() >= s.beneficio();
 	}
@@ -99,7 +99,7 @@ public class Subconjunto
 		if (objetos.size() != otro.cantidadDeObjetos())
 			return false;
 		
-		for(Offer objeto: objetos) if (otro.contiene(objeto) == false)
+		for(Offer objeto: objetos) if (otro.contiene(objeto))
 			return false;
 		
 		return true;
@@ -107,10 +107,10 @@ public class Subconjunto
 
 	public boolean contiene(Offer objeto)
 	{
-		return objetos.contains(objeto);
+		return !objetos.contains(objeto);
 	}
 
-	public int cantidadDeObjetos()
+	private int cantidadDeObjetos()
 	{
 		return objetos.size();
 	}

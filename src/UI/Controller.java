@@ -27,21 +27,12 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 
-public class Controller implements Initializable{
+@SuppressWarnings("unused")
+public class Controller implements Initializable {
 
-    public static OfferWindow offerWindow;
-
-    public Calculation calculation;
-
-    public Node selectedElement=null;
-
-    public enum Calculation {
-        PRICE, HOURS, BEST, PRICE_HOUR
-    }
+    private Node selectedElement = null;
 
     private FileChooser fileChooser;
-    private DirectoryChooser dirChooser;
-    private File selectedDirectory;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -51,24 +42,22 @@ public class Controller implements Initializable{
     }
 
 
-
     private void refreshVisual() {
         eraseAllVisual();
         showAssignedOffers();
         showRecentOffers();
     }
 
-    private void showRecentOffers(){
+    private void showRecentOffers() {
 
         AnchorPane assigned = AnchorPaneRecent;
         Button demo = recentOffer0;
-        ObservableList<Node> children = assigned.getChildren();
-        double start =recentOffer0.getLayoutY();
-        int x=0;
+        double start = recentOffer0.getLayoutY();
+        int x = 0;
 
-        for(Offer offer : Manager.getRecentOffers()){
-            Button n = new Button(offer.getClient()+""+offer.getSchedule());
-            n.setLayoutY(start+(x*cantLines(n.getText())*19));
+        for (Offer offer : Manager.getRecentOffers()) {
+            Button n = new Button(offer.getClient() + "" + offer.getSchedule());
+            n.setLayoutY(start + (x * cantLines(n.getText()) * 19));
             n.setOnAction(demo.getOnAction());
             n.prefWidthProperty().bind(demo.widthProperty()); //RE IMPORTANTE ESTE COMANDO
             assigned.getChildren().add(n);
@@ -77,19 +66,18 @@ public class Controller implements Initializable{
 
     }
 
-    private void showAssignedOffers(){
+    private void showAssignedOffers() {
         AnchorPane assigned = AnchorPaneAssigned;
         Button demo = offer0;
-        ObservableList<Node> children = assigned.getChildren();
-        double start =offer0.getLayoutY();
+        double start = offer0.getLayoutY();
 
 
-        int x=0;
+        int x = 0;
 
-        for(Offer offer : Manager.getAssignedOffers()){
-            Button n=new Button(offer.getClient()+""+offer.getSchedule());
+        for (Offer offer : Manager.getAssignedOffers()) {
+            Button n = new Button(offer.getClient() + "" + offer.getSchedule());
             n.setOnAction(demo.getOnAction());
-            n.setLayoutY(start+(x*cantLines(n.getText())*19));
+            n.setLayoutY(start + (x * cantLines(n.getText()) * 19));
             n.prefWidthProperty().bind(demo.widthProperty()); //RE IMPORTANTE ESTE COMANDO
             assigned.getChildren().add(n);
             x++;
@@ -97,30 +85,28 @@ public class Controller implements Initializable{
 
     }
 
-    private void eraseAllVisual(){
+    private void eraseAllVisual() {
         ObservableList<Node> Assigned = AnchorPaneAssigned.getChildren();
         ObservableList<Node> unAssigned = AnchorPaneRecent.getChildren();
-        ArrayList<Node> bkp= new  ArrayList<Node>();
+        ArrayList<Node> bkp = new ArrayList<>();
 
-        for(Node n : AnchorPaneAssigned.getChildren())
-            if (!(n instanceof Button)||n==offer0)
+        for (Node n : AnchorPaneAssigned.getChildren())
+            if (!(n instanceof Button) || n == offer0)
                 bkp.add(n);
 
 
         Assigned.clear();
-        for (Node n : bkp)
-            Assigned.add(n);
+        Assigned.addAll(bkp);
 
 
-        bkp= new  ArrayList<Node>();
-        for(Node n : AnchorPaneRecent.getChildren())
-            if (!(n instanceof Button)||n== recentOffer0)
+        bkp = new ArrayList<>();
+        for (Node n : AnchorPaneRecent.getChildren())
+            if (!(n instanceof Button) || n == recentOffer0)
                 bkp.add(n);
 
 
         unAssigned.clear();
-        for (Node n : bkp)
-            unAssigned.add(n);
+        unAssigned.addAll(bkp);
     }
 
     @FXML
@@ -131,7 +117,7 @@ public class Controller implements Initializable{
     }
 
     @FXML
-    private void eraseAll(){
+    private void eraseAll() {
         eraseAllVisual();
         Manager.getRecentOffers().clear();
         Manager.getAssignedOffers().clear();
@@ -139,7 +125,7 @@ public class Controller implements Initializable{
     }
 
     @FXML
-    private void eraseRecent(){
+    private void eraseRecent() {
         Manager.getRecentOffers().clear();
         Manager.resetDB();
         Manager.loadDB();
@@ -147,25 +133,8 @@ public class Controller implements Initializable{
     }
 
 
-    private Node getRecentVisualOffer(int i){
-        int size=AnchorPaneRecent.getChildren().size();
-        if(i<0||i>size-3)
-            throw new IndexOutOfBoundsException("no hay botonoes a que acceder");
-
-        return AnchorPaneRecent.getChildren().get(i+3);
-    }
-
-    private Node getAssignedVisualOffer(int i){
-        int size=AnchorPaneAssigned.getChildren().size();
-        if(i<0||i>size-3)
-            throw new IndexOutOfBoundsException("no hay botones a que acceder");
-
-        return AnchorPaneAssigned.getChildren().get(i+3);
-    }
-
-
     private Offer getLogicOffer(Node node) {
-        if(node instanceof Button) {
+        if (node instanceof Button) {
             Parent Anchor = node.getParent();
             int index = Anchor.getChildrenUnmodifiable().indexOf(node);
 
@@ -173,14 +142,14 @@ public class Controller implements Initializable{
                 throw new IndexOutOfBoundsException("El elemento visual no corresponde a una oferta logica=" + index);
 
             if (Anchor == AnchorPaneAssigned) {
-                if (index -3 >= Manager.getAssignedOffers().size())
+                if (index - 3 >= Manager.getAssignedOffers().size())
                     throw new IndexOutOfBoundsException("El elemento visual no corresponde a una oferta logica=" + index);
 
                 return Manager.getAssignedOffers().get(index - 3);
             }
 
             if (Anchor == AnchorPaneRecent) {
-                if (index-3 >= Manager.getRecentOffers().size())
+                if (index - 3 >= Manager.getRecentOffers().size())
                     throw new IndexOutOfBoundsException("El elemento visual no corresponde a una oferta logica=" + index);
 
                 return Manager.getRecentOffers().get(index - 3);
@@ -193,10 +162,10 @@ public class Controller implements Initializable{
 
 
     @FXML
-    private void OfferInfo(ActionEvent event){
-        Node offer=(Node)event.getSource();
-        selectedElement=offer;
-        Offer oferta= getLogicOffer(offer);
+    private void OfferInfo(ActionEvent event) {
+        Node offer = (Node) event.getSource();
+        selectedElement = offer;
+        Offer oferta = getLogicOffer(offer);
         showOfferInfo(oferta);
     }
 
@@ -205,7 +174,7 @@ public class Controller implements Initializable{
         if (offer != null) {
             nameSurnameBox.setText(offer.getClient().getName());
             idBox.setText((offer.getClient().getID()));
-            instrumetsBox.setText(offer.getInstruments().toString());
+            instrumentsBox.setText(offer.getInstruments().toString());
             priceBox.setText(Integer.toString(offer.getPrice()));
             roomBox.setText("1");
         } else {
@@ -214,7 +183,7 @@ public class Controller implements Initializable{
     }
 
 
-    public int cantLines(String str){
+    private int cantLines(String str) {
         String[] lines = str.split("\r\n|\r|\n");
         return lines.length;
     }
@@ -222,12 +191,12 @@ public class Controller implements Initializable{
     @FXML
     void addOffer() throws IOException {
         Stage stage = new Stage();
-        offerWindow = new OfferWindow();
+        OfferWindow offerWindow = new OfferWindow();
         offerWindow.start(stage);
 
         //esta oferta se obtiene en el metodo "createOffer" de la clase "OfferWindowController"
         Offer offerToAdd = Manager.getTemporaryOffer();
-        if(offerToAdd != null) {
+        if (offerToAdd != null) {
             System.out.println(offerToAdd);
             Manager.getRecentOffers().add(offerToAdd);
             eraseAllVisual();
@@ -239,7 +208,7 @@ public class Controller implements Initializable{
     }
 
     @FXML
-    void closeProgram(ActionEvent event) {
+    void closeProgram() {
         Stage stage = (Stage) nameSurnameBox.getScene().getWindow();
         stage.close();
     }
@@ -261,7 +230,6 @@ public class Controller implements Initializable{
         eraseAllVisual();
         showRecentOffers();
         showAssignedOffers();
-        this.calculation = Calculation.BEST;
     }
 
     @FXML
@@ -270,7 +238,6 @@ public class Controller implements Initializable{
         eraseAllVisual();
         showRecentOffers();
         showAssignedOffers();
-        this.calculation = Calculation.PRICE;
     }
 
     @FXML
@@ -279,7 +246,6 @@ public class Controller implements Initializable{
         eraseAllVisual();
         showRecentOffers();
         showAssignedOffers();
-        this.calculation = Calculation.PRICE_HOUR;
     }
 
     @FXML
@@ -288,14 +254,13 @@ public class Controller implements Initializable{
         eraseAllVisual();
         showRecentOffers();
         showAssignedOffers();
-        this.calculation = Calculation.HOURS;
     }
 
 
     @FXML
     void moveOffertoAssigned() {
-        if(selectedElement instanceof Button && selectedElement.getParent()==AnchorPaneRecent){
-            Offer oferta= getLogicOffer(selectedElement);
+        if (selectedElement instanceof Button && selectedElement.getParent() == AnchorPaneRecent) {
+            Offer oferta = getLogicOffer(selectedElement);
             Manager.getRecentOffers().remove(oferta);
             oferta.setAvailableTomorrow();//TODO LLamar a el calendario para que elija cuando va a estar disponible
             Manager.getAssignedOffers().add(oferta);
@@ -307,7 +272,7 @@ public class Controller implements Initializable{
 
     @FXML
     void moveOffersToRecent() {
-        for(Offer of : Manager.getAssignedOffers()){
+        for (Offer of : Manager.getAssignedOffers()) {
             of.setNotAssigned();
             Manager.getRecentOffers().add(of);
         }
@@ -317,13 +282,12 @@ public class Controller implements Initializable{
     }
 
     @FXML
-    void deleteOffer(ActionEvent event) {
-        if(selectedElement instanceof Button && selectedElement.isFocused()) {
+    void deleteOffer() {
+        if (selectedElement instanceof Button && selectedElement.isFocused()) {
 
-            if(selectedElement.getParent()==AnchorPaneRecent){
+            if (selectedElement.getParent() == AnchorPaneRecent) {
                 Manager.getRecentOffers().remove(getLogicOffer(selectedElement));
-            }
-            else if(selectedElement.getParent()==AnchorPaneAssigned){
+            } else if (selectedElement.getParent() == AnchorPaneAssigned) {
                 Manager.getAssignedOffers().remove(getLogicOffer(selectedElement));
             }
             deleteVisualOffer(selectedElement);
@@ -331,25 +295,24 @@ public class Controller implements Initializable{
         }
     }
 
-   private void deleteVisualOffer(Node offer){
-           if (offer.getParent() == AnchorPaneAssigned)
-               AnchorPaneAssigned.getChildren().remove(offer);
+    private void deleteVisualOffer(Node offer) {
+        if (offer.getParent() == AnchorPaneAssigned)
+            AnchorPaneAssigned.getChildren().remove(offer);
 
-           else if (offer.getParent() == AnchorPaneRecent)
-               AnchorPaneRecent.getChildren().remove(offer);
-           else {
-               throw new IndexOutOfBoundsException("Offerta no encontrada elemento a eliminar no es un boton");
-           }
-       refreshVisual();
+        else if (offer.getParent() == AnchorPaneRecent)
+            AnchorPaneRecent.getChildren().remove(offer);
+        else {
+            throw new IndexOutOfBoundsException("Oferta no encontrada elemento a eliminar no es un boton");
+        }
+        refreshVisual();
 
     }
-
 
 
     @FXML
     void bestOffers(ActionEvent event) {
         moveOffersToRecent();
-       Solver bruteForce=new SolverExacto();
+        Solver bruteForce = new SolverExacto();
         Manager.calculateOffersBy(bruteForce);
         refreshVisual();
     }
@@ -358,7 +321,7 @@ public class Controller implements Initializable{
     @FXML
     void price_Hour(ActionEvent event) {
         moveOffersToRecent();
-        Solver cociente=new SolverGoloso(SolverGoloso.Criterios.COCIENTE);
+        Solver cociente = new SolverGoloso(SolverGoloso.Criterios.COCIENTE);
         Manager.calculateOffersBy(cociente);
         refreshVisual();
     }
@@ -366,7 +329,7 @@ public class Controller implements Initializable{
     @FXML
     void highestPrice(ActionEvent event) {
         moveOffersToRecent();
-        Solver precio=new SolverGoloso(SolverGoloso.Criterios.PRECIO);
+        Solver precio = new SolverGoloso(SolverGoloso.Criterios.PRECIO);
         Manager.calculateOffersBy(precio);
         refreshVisual();
     }
@@ -374,19 +337,19 @@ public class Controller implements Initializable{
     @FXML
     void moreHours(ActionEvent event) {
         moveOffersToRecent();
-        Solver cargaHoraria=new SolverGoloso(SolverGoloso.Criterios.HORARIO);
+        Solver cargaHoraria = new SolverGoloso(SolverGoloso.Criterios.HORARIO);
         Manager.calculateOffersBy(cargaHoraria);
         refreshVisual();
     }
 
     //ventena que indica al usuario donde quiere guardar las ofertas , despues elije si guardarlas ahi o en otro lugar
-    private void setUpFileChooser(){
-        Stage stage = (Stage) nameSurnameBox.getScene().getWindow();
+    @SuppressWarnings("UnusedAssignment")
+    private void setUpFileChooser() {
         fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON","*.json"));
-        dirChooser = new DirectoryChooser();
-        selectedDirectory = new File("/");//dirChooser.showDialog(stage);
-        fileChooser.setInitialDirectory( selectedDirectory);
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON", "*.json"));
+        DirectoryChooser dirChooser = new DirectoryChooser();
+        File selectedDirectory = new File("/");
+        fileChooser.setInitialDirectory(selectedDirectory);
     }
 
     @FXML
@@ -396,40 +359,40 @@ public class Controller implements Initializable{
 
         fileChooser.setTitle("Open Resource File");
         File offerFile = fileChooser.showOpenDialog(stage);
-        if(offerFile == null) {
+        if (offerFile == null) {
             return;
         }
 
         String path = offerFile.getAbsolutePath();
-        boolean isSuccess=Manager.importDB(path);
+        boolean isSuccess = Manager.importDB(path);
         refreshVisual();
-        if(isSuccess)
-            showMessage("Base de datos importada con exito","Importar","Base de Datos");
-        else{
-            showMessage("Error al importar la Base de datos","Importar: ERROR","Error");
+        if (isSuccess)
+            showMessage("Base de datos importada con exito", "Importar", "Base de Datos");
+        else {
+            showMessage("Error al importar la Base de datos", "Importar: ERROR", "Error");
         }
     }
 
 
     @FXML
-    void mergeOffers(){
+    void mergeOffers() {
         setUpFileChooser();
         Stage stage = (Stage) nameSurnameBox.getScene().getWindow();
 
         fileChooser.setTitle("Combinar");
         File offerFile = fileChooser.showOpenDialog(stage);
-        if(offerFile == null) {
+        if (offerFile == null) {
             return;
         }
 
         String path = offerFile.getAbsolutePath();
-        boolean isSuccess=Manager.mergeDB(path);
+        boolean isSuccess = Manager.mergeDB(path);
 
         refreshVisual();
-        if(isSuccess)
-            showMessage("Base de datos actualizada con exito","Combinar","Base de Datos");
-        else{
-            showMessage("Error al actualizar la Base de datos","Combinar: ERROR","Error");
+        if (isSuccess)
+            showMessage("Base de datos actualizada con exito", "Combinar", "Base de Datos");
+        else {
+            showMessage("Error al actualizar la Base de datos", "Combinar: ERROR", "Error");
         }
     }
 
@@ -441,23 +404,23 @@ public class Controller implements Initializable{
         fileChooser.setTitle("Export Offers");
         File offerFile = fileChooser.showSaveDialog(stage);
 
-        if(offerFile == null) {
-            showMessage("Error al exportar, Base datos vacia","Error!:Exportar","Base de Datos");
+        if (offerFile == null) {
+            showMessage("Error al exportar, Base datos vacia", "Error!:Exportar", "Base de Datos");
 
         }
 
-        String path = offerFile.getAbsolutePath();
+        @SuppressWarnings("ConstantConditions") String path = offerFile.getAbsolutePath();
 
-        boolean success=Manager.exportDB(path);
+        boolean isSuccess = Manager.exportDB(path);
 
-        if(offerFile.exists())
-            showMessage("Se ha guardado el archivo con exito","Exportar","Base de Datos");
+        if (isSuccess)
+            showMessage("Se ha guardado el archivo con exito", "Exportar", "Base de Datos");
         else
-            showMessage("Error al exportar, el archivo no se pudo guardar","Error!: Exportar","Base de Datos");
-}
+            showMessage("Error al exportar, el archivo no se pudo guardar", "Error!: Exportar", "Base de Datos");
+    }
 
 
-    void showMessage(String msg, String title,String header) {
+    private void showMessage(String msg, String title, String header) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.initStyle(StageStyle.UTILITY);
         alert.setTitle(title);
@@ -465,6 +428,7 @@ public class Controller implements Initializable{
         alert.setContentText(msg);
         alert.showAndWait();
     }
+
     void showMessage(String msg) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.initStyle(StageStyle.UTILITY);
@@ -473,6 +437,7 @@ public class Controller implements Initializable{
         alert.setContentText(msg);
         alert.showAndWait();
     }
+
     void showMessage(String msg, String title) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.initStyle(StageStyle.UTILITY);
@@ -494,7 +459,7 @@ public class Controller implements Initializable{
     private Label roomBox;
 
     @FXML
-    private Label instrumetsBox;
+    private Label instrumentsBox;
 
     @FXML
     private Label priceBox;
@@ -509,7 +474,6 @@ public class Controller implements Initializable{
 
     @FXML
     private Label nameSurnameBox;
-
 
 
 }

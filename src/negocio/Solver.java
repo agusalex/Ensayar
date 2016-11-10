@@ -1,9 +1,9 @@
 package negocio;
 
-public interface Solver
-{
-	public Subconjunto resolver(Instancia inst);
+public interface Solver {
+    Subconjunto resolver(Instancia inst);
 
 
-	double getTiempo();
+    @SuppressWarnings("unused")
+    double getTiempo();
 }

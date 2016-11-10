@@ -14,74 +14,66 @@ import java.util.Comparator;
 
 import static Data.DataBase.getDb;
 
-/**
- * Created by Max on 11/4/2016.
- */
-public class Manager {
-    private static Manager manager = new Manager();
+
+@SuppressWarnings("unused")
+class Manager {
+    private static final Manager manager = new Manager();
 
     private static ArrayList<Offer> recentOffers;
     private static ArrayList<Offer> assignedOffers;
 
-    private static Offer temporaryOffer ;
+    private static Offer temporaryOffer;
 
 
     private Manager() {
-    loadDB();
+        loadDB();
     }
 
 
-    public static Manager getManager() {return manager;}
-
-    public static void Sort(Comparator<Offer> comparador){
-        Collections.sort(recentOffers,comparador);
-        Collections.sort(assignedOffers,comparador);
+    static void Sort(Comparator<Offer> comparador) {
+        Collections.sort(recentOffers, comparador);
+        Collections.sort(assignedOffers, comparador);
 
     }
 
 
-    public static void resetDB(){
-        getDb().getOffers().clear();
-        for (Offer offer:recentOffers)
-            getDb().getOffers().add(offer);
+    static void resetDB() {
+        DataBase.getOffers().clear();
+        for (Offer offer : recentOffers)
+            DataBase.getOffers().add(offer);
 
-        for(Offer offer :assignedOffers)
-            getDb().getOffers().add(offer);
+        for (Offer offer : assignedOffers)
+            DataBase.getOffers().add(offer);
 
         getDb().save();
     }
 
 
-
-    public static void calculateOffersBy(Solver solver){
+    static void calculateOffersBy(Solver solver) {
         Instancia instance = new Instancia();
-        for(Offer of : getDb().getOffers())
-            instance.agregarObjeto(of);
+        DataBase.getOffers().forEach(instance::agregarObjeto);
 
         Subconjunto solution = solver.resolver(instance);
 
         Manager.getAssignedOffers().clear();
         Manager.getRecentOffers().clear();
 
-        for(Offer of : solution.getOffers()){
+        for (Offer of : solution.getOffers()) {
             of.setAvailableTomorrow();
             Manager.getAssignedOffers().add(of);
         }
 
-        for(Offer of : getDb().getOffers()){
-            if(!solution.contiene(of))
-                Manager.getRecentOffers().add(of);
-        }
+        DataBase.getOffers().stream().filter(solution::contiene).forEach(of -> Manager.getRecentOffers().add(of));
         Manager.resetDB();
 
     }
 
 //
 
-    public static void loadDB(){
-        ArrayList<Offer> dataBaseOffers = new ArrayList<Offer>();
-        recentOffers = new ArrayList<Offer>();
-        assignedOffers = new ArrayList<Offer>();
+    static void loadDB() {
+        ArrayList<Offer> dataBaseOffers;
+        recentOffers = new ArrayList<>();
+        assignedOffers = new ArrayList<>();
         getDb().load();
 
         dataBaseOffers = DataBase.getOffers();
@@ -90,7 +82,7 @@ public class Manager {
 
             if (offer.getDateAvailable() == null)
                 recentOffers.add(offer);
-            else{
+            else {
                 assignedOffers.add(offer);
             }
             /*else if(offer.getDateAvailable().after(Calendar.getInstance())){
@@ -107,21 +99,21 @@ public class Manager {
         }
     }
 
-    public static boolean importDB(String filePath){
+    static boolean importDB(String filePath) {
 
-        recentOffers = new ArrayList<Offer>();
-        assignedOffers = new ArrayList<Offer>();
+        recentOffers = new ArrayList<>();
+        assignedOffers = new ArrayList<>();
 
-        boolean isSuccess=DataBase.Import(filePath);
+        boolean isSuccess = DataBase.Import(filePath);
 
-        if(isSuccess){
+        if (isSuccess) {
             for (Offer offer : DataBase.getOffers()) {
 
                 if (offer.getDateAvailable() == null)
                     recentOffers.add(offer);
-                else{
+                else {
                     assignedOffers.add(offer);
-            }
+                }
             }
         }
         resetDB();
@@ -130,15 +122,14 @@ public class Manager {
     }
 
 
+    static boolean mergeDB(String filePath) {
 
-    public static boolean mergeDB(String filePath){
+        boolean isSuccess = DataBase.Import(filePath);
 
-        boolean isSuccess=DataBase.Import(filePath);
-
-        if(isSuccess){
+        if (isSuccess) {
             for (Offer offer : DataBase.getOffers()) {
-                boolean alreadyExists=recentOffers.contains(offer)||assignedOffers.contains(offer);
-                if(!alreadyExists) {
+                boolean alreadyExists = recentOffers.contains(offer) || assignedOffers.contains(offer);
+                if (!alreadyExists) {
                     if (offer.getDateAvailable() == null)
                         recentOffers.add(offer);
                     else {
@@ -153,41 +144,32 @@ public class Manager {
     }
 
 
-
-
-    public static boolean exportDB(String filePath){
-              DataBase.getDb();
+    static boolean exportDB(String filePath) {
+        DataBase.getDb();
 
         return DataBase.Export(filePath);
     }
 
 
-    public static ArrayList<Offer> getRecentOffers() {
+    static ArrayList<Offer> getRecentOffers() {
         return recentOffers;
     }
 
-    public static void setRecentOffers(ArrayList<Offer> recentOffers) {
-        Manager.recentOffers = recentOffers;
-    }
-
-    public static ArrayList<Offer> getAssignedOffers() {
+    static ArrayList<Offer> getAssignedOffers() {
         return assignedOffers;
     }
 
-    public static void setAssignedOffers(ArrayList<Offer> assignedOffers) {
-        Manager.assignedOffers = assignedOffers;
+    static void emptyTemporaryOffer() {
+        Manager.temporaryOffer = null;
     }
 
-    public static void emptyTemporaryOffer(){ Manager.temporaryOffer = null;}
-
-    public static void setOffer(ArrayList<Offer.Instruments> instruments, Schedule schedule, Client client){
-        Manager.temporaryOffer = new Offer (instruments,schedule,client);
+    static void setOffer(ArrayList<Offer.Instruments> instruments, Schedule schedule, Client client) {
+        Manager.temporaryOffer = new Offer(instruments, schedule, client);
     }
 
-    public static Offer getTemporaryOffer(){
+    static Offer getTemporaryOffer() {
         return Manager.temporaryOffer;
     }
-
 
 
 }

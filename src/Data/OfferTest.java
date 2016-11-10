@@ -7,25 +7,24 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
-/**
- * Created by Max on 10/26/2016.
- */
+
+@SuppressWarnings("deprecation")
 public class OfferTest {
     private Random r;
 
     private Offer instanceOffer() {
-        Schedule schedule = new Schedule(4,30,8,0);
-        ArrayList<Offer.Instruments> chosen = new ArrayList<Offer.Instruments>();
+        Schedule schedule = new Schedule(4, 30, 8, 0);
+        ArrayList<Offer.Instruments> chosen = new ArrayList<>();
         chosen.add(Offer.Instruments.GUITARRA);
         chosen.add(Offer.Instruments.BAJO);
         chosen.add(Offer.Instruments.BATERIA);
         Client cl = new Client("Joseph");
-        Offer offer = new Offer(chosen,schedule,cl);
+        Offer offer=new Offer(chosen, schedule, cl);
+        offer.setAvailableTomorrow();
         return offer;
+
     }
 
     @Test
@@ -33,7 +32,6 @@ public class OfferTest {
         Offer offer = instanceOffer();
         assertEquals(275, offer.getPrice());
     }
-
 
 
     @Test
@@ -47,8 +45,8 @@ public class OfferTest {
         Offer offer = instanceOffer();
         Calendar c = offer.getDateAvailable();
         Date date = c.getTime();
-        assertEquals(28,date.getDate());
-        assertEquals(9,date.getMonth());
+        assertEquals(Calendar.getInstance().getTime().getDate()+1, date.getDate());
+        assertEquals(Calendar.getInstance().getTime().getMonth(), date.getMonth());
     }
 
 
@@ -58,10 +56,10 @@ public class OfferTest {
         Offer offer2 = instanceOffer();
         assertTrue(offer.conflictsWith(offer2));
 
-        ArrayList<Offer.Instruments>  defaultInst = defaultInstruments();
-        ArrayList<Offer.Instruments> offerInstruments = chosenRandomInstruments(2,defaultInst);
-        Schedule sc = new Schedule(8,0,9,30);
-        Offer offer3 = new Offer( offerInstruments, sc, new Client("Juan"));
+        ArrayList<Offer.Instruments> defaultInst = defaultInstruments();
+        ArrayList<Offer.Instruments> offerInstruments = chosenRandomInstruments(2, defaultInst);
+        Schedule sc = new Schedule(8, 0, 9, 30);
+        Offer offer3 = new Offer(offerInstruments, sc, new Client("Juan"));
         assertFalse(offer2.conflictsWith(offer3));
     }
 
@@ -76,19 +74,19 @@ public class OfferTest {
     @Test
     public void getDurationInMin() throws Exception {
         Offer offer = instanceOffer();
-        assertEquals(30,offer.getDurationInMin());
+        assertEquals(30, offer.getDurationInMin());
     }
 
     @Test
     public void getInstruments() throws Exception {
         Offer offer = instanceOffer();
-        ArrayList<Offer.Instruments> chosen = new ArrayList<Offer.Instruments>();
+        ArrayList<Offer.Instruments> chosen = new ArrayList<>();
         chosen.add(Offer.Instruments.GUITARRA);
         chosen.add(Offer.Instruments.BAJO);
         chosen.add(Offer.Instruments.BATERIA);
-        assertEquals(chosen,offer.getInstruments());
+        assertEquals(chosen, offer.getInstruments());
 
-        ArrayList<Offer.Instruments> chosen2 = new ArrayList<Offer.Instruments>();
+        ArrayList<Offer.Instruments> chosen2 = new ArrayList<>();
         chosen2.add(Offer.Instruments.BAJO);
         chosen2.add(Offer.Instruments.MICROFONO);
         chosen2.add(Offer.Instruments.TECLADO);
@@ -99,8 +97,8 @@ public class OfferTest {
     @Test
     public void getSchedule() throws Exception {
         Offer offer = instanceOffer();
-        Schedule schedule = new Schedule(4,30,8,0);
-        assertEquals(schedule,offer.getSchedule());
+        Schedule schedule = new Schedule(4, 30, 8, 0);
+        assertEquals(schedule, offer.getSchedule());
     }
 
     @Test
@@ -112,59 +110,58 @@ public class OfferTest {
 
 
     @Test
-    public void showOffers(){
-        ArrayList<Offer> offers = generateRandomOffers(5);
-        for(Offer of : offers)
-            System.out.println(of);
+    public void showOffers() {
+        ArrayList<Offer> offers = generateRandomOffers();
+        offers.forEach(System.out::println);
     }
 
-    private ArrayList<Offer> generateRandomOffers(int n){
+    private ArrayList<Offer> generateRandomOffers() {
         r = new Random();
         Offer offer;
         Client client;
-        ArrayList<Offer> ret = new ArrayList<Offer>();
+        ArrayList<Offer> ret = new ArrayList<>();
         Schedule schedule;
-        ArrayList<Client> clients =  generateRandomClients();
+        ArrayList<Client> clients = generateRandomClients();
         ArrayList<Offer.Instruments> defaultInst = defaultInstruments();
-        ArrayList<Offer.Instruments> offerInstruments = new ArrayList<Offer.Instruments>();
+        ArrayList<Offer.Instruments> offerInstruments;
         int Low = 1;
         int High = 5;
         int randomClient;
         int randomHour, randomMin;
         int cantInst;
-        int[] min = {0,30};
+        int[] min = {0, 30};
 
-        for(int i = 0; i< n; i++){
-            cantInst = r.nextInt(defaultInst.size()-1)+1;
-            offerInstruments = chosenRandomInstruments(cantInst,defaultInst);
+        for (int i = 0; i < 5; i++) {
+            cantInst = r.nextInt(defaultInst.size() - 1) + 1;
+            offerInstruments = chosenRandomInstruments(cantInst, defaultInst);
 
-            randomHour = r.nextInt(High-Low)+Low;
+            randomHour = r.nextInt(High - Low) + Low;
             randomMin = min[r.nextInt(2)];
-            schedule = new Schedule(randomHour, randomMin, randomHour+High, min[r.nextInt(2)]);
+            schedule = new Schedule(randomHour, randomMin, randomHour + High, min[r.nextInt(2)]);
 
-            randomClient = r.nextInt(clients.size()-1);
+            randomClient = r.nextInt(clients.size() - 1);
             client = clients.get(randomClient);
 
-            offer = new Offer(offerInstruments,schedule,client);
+            offer = new Offer(offerInstruments, schedule, client);
             ret.add(offer);
         }
 
         return ret;
     }
 
-    private ArrayList<Offer.Instruments> chosenRandomInstruments(int n, ArrayList<Offer.Instruments> defaultInst){
-        ArrayList<Offer.Instruments> ret = new ArrayList<Offer.Instruments>();
+    private ArrayList<Offer.Instruments> chosenRandomInstruments(int n, ArrayList<Offer.Instruments> defaultInst) {
+        ArrayList<Offer.Instruments> ret = new ArrayList<>();
         Random rand = new Random();
         int randomIndex;
-        for (int i =0; i< n; i++){
+        for (int i = 0; i < n; i++) {
             randomIndex = rand.nextInt(n);
             ret.add(defaultInst.get(randomIndex));
         }
         return ret;
     }
 
-    private ArrayList<Offer.Instruments> defaultInstruments(){
-        ArrayList<Offer.Instruments> inst = new ArrayList<Offer.Instruments>();
+    private ArrayList<Offer.Instruments> defaultInstruments() {
+        ArrayList<Offer.Instruments> inst = new ArrayList<>();
         inst.add(Offer.Instruments.BATERIA);
         inst.add(Offer.Instruments.GUITARRA);
         inst.add(Offer.Instruments.TECLADO);
@@ -173,26 +170,26 @@ public class OfferTest {
         return inst;
     }
 
-    private ArrayList <Client> generateRandomClients(){
-        String [] names = {"Gerardo", "Agustin", "Emmanuel","Fede", "Roberto", "Juan", "Pustilnik","Maxi", "Roberto"
-                ,"Maria", "Josefina", "Claudia", "Alberto", "Esteban"};
-        String [] IDs = {"1", "2", "3","4", "5", "6", "7","8", "9"
-                ,"10", "11", "12", "13", "14"};
-        ArrayList <Client> clients = new ArrayList<Client>();
+    private ArrayList<Client> generateRandomClients() {
+        String[] names = {"Gerardo", "Agustin", "Emmanuel", "Fede", "Roberto", "Juan", "Pustilnik", "Maxi", "Roberto"
+                , "Maria", "Josefina", "Claudia", "Alberto", "Esteban"};
+        String[] IDs = {"1", "2", "3", "4", "5", "6", "7", "8", "9"
+                , "10", "11", "12", "13", "14"};
+        ArrayList<Client> clients = new ArrayList<>();
 
         r = new Random();
-        Client client = null;
-        String mobile = "";
+        Client client;
+        String mobile;
         int Low = 0;
-        int High = names.length-1;
-        int randomIndex ;
+        int High = names.length - 1;
+        int randomIndex;
 
-        for(int i = 0; i< High; i++){
+        for (int i = 0; i < High; i++) {
             client = new Client("");
-            randomIndex = r.nextInt(High-Low) + Low;
+            randomIndex = r.nextInt(High - Low) + Low;
             client.setName(names[randomIndex]);
             client.setID(IDs[randomIndex]);
-            mobile = Integer.toString(r.nextInt(1599999999-1500000000)+1500000000);
+            mobile = Integer.toString(r.nextInt(1599999999 - 1500000000) + 1500000000);
             client.setMobile(mobile);
             clients.add(client);
         }

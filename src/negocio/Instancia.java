@@ -6,42 +6,30 @@ import java.util.ArrayList;
 
 public class Instancia {
 
-	private final ArrayList<Offer> offers;
+    private final ArrayList<Offer> offers;
 
-	public enum Sorting{
-		DURACION,PRECIO,COCIENTE;
-	}
+    public Instancia() {
 
-	public Instancia(){
-
-		offers = new ArrayList<>();
-	}
+        offers = new ArrayList<>();
+    }
 
 
-	public void agregarObjeto(Offer obj){
-		offers.add(obj);
+    public void agregarObjeto(Offer obj) {
+        offers.add(obj);
 
-	}
-
-
-	public Offer offerAt(int i)
-	{
-		return offers.get(i);
-	}
-
-	public int offersSize()
-	{
-		return offers.size();
-	}
+    }
 
 
-	@SuppressWarnings("unchecked")
-	public ArrayList<Offer> cloneOffers()
-	{
-		return (ArrayList<Offer>) offers.clone();
-	}
+    Offer offerAt(int i) {
+        return offers.get(i);
+    }
 
-	public ArrayList<Offer> getOffers(){
-		return this.offers;
-	}
+    int offersSize() {
+        return offers.size();
+    }
+
+
+    ArrayList<Offer> getOffers() {
+        return this.offers;
+    }
 }

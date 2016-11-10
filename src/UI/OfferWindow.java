@@ -1,6 +1,4 @@
-package UI;/**
- * Created by Max on 11/4/2016.
- */
+package UI;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
