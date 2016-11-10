@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--suppress ALL -->
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
+
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.Controller">
   <children>
     <MenuBar VBox.vgrow="ALWAYS">
@@ -65,7 +71,7 @@
       <items>
             <ScrollPane fitToWidth="true" hbarPolicy="AS_NEEDED" layoutX="10.0" layoutY="10.0" prefHeight="269.0" prefWidth="200.0">
                <content>
-                  <AnchorPane fx:id="AnchorPaneRecent" prefHeight="431.0" prefWidth="141.0">
+                  <AnchorPane fx:id="AnchorPaneRecent" prefHeight="274.0" prefWidth="139.0">
                      <children>
                         <Button fx:id="recentOffer0" layoutX="1.0" layoutY="33.0" mnemonicParsing="false" onAction="#OfferInfo" prefHeight="48.0" prefWidth="182.0" text="Reciente" visible="false" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="33.0" />
                         <Label alignment="CENTER" prefHeight="33.0" prefWidth="181.0" style="&#10;" text="Recientes" textAlignment="CENTER" wrapText="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
