@@ -385,7 +385,7 @@ public class Controller implements Initializable{
         fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON","*.json"));
         dirChooser = new DirectoryChooser();
-        selectedDirectory = dirChooser.showDialog(stage);
+        selectedDirectory = new File("/");//dirChooser.showDialog(stage);
         fileChooser.setInitialDirectory( selectedDirectory);
     }
 
@@ -393,6 +393,7 @@ public class Controller implements Initializable{
     void importOffers() {
         setUpFileChooser();
         Stage stage = (Stage) nameSurnameBox.getScene().getWindow();
+
         fileChooser.setTitle("Open Resource File");
         File offerFile = fileChooser.showOpenDialog(stage);
         if(offerFile == null) {
@@ -416,15 +417,20 @@ public class Controller implements Initializable{
         }
         String path = offerFile.getAbsolutePath();
         Manager.saveDB(path);
-        infoSavedFile();
-    }
+        infoSavedFile(new File(path));
+}
 
-    void infoSavedFile() {
+    void infoSavedFile(File file) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.initStyle(StageStyle.UTILITY);
+        if(file.exists()){
         alert.setTitle("Guardado con exito");
         alert.setHeaderText(null);
-        alert.setContentText("Se ha guardado el archivo con exito");
+        alert.setContentText("Se ha guardado el archivo con exito");}
+        else{
+            alert.setTitle("Error!");
+            alert.setHeaderText(null);
+            alert.setContentText("No se ha guardado el archivo");}
         alert.showAndWait();
 
     }
