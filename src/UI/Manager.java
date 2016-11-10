@@ -101,12 +101,11 @@ class Manager {
 
     static boolean importDB(String filePath) {
 
-        recentOffers = new ArrayList<>();
-        assignedOffers = new ArrayList<>();
-
         boolean isSuccess = DataBase.Import(filePath);
 
         if (isSuccess) {
+            recentOffers = new ArrayList<>();
+            assignedOffers = new ArrayList<>();
             for (Offer offer : DataBase.getOffers()) {
 
                 if (offer.getDateAvailable() == null)

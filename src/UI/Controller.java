@@ -359,18 +359,25 @@ public class Controller implements Initializable {
 
         fileChooser.setTitle("Open Resource File");
         File offerFile = fileChooser.showOpenDialog(stage);
-        if (offerFile == null) {
+        String path="/";
+        if (offerFile != null)
+            path = offerFile.getAbsolutePath();
+
+        else {
+
             return;
         }
-
-        String path = offerFile.getAbsolutePath();
         boolean isSuccess = Manager.importDB(path);
-        refreshVisual();
+
+        System.out.print(isSuccess);
+
         if (isSuccess)
             showMessage("Base de datos importada con exito", "Importar", "Base de Datos");
-        else {
+        else
             showMessage("Error al importar la Base de datos", "Importar: ERROR", "Error");
-        }
+
+        refreshVisual();
+
     }
 
 
@@ -382,7 +389,8 @@ public class Controller implements Initializable {
         fileChooser.setTitle("Combinar");
         File offerFile = fileChooser.showOpenDialog(stage);
         if (offerFile == null) {
-            return;
+            showMessage("Error al exportar, Base datos vacia", "Error!:Exportar", "Base de Datos");
+
         }
 
         String path = offerFile.getAbsolutePath();
@@ -406,6 +414,7 @@ public class Controller implements Initializable {
 
         if (offerFile == null) {
             showMessage("Error al exportar, Base datos vacia", "Error!:Exportar", "Base de Datos");
+            return;
 
         }
 
@@ -429,23 +438,6 @@ public class Controller implements Initializable {
         alert.showAndWait();
     }
 
-    void showMessage(String msg) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.initStyle(StageStyle.UTILITY);
-        alert.setTitle(null);
-        alert.setHeaderText(null);
-        alert.setContentText(msg);
-        alert.showAndWait();
-    }
-
-    void showMessage(String msg, String title) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.initStyle(StageStyle.UTILITY);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(msg);
-        alert.showAndWait();
-    }
 
 
     @FXML
