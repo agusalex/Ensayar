@@ -58,7 +58,14 @@ public class OfferWindowController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        addHoursAndMinutes();
+        setDefaultHoursAndMinutes();
 
+
+    }
+
+
+    private void addHoursAndMinutes(){
         for (int x = 0; x < 9; x++) {
             startH.getItems().add("0" + x);
             endH.getItems().add("0" + x);
@@ -72,9 +79,6 @@ public class OfferWindowController implements Initializable {
         startMin.getItems().add("30");
         endMin.getItems().add("00");
         endMin.getItems().add("30");
-
-        setDefaultHoursAndMinutes();
-
 
     }
 

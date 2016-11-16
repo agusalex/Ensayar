@@ -3,6 +3,7 @@ package Data;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 
@@ -118,6 +119,7 @@ public class Offer implements Serializable {
 
     }
 
+
     public enum Instruments {
         BATERIA, GUITARRA, TECLADO, BAJO, MICROFONO;
 
@@ -138,6 +140,30 @@ public class Offer implements Serializable {
             }
         }
 
+        public static ArrayList<Instruments> defaultInstruments() {
+            ArrayList<Offer.Instruments> inst = new ArrayList<>();
+            inst.add(Offer.Instruments.BATERIA);
+            inst.add(Offer.Instruments.GUITARRA);
+            inst.add(Offer.Instruments.TECLADO);
+            inst.add(Offer.Instruments.BAJO);
+            inst.add(Offer.Instruments.MICROFONO);
+            return inst;
+        }
+
+
+
+        public static ArrayList<Instruments> chosenRandomInstruments(int n, ArrayList<Offer.Instruments> defaultInst) {
+            ArrayList<Instruments> ret = new ArrayList<>();
+            Random rand = new Random();
+            int randomIndex;
+            for (int i = 0; i < n; i++) {
+                randomIndex = rand.nextInt(n);
+                ret.add(defaultInst.get(randomIndex));
+            }
+            return ret;
+        }
+
+
         public static int comboValue(ArrayList<Instruments> combo) {
             if (combo == null)
                 throw new RuntimeException("No existe ningun combo de instrumentos");
@@ -146,6 +172,41 @@ public class Offer implements Serializable {
             for (Instruments aCombo : combo) ret += instrumentValue(aCombo);
             return ret;
         }
+    }
+
+
+    public static ArrayList<Offer> generateRandomOffers() {
+        Random r = new Random();
+        Offer offer;
+        Client client;
+        ArrayList<Offer> ret = new ArrayList<>();
+        Schedule schedule;
+        ArrayList<Client> clients = Client.generateRandomClients();
+        ArrayList<Offer.Instruments> defaultInst = Offer.Instruments.defaultInstruments();
+        ArrayList<Offer.Instruments> offerInstruments;
+        int Low = 1;
+        int High = 5;
+        int randomClient;
+        int randomHour, randomMin;
+        int cantInst;
+        int[] min = {0, 30};
+
+        for (int i = 0; i < 4; i++) {
+            cantInst = r.nextInt(defaultInst.size() - 1) + 1;
+            offerInstruments = Offer.Instruments.chosenRandomInstruments(cantInst, defaultInst);
+
+            randomHour = r.nextInt(High - Low) + Low;
+            randomMin = min[r.nextInt(2)];
+            schedule = new Schedule(randomHour, randomMin, randomHour + High, min[r.nextInt(2)]);
+
+            randomClient = r.nextInt(clients.size() - 1);
+            client = clients.get(randomClient);
+
+            offer = new Offer(offerInstruments, schedule, client);
+            ret.add(offer);
+        }
+
+        return ret;
     }
 
 }

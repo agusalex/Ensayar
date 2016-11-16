@@ -110,6 +110,15 @@ public class Controller implements Initializable {
     }
 
     @FXML
+    void generateDemo(){
+        for(Offer offer :Offer.generateRandomOffers())
+            Manager.getRecentOffers().add(offer);
+        refreshVisual();
+
+    }
+
+
+    @FXML
     void update() {
         Manager.resetDB();
         Manager.loadDB();
@@ -359,7 +368,7 @@ public class Controller implements Initializable {
 
         fileChooser.setTitle("Open Resource File");
         File offerFile = fileChooser.showOpenDialog(stage);
-        String path="/";
+        String path;
         if (offerFile != null)
             path = offerFile.getAbsolutePath();
 
@@ -389,18 +398,20 @@ public class Controller implements Initializable {
         fileChooser.setTitle("Combinar");
         File offerFile = fileChooser.showOpenDialog(stage);
         if (offerFile == null) {
-            showMessage("Error al exportar, Base datos vacia", "Error!:Exportar", "Base de Datos");
+            showMessage("Error al combinar, Base datos vacia", "Error!:Combinar", "Base de Datos");
 
         }
-
-        String path = offerFile.getAbsolutePath();
-        boolean isSuccess = Manager.mergeDB(path);
-
-        refreshVisual();
-        if (isSuccess)
-            showMessage("Base de datos actualizada con exito", "Combinar", "Base de Datos");
         else {
-            showMessage("Error al actualizar la Base de datos", "Combinar: ERROR", "Error");
+            String path = offerFile.getAbsolutePath();
+            boolean isSuccess = Manager.mergeDB(path);
+
+            refreshVisual();
+            if (isSuccess)
+                showMessage("Base de datos actualizada con exito", "Combinar", "Base de Datos");
+            else {
+                showMessage("Error al actualizar la Base de datos", "Combinar: ERROR", "Error");
+            }
+
         }
     }
 

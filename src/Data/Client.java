@@ -1,6 +1,9 @@
 package Data;
 
 
+import java.util.ArrayList;
+import java.util.Random;
+
 @SuppressWarnings("ALL")
 public class Client {
     private String ID;
@@ -52,6 +55,36 @@ public class Client {
             return true;
         return Name == null && client.Name == null || Mobile == null && client.getMobile() == null;
     }
+
+    public static ArrayList<Client> generateRandomClients() {
+        String[] names = {"Gerardo", "Agustin", "Emmanuel", "Fede", "Roberto", "Juan", "Pustilnik", "Maxi", "Roberto"
+                , "Maria", "Josefina", "Claudia", "Alberto", "Esteban"};
+        String[] IDs = {"1", "2", "3", "4", "5", "6", "7", "8", "9"
+                , "10", "11", "12", "13", "14"};
+        ArrayList<Client> clients = new ArrayList<>();
+
+        Random r = new Random();
+        Client client;
+        String mobile;
+        int Low = 0;
+        int High = names.length - 1;
+        int randomIndex;
+
+        for (int i = 0; i < High; i++) {
+            client = new Client("");
+            randomIndex = r.nextInt(High - Low) + Low;
+            client.setName(names[randomIndex]);
+            client.setID(IDs[randomIndex]);
+            mobile = Integer.toString(r.nextInt(1599999999 - 1500000000) + 1500000000);
+            client.setMobile(mobile);
+            clients.add(client);
+        }
+
+        return clients;
+
+
+    }
+
 
     public String toString() {
         return "Nombre: " + this.Name + " \nDNI: "

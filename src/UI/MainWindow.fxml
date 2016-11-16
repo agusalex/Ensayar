@@ -29,9 +29,8 @@
         <Menu mnemonicParsing="false" text="Editar">
           <items>
             <MenuItem mnemonicParsing="false" onAction="#addOffer" text="Agregar Oferta" />
+                  <MenuItem mnemonicParsing="false" onAction="#addOffer" text="Editar Oferta" />
             <MenuItem mnemonicParsing="false" onAction="#deleteOffer" text="Quitar Oferta" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Calcular Ofertas" />
                   <Menu mnemonicParsing="false" text="Calcular">
                     <items>
                       <MenuItem mnemonicParsing="false" onAction="#bestOffers" text="Mejor oferta" />
@@ -40,9 +39,8 @@
                         <MenuItem mnemonicParsing="false" onAction="#moreHours" text="Mas horas" />
                     </items>
                   </Menu>
-            <MenuItem mnemonicParsing="false" text="Cerrar Dia" />
+            <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" onAction="#moveOffersToRecent" text="Desasignar Ofertas" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" onAction="#moveOffertoAssigned" text="Agregar a Asignadas" />
             <MenuItem mnemonicParsing="false" onAction="#eraseRecent" text="Borrar Recientes" />
           </items>
@@ -62,6 +60,7 @@
             </Menu>
         <Menu mnemonicParsing="false" text="Ayuda">
           <items>
+                  <MenuItem mnemonicParsing="false" onAction="#generateDemo" text="Demo" />
             <MenuItem mnemonicParsing="false" onAction="#about" text="Sobre Ensayos" />
           </items>
         </Menu>
@@ -107,17 +106,20 @@
             </ScrollPane>
         <AnchorPane>
           <children>
-                  <Label alignment="CENTER" font="$x1" layoutX="18.0" layoutY="10.0" style="&#10;" text="Nombre:" textAlignment="CENTER" textFill="$x2" wrapText="false" AnchorPane.leftAnchor="18.0" />
-                  <Label alignment="CENTER" font="$x1" layoutX="18.0" layoutY="59.0" style="&#10;" text="DNI:" textAlignment="CENTER" textFill="$x2" wrapText="false" AnchorPane.leftAnchor="18.0" />
-                  <Label alignment="CENTER" font="$x1" layoutX="16.0" layoutY="231.0" style="&#10;" text="Sala:" textAlignment="CENTER" textFill="$x2" wrapText="false" AnchorPane.leftAnchor="16.0" />
-                  <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="180.0" style="&#10;" text="Precio:" textAlignment="CENTER" textFill="$x2" wrapText="false" AnchorPane.leftAnchor="16.0" />
-                  <Label fx:id="instrumentsBox" alignment="CENTER" font="$x1" layoutX="18.0" layoutY="112.0" style="&#10;" text="Instrumetos:" textAlignment="CENTER" textFill="$x2" wrapText="false" AnchorPane.leftAnchor="18.0" />
-                  <Separator layoutX="4.0" layoutY="16.0" orientation="VERTICAL" prefHeight="251.0" prefWidth="21.0" visible="false" />
+                  <Label alignment="CENTER" font="$x1" layoutX="18.0" layoutY="10.0" style="&#10;" text="Nombre:" textAlignment="CENTER" textFill="$x2" wrapText="false" AnchorPane.leftAnchor="16.0" />
+                  <Label alignment="CENTER" font="$x1" layoutX="16.0" layoutY="54.0" style="&#10;" text="DNI:" textAlignment="CENTER" textFill="$x2" wrapText="false" AnchorPane.leftAnchor="16.0" />
+                  <Label alignment="CENTER" font="$x1" layoutX="16.0" layoutY="105.0" style="&#10;" text="Tel:" textAlignment="CENTER" textFill="$x2" wrapText="false" AnchorPane.leftAnchor="16.0" />
+                  <Label alignment="CENTER" font="$x1" layoutX="16.0" layoutY="267.0" style="&#10;" text="Sala:" textAlignment="CENTER" textFill="$x2" wrapText="false" AnchorPane.leftAnchor="16.0" />
+                  <Label alignment="CENTER" font="$x1" layoutX="16.0" layoutY="223.0" style="&#10;" text="Precio:" textAlignment="CENTER" textFill="$x2" wrapText="false" AnchorPane.leftAnchor="16.0" />
+                  <Label alignment="CENTER" font="$x1" layoutX="16.0" layoutY="158.0" style="&#10;" text="Instrumentos:" textAlignment="CENTER" textFill="$x2" wrapText="false" AnchorPane.leftAnchor="16.0" />
+                  <Label alignment="CENTER" font="$x1" layoutX="16.0" layoutY="318.0" style="&#10;" text="Vigente:" textAlignment="CENTER" textFill="$x2" wrapText="false" AnchorPane.leftAnchor="16.0" />
+                  <Separator layoutX="4.0" layoutY="16.0" orientation="VERTICAL" prefHeight="417.0" prefWidth="21.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0" />
                   <Label fx:id="nameSurnameBox" alignment="CENTER" font="$x1" layoutX="94.0" layoutY="10.0" style="&#10;" textAlignment="CENTER" textFill="$x2" wrapText="false" />
-                  <Label fx:id="idBox" alignment="CENTER" font="$x1" layoutX="56.0" layoutY="59.0" style="&#10;" textAlignment="CENTER" textFill="$x2" wrapText="false" />
-                  <Label fx:id="instrumetsBox" alignment="CENTER" font="$x1" layoutX="20.0" layoutY="142.0" style="&#10;" textAlignment="CENTER" textFill="$x2" wrapText="false" />
-                  <Label fx:id="priceBox" alignment="CENTER" font="$x1" layoutX="73.0" layoutY="180.0" style="&#10;" textAlignment="CENTER" textFill="$x2" wrapText="false" />
-                  <Label fx:id="roomBox" alignment="CENTER" font="$x1" layoutX="57.0" layoutY="231.0" style="&#10;" textAlignment="CENTER" textFill="$x2" wrapText="false" />
+                  <Label fx:id="idBox" alignment="CENTER" font="$x1" layoutX="56.0" layoutY="54.0" style="&#10;" textAlignment="CENTER" textFill="$x2" wrapText="false" />
+                  <Label fx:id="instrumentsBox" alignment="CENTER" font="$x1" layoutX="16.0" layoutY="185.0" minHeight="-Infinity" minWidth="-Infinity" style="&#10;" textAlignment="CENTER" textFill="$x2" wrapText="false" />
+                  <Label fx:id="priceBox" alignment="CENTER" font="$x1" layoutX="74.0" layoutY="225.0" style="&#10;" textAlignment="CENTER" textFill="$x2" wrapText="false" />
+                  <Label fx:id="roomBox" alignment="CENTER" font="$x1" layoutX="57.0" layoutY="267.0" style="&#10;" textAlignment="CENTER" textFill="$x2" wrapText="false" />
+                  <Label alignment="CENTER" font="$x1" layoutX="16.0" layoutY="361.0" style="&#10;" text="Horario:" textAlignment="CENTER" textFill="$x2" wrapText="false" AnchorPane.leftAnchor="16.0" />
           </children>
         </AnchorPane>
       </items>
@@ -132,7 +134,7 @@
             <Color blue="0.625" green="0.625" red="0.625" fx:id="x4" />
           </textFill>
         </Label>
-        <Pane HBox.hgrow="ALWAYS" />
+        <Pane prefHeight="0.0" prefWidth="624.0" HBox.hgrow="ALWAYS" />
         <Label font="$x3" maxWidth="-1.0" textFill="$x4" HBox.hgrow="NEVER" />
       </children>
       <padding>
