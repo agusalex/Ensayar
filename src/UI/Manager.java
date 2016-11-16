@@ -106,6 +106,7 @@ class Manager {
     }
 
 
+    @SuppressWarnings("unchecked")
     static void loadDB() {
         getDb().load();
         recentOffers = new ArrayList<>();
