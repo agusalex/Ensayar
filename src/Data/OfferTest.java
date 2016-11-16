@@ -2,9 +2,8 @@ package Data;
 
 import org.junit.Test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Random;
 
 import static org.junit.Assert.*;
@@ -43,10 +42,11 @@ public class OfferTest {
     @Test
     public void getDateAvailable() throws Exception {
         Offer offer = instanceOffer();
-        Calendar c = offer.getDateAvailable();
-        Date date = c.getTime();
-        assertEquals(Calendar.getInstance().getTime().getDate()+1, date.getDate());
-        assertEquals(Calendar.getInstance().getTime().getMonth(), date.getMonth());
+        LocalDate c = offer.getDateAvailable();
+        LocalDate a=LocalDate.now();
+        a=a.plusDays(1);
+        assertEquals(a.getDayOfMonth(), c.getDayOfMonth());
+        assertEquals(a.getMonth(),c.getMonth());
     }
 
 

@@ -99,13 +99,13 @@ public class Subconjunto
 		if (objetos.size() != otro.cantidadDeObjetos())
 			return false;
 		
-		for(Offer objeto: objetos) if (otro.contiene(objeto))
+		for(Offer objeto: objetos) if (otro.noContiene(objeto))
 			return false;
 		
 		return true;
 	}
 
-	public boolean contiene(Offer objeto)
+	private boolean noContiene(Offer objeto)
 	{
 		return !objetos.contains(objeto);
 	}

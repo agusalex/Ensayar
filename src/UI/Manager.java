@@ -8,6 +8,7 @@ import negocio.Instancia;
 import negocio.Solver;
 import negocio.Subconjunto;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -20,29 +21,55 @@ class Manager {
     private static final Manager manager = new Manager();
 
     private static ArrayList<Offer> recentOffers;
-    private static ArrayList<Offer> assignedOffers;
+    private static ArrayList<Offer> currentAssignedOffers;
+    private static ArrayList<Offer> notCurrentAssignedOffers;
+    private static LocalDate currentDate;
+
+
+
+
+
+     static LocalDate getCurrentDate() {
+        return currentDate;
+    }
+
+     static void setCurrentDate(LocalDate currentDate) {
+        Manager.currentDate = currentDate;
+    }
+
+
+
 
     private static Offer temporaryOffer;
 
 
     private Manager() {
+        currentDate=LocalDate.now();
         loadDB();
     }
 
 
     static void Sort(Comparator<Offer> comparador) {
         Collections.sort(recentOffers, comparador);
-        Collections.sort(assignedOffers, comparador);
+        Collections.sort(currentAssignedOffers, comparador);
 
     }
 
+
+     static ArrayList<Offer> getNotCurrentAssignedOffers() {
+        return notCurrentAssignedOffers;
+    }
 
     static void resetDB() {
         DataBase.getOffers().clear();
         for (Offer offer : recentOffers)
             DataBase.getOffers().add(offer);
 
-        for (Offer offer : assignedOffers)
+        for (Offer offer : currentAssignedOffers)
+            DataBase.getOffers().add(offer);
+
+
+        for (Offer offer : notCurrentAssignedOffers)
             DataBase.getOffers().add(offer);
 
         getDb().save();
@@ -51,50 +78,59 @@ class Manager {
 
     static void calculateOffersBy(Solver solver) {
         Instancia instance = new Instancia();
-        DataBase.getOffers().forEach(instance::agregarObjeto);
+        getCurrentAssignedOffers().forEach(instance::agregarObjeto);
+        getRecentOffers().forEach(instance::agregarObjeto);
 
         Subconjunto solution = solver.resolver(instance);
 
-        Manager.getAssignedOffers().clear();
-        Manager.getRecentOffers().clear();
+        Manager.getCurrentAssignedOffers().clear();
 
         for (Offer of : solution.getOffers()) {
-            of.setAvailableTomorrow();
-            Manager.getAssignedOffers().add(of);
+            of.setAvailable(currentDate);
+            Manager.getCurrentAssignedOffers().add(of);
+            Manager.getRecentOffers().remove(of);
         }
 
-        DataBase.getOffers().stream().filter(solution::contiene).forEach(of -> Manager.getRecentOffers().add(of));
+
         Manager.resetDB();
+        Manager.loadDB();
 
     }
 
 //
 
+    public void upDateCurrentAssigned(LocalDate date){
+
+        //TODO IMPLEMENTAR
+
+    }
+
+
     static void loadDB() {
-        ArrayList<Offer> dataBaseOffers;
-        recentOffers = new ArrayList<>();
-        assignedOffers = new ArrayList<>();
         getDb().load();
+        recentOffers = new ArrayList<>();
+        currentAssignedOffers = new ArrayList<>();
 
-        dataBaseOffers = DataBase.getOffers();
+        notCurrentAssignedOffers =(ArrayList<Offer>)DataBase.getOffers().clone();
 
-        for (Offer offer : dataBaseOffers) {
 
-            if (offer.getDateAvailable() == null)
+        for (Offer offer : DataBase.getOffers()) {
+
+            if (offer.getDateAvailable() == null) {
                 recentOffers.add(offer);
-            else {
-                assignedOffers.add(offer);
+                notCurrentAssignedOffers.remove(offer);
             }
-            /*else if(offer.getDateAvailable().after(Calendar.getInstance())){
-                assignedOffers.add(offer);
-            }
-            else if (offer.getDateAvailable().equals(Calendar.getInstance())) {
-                assignedOffers.add(offer);
-            }
-            else if((offer.getDateAvailable().before(Calendar.getInstance()))){
-                //NO LA AGREGO SI ES VIEJA
 
-            }*/
+            else {
+
+                if(offer.getDateAvailable().equals(currentDate)) {
+                    currentAssignedOffers.add(offer);
+                    notCurrentAssignedOffers.remove(offer);
+                }
+
+
+        }
+
 
         }
     }
@@ -104,18 +140,9 @@ class Manager {
         boolean isSuccess = DataBase.Import(filePath);
 
         if (isSuccess) {
-            recentOffers = new ArrayList<>();
-            assignedOffers = new ArrayList<>();
-            for (Offer offer : DataBase.getOffers()) {
+            Manager.loadDB();
 
-                if (offer.getDateAvailable() == null)
-                    recentOffers.add(offer);
-                else {
-                    assignedOffers.add(offer);
-                }
-            }
         }
-        resetDB();
 
         return isSuccess;
     }
@@ -127,17 +154,15 @@ class Manager {
 
         if (isSuccess) {
             for (Offer offer : DataBase.getOffers()) {
-                boolean alreadyExists = recentOffers.contains(offer) || assignedOffers.contains(offer);
+                boolean alreadyExists = notCurrentAssignedOffers.contains(offer) ||recentOffers.contains(offer) || currentAssignedOffers.contains(offer);
                 if (!alreadyExists) {
-                    if (offer.getDateAvailable() == null)
                         recentOffers.add(offer);
-                    else {
-                        assignedOffers.add(offer);
                     }
                 }
+            resetDB();
+            Manager.loadDB();
+
             }
-        }
-        resetDB();
 
         return isSuccess;
     }
@@ -154,8 +179,8 @@ class Manager {
         return recentOffers;
     }
 
-    static ArrayList<Offer> getAssignedOffers() {
-        return assignedOffers;
+    static ArrayList<Offer> getCurrentAssignedOffers() {
+        return currentAssignedOffers;
     }
 
     static void emptyTemporaryOffer() {

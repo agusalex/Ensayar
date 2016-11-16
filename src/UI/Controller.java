@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.DirectoryChooser;
@@ -23,6 +24,7 @@ import negocio.SolverGoloso;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -36,8 +38,11 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        datePicker.setValue(LocalDate.now());
         showAssignedOffers();
         showRecentOffers();
+        datePicker.setFocusTraversable(false);
+
 
     }
 
@@ -74,7 +79,7 @@ public class Controller implements Initializable {
 
         int x = 0;
 
-        for (Offer offer : Manager.getAssignedOffers()) {
+        for (Offer offer : Manager.getCurrentAssignedOffers()) {
             Button n = new Button(offer.getClient() + "" + offer.getSchedule());
             n.setOnAction(demo.getOnAction());
             n.setLayoutY(start + (x * cantLines(n.getText()) * 19));
@@ -110,9 +115,19 @@ public class Controller implements Initializable {
     }
 
     @FXML
+    void changeDate(){
+        LocalDate selection = datePicker.getValue();
+        Manager.setCurrentDate(selection);
+        Manager.loadDB();
+        refreshVisual();
+    }
+    @FXML
     void generateDemo(){
         for(Offer offer :Offer.generateRandomOffers())
             Manager.getRecentOffers().add(offer);
+
+        Manager.resetDB();
+        Manager.loadDB();
         refreshVisual();
 
     }
@@ -127,10 +142,12 @@ public class Controller implements Initializable {
 
     @FXML
     private void eraseAll() {
-        eraseAllVisual();
         Manager.getRecentOffers().clear();
-        Manager.getAssignedOffers().clear();
+        Manager.getCurrentAssignedOffers().clear();
+        Manager.getNotCurrentAssignedOffers().clear();
         Manager.resetDB();
+        Manager.loadDB();
+        refreshVisual();
     }
 
     @FXML
@@ -151,10 +168,10 @@ public class Controller implements Initializable {
                 throw new IndexOutOfBoundsException("El elemento visual no corresponde a una oferta logica=" + index);
 
             if (Anchor == AnchorPaneAssigned) {
-                if (index - 3 >= Manager.getAssignedOffers().size())
+                if (index - 3 >= Manager.getCurrentAssignedOffers().size())
                     throw new IndexOutOfBoundsException("El elemento visual no corresponde a una oferta logica=" + index);
 
-                return Manager.getAssignedOffers().get(index - 3);
+                return Manager.getCurrentAssignedOffers().get(index - 3);
             }
 
             if (Anchor == AnchorPaneRecent) {
@@ -270,10 +287,9 @@ public class Controller implements Initializable {
     void moveOffertoAssigned() {
         if (selectedElement instanceof Button && selectedElement.getParent() == AnchorPaneRecent) {
             Offer oferta = getLogicOffer(selectedElement);
-            Manager.getRecentOffers().remove(oferta);
-            oferta.setAvailableTomorrow();//TODO LLamar a el calendario para que elija cuando va a estar disponible
-            Manager.getAssignedOffers().add(oferta);
+            oferta.setAvailable(Manager.getCurrentDate());
             Manager.resetDB();
+            Manager.loadDB();
             refreshVisual();
         }
     }
@@ -281,11 +297,11 @@ public class Controller implements Initializable {
 
     @FXML
     void moveOffersToRecent() {
-        for (Offer of : Manager.getAssignedOffers()) {
+        for (Offer of : Manager.getCurrentAssignedOffers()) {
             of.setNotAssigned();
             Manager.getRecentOffers().add(of);
         }
-        Manager.getAssignedOffers().clear();
+        Manager.getCurrentAssignedOffers().clear();
         Manager.resetDB();
         refreshVisual();
     }
@@ -297,7 +313,7 @@ public class Controller implements Initializable {
             if (selectedElement.getParent() == AnchorPaneRecent) {
                 Manager.getRecentOffers().remove(getLogicOffer(selectedElement));
             } else if (selectedElement.getParent() == AnchorPaneAssigned) {
-                Manager.getAssignedOffers().remove(getLogicOffer(selectedElement));
+                Manager.getCurrentAssignedOffers().remove(getLogicOffer(selectedElement));
             }
             deleteVisualOffer(selectedElement);
             Manager.resetDB();
@@ -323,6 +339,7 @@ public class Controller implements Initializable {
         moveOffersToRecent();
         Solver bruteForce = new SolverExacto();
         Manager.calculateOffersBy(bruteForce);
+        Manager.loadDB();
         refreshVisual();
     }
 
@@ -332,6 +349,7 @@ public class Controller implements Initializable {
         moveOffersToRecent();
         Solver cociente = new SolverGoloso(SolverGoloso.Criterios.COCIENTE);
         Manager.calculateOffersBy(cociente);
+        Manager.loadDB();
         refreshVisual();
     }
 
@@ -340,6 +358,7 @@ public class Controller implements Initializable {
         moveOffersToRecent();
         Solver precio = new SolverGoloso(SolverGoloso.Criterios.PRECIO);
         Manager.calculateOffersBy(precio);
+        Manager.loadDB();
         refreshVisual();
     }
 
@@ -348,6 +367,7 @@ public class Controller implements Initializable {
         moveOffersToRecent();
         Solver cargaHoraria = new SolverGoloso(SolverGoloso.Criterios.HORARIO);
         Manager.calculateOffersBy(cargaHoraria);
+        Manager.loadDB();
         refreshVisual();
     }
 
@@ -449,6 +469,9 @@ public class Controller implements Initializable {
         alert.showAndWait();
     }
 
+
+    @FXML
+    private DatePicker datePicker;
 
 
     @FXML

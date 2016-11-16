@@ -1,8 +1,8 @@
 package Data;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -14,10 +14,11 @@ public class Offer implements Serializable {
     private final ArrayList<Instruments> instruments;
     private Integer price;
     private Client client;
-    private Calendar dateAvailable;
+    private LocalDate dateAvailable;
     private Schedule schedule;
     private int duration;
     private int durationInMin;
+    private static Random r;
 
     public Offer(ArrayList<Instruments> instruments, Schedule schedule, Client client) {
         this.instruments = instruments;
@@ -27,9 +28,14 @@ public class Offer implements Serializable {
         this.client = client;
     }
 
-    public void setAvailableTomorrow() {
-        dateAvailable = Calendar.getInstance();
-        dateAvailable.add(Calendar.DATE, 1);
+     void setAvailableTomorrow() {
+        dateAvailable=LocalDate.now();
+        dateAvailable=dateAvailable.plusDays(1);
+    }
+    public void setAvailable(LocalDate date) {
+
+        dateAvailable = date;
+
     }
 
     public void setNotAssigned() {
@@ -44,7 +50,7 @@ public class Offer implements Serializable {
         return client;
     }
 
-    public Calendar getDateAvailable() {
+    public LocalDate getDateAvailable() {
         return dateAvailable;
     }
 
@@ -154,10 +160,10 @@ public class Offer implements Serializable {
 
         public static ArrayList<Instruments> chosenRandomInstruments(int n, ArrayList<Offer.Instruments> defaultInst) {
             ArrayList<Instruments> ret = new ArrayList<>();
-            Random rand = new Random();
+            r = new Random();
             int randomIndex;
             for (int i = 0; i < n; i++) {
-                randomIndex = rand.nextInt(n);
+                randomIndex = r.nextInt(n);
                 ret.add(defaultInst.get(randomIndex));
             }
             return ret;
@@ -176,7 +182,7 @@ public class Offer implements Serializable {
 
 
     public static ArrayList<Offer> generateRandomOffers() {
-        Random r = new Random();
+        r = new Random();
         Offer offer;
         Client client;
         ArrayList<Offer> ret = new ArrayList<>();
@@ -185,7 +191,7 @@ public class Offer implements Serializable {
         ArrayList<Offer.Instruments> defaultInst = Offer.Instruments.defaultInstruments();
         ArrayList<Offer.Instruments> offerInstruments;
         int Low = 1;
-        int High = 5;
+        int High = 20;
         int randomClient;
         int randomHour, randomMin;
         int cantInst;
@@ -197,7 +203,7 @@ public class Offer implements Serializable {
 
             randomHour = r.nextInt(High - Low) + Low;
             randomMin = min[r.nextInt(2)];
-            schedule = new Schedule(randomHour, randomMin, randomHour + High, min[r.nextInt(2)]);
+            schedule = new Schedule(randomHour, randomMin, randomHour+r.nextInt(5)+1, min[r.nextInt(2)]);
 
             randomClient = r.nextInt(clients.size() - 1);
             client = clients.get(randomClient);

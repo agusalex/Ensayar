@@ -17,7 +17,7 @@ public class Main extends Application {
         primaryStage.setTitle("Ensayos");
         Image icon = new Image("/UI/ensayos.png");
         primaryStage.getIcons().add(icon);
-        primaryStage.setScene(new Scene(root));
+        primaryStage.setScene(new Scene(root,800,600));
         primaryStage.show();
 
     }
