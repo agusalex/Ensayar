@@ -2,6 +2,7 @@
 
 <!--suppress ALL -->
 
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.paint.*?>
@@ -70,7 +71,16 @@
                 </MenuBar>
                 <AnchorPane prefHeight="39.0" prefWidth="336.0">
                     <children>
-                        <DatePicker fx:id="datePicker" onAction="#changeDate" />
+                  <Button fx:id="buttonAdd" layoutX="262.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#addOffer" prefHeight="25.0" prefWidth="70.0" text="    Agregar " textOverrun="CLIP" AnchorPane.leftAnchor="262.0" AnchorPane.topAnchor="0.0">
+                     <font>
+                        <Font size="11.0" />
+                     </font></Button>
+                  <ImageView fx:id="addOfferImg" fitHeight="12.0" fitWidth="12.0" layoutX="269.0" layoutY="7.5" onMouseClicked="#addOffer" pickOnBounds="true" smooth="false" AnchorPane.topAnchor="7.0">
+                     <image>
+                        <Image url="/UI/addOffer.png" />
+                     </image>
+                  </ImageView>
+                        <DatePicker fx:id="datePicker" maxHeight="-Infinity" onAction="#changeDate" prefHeight="25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="74.0" AnchorPane.topAnchor="0.0" />
                     </children>
                 </AnchorPane>
             </children>

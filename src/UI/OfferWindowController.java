@@ -60,7 +60,30 @@ public class OfferWindowController implements Initializable {
 
         addHoursAndMinutes();
         setDefaultHoursAndMinutes();
+        Offer temp=Manager.getTemporaryOffer();
+        if(Manager.getTemporaryOffer()!=null){
+            nameEntry.setText(temp.getClient().getName());
+            IDEntry.setText(temp.getClient().getID());
+            PhoneEntry.setText(temp.getClient().getMobile());
+            for(Offer.Instruments inst : temp.getInstruments()){
+                if(inst==Offer.Instruments.BATERIA)
+                    Bateria.setSelected(true);
+                if(inst==Offer.Instruments.GUITARRA)
+                    Guitarra.setSelected(true);
+                if(inst==Offer.Instruments.BAJO)
+                    Bajo.setSelected(true);
+                if(inst==Offer.Instruments.TECLADO)
+                    Teclado.setSelected(true);
+                if(inst==Offer.Instruments.MICROFONO)
+                    Microfono.setSelected(true);
 
+            }
+            startH.setValue(Integer.toString(temp.getSchedule().getStarth()));
+            endH.setValue(Integer.toString(temp.getSchedule().getEndH()));
+            startMin.setValue(Integer.toString(temp.getSchedule().getStartMins()));
+            endMin.setValue(Integer.toString(temp.getSchedule().getEndMins()));
+
+        }
 
     }
 

@@ -11,6 +11,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
@@ -42,6 +43,8 @@ public class Controller implements Initializable {
         showAssignedOffers();
         showRecentOffers();
         datePicker.setFocusTraversable(false);
+        buttonAdd.setFocusTraversable(false);
+
 
 
     }
@@ -434,6 +437,40 @@ public class Controller implements Initializable {
 
         }
     }
+    @FXML
+    void editOffer() {
+        if (selectedElement instanceof Button && selectedElement.isFocused()) {
+
+            if (selectedElement.getParent() == AnchorPaneRecent) {
+                Manager.setTemporaryOffer(getLogicOffer(selectedElement));
+
+                Stage stage = new Stage();
+                OfferWindow offerWindow = new OfferWindow();
+                try {
+                    offerWindow.start(stage);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                //esta oferta se obtiene en el metodo "createOffer" de la clase "OfferWindowController"
+                Offer offerToAdd = Manager.getTemporaryOffer();
+                if (offerToAdd != null) {
+                    Offer bkp=getLogicOffer(selectedElement);
+
+                    refreshVisual();
+                }
+                Manager.emptyTemporaryOffer();
+                update();
+
+
+
+            } else if (selectedElement.getParent() == AnchorPaneAssigned) {
+                getLogicOffer(selectedElement);
+            }
+            deleteVisualOffer(selectedElement);
+            Manager.resetDB();
+        }
+    }
 
 
     @FXML
@@ -469,6 +506,12 @@ public class Controller implements Initializable {
         alert.showAndWait();
     }
 
+
+    @FXML
+    private ImageView addOfferImg;
+
+    @FXML
+    private Button buttonAdd;
 
     @FXML
     private DatePicker datePicker;

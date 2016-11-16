@@ -136,7 +136,7 @@ public class Offer implements Serializable {
                 case GUITARRA:
                     return 50;
                 case TECLADO:
-                    return 40;
+                    return 70;
                 case BAJO:
                     return 50;
                 case MICROFONO:

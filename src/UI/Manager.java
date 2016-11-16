@@ -97,6 +97,10 @@ class Manager {
 
     }
 
+    public static void setTemporaryOffer(Offer temporaryOffer) {
+        Manager.temporaryOffer = temporaryOffer;
+    }
+
 //
 
     public void upDateCurrentAssigned(LocalDate date){

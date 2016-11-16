@@ -113,4 +113,24 @@ public class Schedule {
         return "Horario: " + startH + ":" + startMins + "hs -> "
                 + endH + ":" + endMins + "hs";
     }
+
+    public Calendar getEnd() {
+        return end;
+    }
+
+    public int getStarth() {
+        return starth;
+    }
+
+    public int getEndH() {
+        return endH;
+    }
+
+    public int getStartMins() {
+        return startMins;
+    }
+
+    public int getEndMins() {
+        return endMins;
+    }
 }
