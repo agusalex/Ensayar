@@ -226,7 +226,6 @@ public class Controller implements Initializable {
         //esta oferta se obtiene en el metodo "createOffer" de la clase "OfferWindowController"
         Offer offerToAdd = Manager.getTemporaryOffer();
         if (offerToAdd != null) {
-            System.out.println(offerToAdd);
             Manager.getRecentOffers().add(offerToAdd);
             eraseAllVisual();
             showRecentOffers();
@@ -441,7 +440,7 @@ public class Controller implements Initializable {
     void editOffer() {
         if (selectedElement instanceof Button && selectedElement.isFocused()) {
 
-            if (selectedElement.getParent() == AnchorPaneRecent) {
+
                 Manager.setTemporaryOffer(getLogicOffer(selectedElement));
 
                 Stage stage = new Stage();
@@ -454,21 +453,15 @@ public class Controller implements Initializable {
 
                 //esta oferta se obtiene en el metodo "createOffer" de la clase "OfferWindowController"
                 Offer offerToAdd = Manager.getTemporaryOffer();
+
                 if (offerToAdd != null) {
                     Offer bkp=getLogicOffer(selectedElement);
+                    bkp.cloneFrom(offerToAdd);
+                    update();
 
-                    refreshVisual();
                 }
                 Manager.emptyTemporaryOffer();
-                update();
 
-
-
-            } else if (selectedElement.getParent() == AnchorPaneAssigned) {
-                getLogicOffer(selectedElement);
-            }
-            deleteVisualOffer(selectedElement);
-            Manager.resetDB();
         }
     }
 

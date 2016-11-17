@@ -3,15 +3,15 @@ package Data;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 
 public class Offer implements Serializable {
 
-    private static final Integer pricePerHour = 30;
-    private static final Integer priceHalfHour = pricePerHour / 2;
-    private final ArrayList<Instruments> instruments;
+    private static final Integer priceperMinute = 1;
+    private ArrayList<Instruments> instruments;
     private Integer price;
     private Client client;
     private LocalDate dateAvailable;
@@ -24,7 +24,7 @@ public class Offer implements Serializable {
         this.instruments = instruments;
         this.price = Instruments.comboValue(instruments);
         this.setSchedule(schedule);
-        this.price += pricePerHour * getDuration() + priceHalfHour;
+
         this.client = client;
     }
 
@@ -38,6 +38,30 @@ public class Offer implements Serializable {
 
     }
 
+    public static int getPriceperDuration(int startHour, int endHour,int startmin, int endmin){
+
+
+        Calendar start=Calendar.getInstance();
+        Calendar end=Calendar.getInstance();
+        start.set(LocalDate.now().getYear(),LocalDate.now().getMonth().getValue(),
+                LocalDate.now().getDayOfMonth(),startHour,startmin);
+        end.set(LocalDate.now().getYear(),LocalDate.now().getMonth().getValue(),
+                LocalDate.now().getDayOfMonth(),endHour,endmin);
+
+        Long initMilis = start.getTimeInMillis();
+        Long endMilis = end.getTimeInMillis();
+        Long deltaM = TimeUnit.MILLISECONDS.toMinutes(endMilis - initMilis);
+
+
+
+
+
+        return ((int)Math.abs(deltaM))*priceperMinute;
+
+
+
+
+    }
     public void setNotAssigned() {
         dateAvailable = null;
     }
@@ -125,6 +149,9 @@ public class Offer implements Serializable {
 
     }
 
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
 
     public enum Instruments {
         BATERIA, GUITARRA, TECLADO, BAJO, MICROFONO;
@@ -178,6 +205,18 @@ public class Offer implements Serializable {
             for (Instruments aCombo : combo) ret += instrumentValue(aCombo);
             return ret;
         }
+    }
+
+
+    public void cloneFrom(Offer o){
+        this.client=o.client;
+        this.price=o.getPrice();
+        this.instruments=o.instruments;
+        this.schedule=o.schedule;
+        this.duration=o.duration;
+        this.dateAvailable=o.dateAvailable;
+        this.durationInMin=o.durationInMin;
+
     }
 
 

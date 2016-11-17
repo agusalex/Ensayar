@@ -1,9 +1,7 @@
 package UI;
 
-import Data.Client;
 import Data.DataBase;
 import Data.Offer;
-import Data.Schedule;
 import negocio.Instancia;
 import negocio.Solver;
 import negocio.Subconjunto;
@@ -144,11 +142,13 @@ class Manager {
 
         boolean isSuccess = DataBase.Import(filePath);
 
-        if (isSuccess) {
-            Manager.loadDB();
-
-        }
-
+            recentOffers = new ArrayList<>();
+            currentAssignedOffers = new ArrayList<>();
+            notCurrentAssignedOffers= new ArrayList<>();
+            for(Offer o: DataBase.getOffers())
+                recentOffers.add(o);
+            resetDB();
+            loadDB();
         return isSuccess;
     }
 
@@ -165,7 +165,7 @@ class Manager {
                     }
                 }
             resetDB();
-            Manager.loadDB();
+            loadDB();
 
             }
 
@@ -192,8 +192,8 @@ class Manager {
         Manager.temporaryOffer = null;
     }
 
-    static void setOffer(ArrayList<Offer.Instruments> instruments, Schedule schedule, Client client) {
-        Manager.temporaryOffer = new Offer(instruments, schedule, client);
+    static void setTempOffer(Offer O) {
+        Manager.temporaryOffer = O;
     }
 
     static Offer getTemporaryOffer() {

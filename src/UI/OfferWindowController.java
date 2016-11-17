@@ -3,6 +3,7 @@ package UI;
 import Data.Client;
 import Data.Offer;
 import Data.Schedule;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
@@ -18,6 +19,8 @@ import java.util.ResourceBundle;
 @SuppressWarnings("CanBeFinal")
 public class OfferWindowController implements Initializable {
 
+    @FXML
+    private ChoiceBox<String> adittionalValue;
     @FXML
     private ChoiceBox<String> startH;
     @FXML
@@ -59,9 +62,13 @@ public class OfferWindowController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         addHoursAndMinutes();
-        setDefaultHoursAndMinutes();
+        addAdittionalValues();
+        setDefaultChoiceBoxesParams();
+
         Offer temp=Manager.getTemporaryOffer();
+        TotalPrice.setText(adittionalValue.getValue());
         if(Manager.getTemporaryOffer()!=null){
+            Manager.getTemporaryOffer().setPrice(0);
             nameEntry.setText(temp.getClient().getName());
             IDEntry.setText(temp.getClient().getID());
             PhoneEntry.setText(temp.getClient().getMobile());
@@ -78,15 +85,23 @@ public class OfferWindowController implements Initializable {
                     Microfono.setSelected(true);
 
             }
+
             startH.setValue(Integer.toString(temp.getSchedule().getStarth()));
             endH.setValue(Integer.toString(temp.getSchedule().getEndH()));
             startMin.setValue(Integer.toString(temp.getSchedule().getStartMins()));
             endMin.setValue(Integer.toString(temp.getSchedule().getEndMins()));
 
+
         }
 
     }
 
+
+    private void addAdittionalValues(){
+        for (int x = 0; x < 500; x+=50) {
+            adittionalValue.getItems().add(String.valueOf(x));
+        }
+    }
 
     private void addHoursAndMinutes(){
         for (int x = 0; x < 9; x++) {
@@ -97,13 +112,68 @@ public class OfferWindowController implements Initializable {
             startH.getItems().add(Integer.toString(x));
             endH.getItems().add(Integer.toString(x));
         }
-
         startMin.getItems().add("00");
         startMin.getItems().add("30");
         endMin.getItems().add("00");
         endMin.getItems().add("30");
 
     }
+
+    private void setDefaultChoiceBoxParams(ChoiceBox<String> cho) {
+        cho.setValue(cho.getItems().get(0));
+        cho.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> priceUpdate());
+    }
+
+    private void setDefaultChoiceBoxesParams() {
+        ChoiceBox<String>[] choices=new ChoiceBox[]{startH,endH,startMin,endMin,adittionalValue};
+
+        for(ChoiceBox<String> cho :choices )
+            setDefaultChoiceBoxParams(cho);
+
+
+    }
+
+
+
+
+    @FXML
+    void priceUpdate(){
+        int totalprice=0;
+
+
+        int startHour = Integer.parseInt(startH.getValue());
+        int endHour = Integer.parseInt(endH.getValue());
+        int startmin = Integer.parseInt(startMin.getValue());
+        int endmin = Integer.parseInt(endMin.getValue());
+
+
+       totalprice+= Offer.getPriceperDuration(startHour,endHour,startmin,endmin);
+
+
+
+        if (Bateria.isSelected())
+            totalprice+=Offer.Instruments.instrumentValue(Offer.Instruments.BATERIA);
+        if (Bajo.isSelected())
+            totalprice+=Offer.Instruments.instrumentValue(Offer.Instruments.BAJO);
+        if (Guitarra.isSelected())
+            totalprice+=Offer.Instruments.instrumentValue(Offer.Instruments.GUITARRA);
+        if (Teclado.isSelected())
+            totalprice+=Offer.Instruments.instrumentValue(Offer.Instruments.TECLADO);
+        if (Microfono.isSelected())
+            totalprice+=Offer.Instruments.instrumentValue(Offer.Instruments.MICROFONO);
+        int valoradd=Integer.parseInt(adittionalValue.getValue());
+        totalprice+=valoradd;
+
+
+
+
+
+
+
+
+
+        TotalPrice.setText(Integer.toString(totalprice));
+}
 
     @FXML
     void createOffer() {
@@ -172,32 +242,30 @@ public class OfferWindowController implements Initializable {
             System.out.println("error en horarios con numeros");
             noErrorsFound = false;
             hourError.setVisible(true);
-            setDefaultHoursAndMinutes();
+            setDefaultChoiceBoxesParams();
         } else hourError.setVisible(false);
 
         if (!startBeforeEnd(startHours, endHours)) {
             System.out.println("error en principio y fin");
             noErrorsFound = false;
             hourError.setVisible(true);
-            setDefaultHoursAndMinutes();
+            setDefaultChoiceBoxesParams();
         } else hourError.setVisible(false);
 
         if (validMin(startMins) || validMin(endMins)) {
             System.out.println("error en min");
             noErrorsFound = false;
             minutesError.setVisible(true);
-            setDefaultHoursAndMinutes();
+            setDefaultChoiceBoxesParams();
         } else minutesError.setVisible(false);
+
 
         if (noErrorsFound) {
             hours = new Schedule(startHours, startMins, endHours, endMins);
-        }
+            Offer temp=new Offer(offerInst, hours, client);
 
-        if (noErrorsFound) {
-            Manager.setOffer(offerInst, hours, client);
-        }
-
-        if (noErrorsFound) {
+            temp.setPrice(temp.getPrice()+Offer.getPriceperDuration(startHours,endHours,startMins,endMins)+Integer.parseInt(adittionalValue.getValue()));
+            Manager.setTempOffer(temp);
             Stage stage = (Stage) TotalPrice.getScene().getWindow();
             stage.close();
         }
@@ -208,12 +276,6 @@ public class OfferWindowController implements Initializable {
 
     }
 
-    private void setDefaultHoursAndMinutes() {
-        startH.setValue(startH.getItems().get(0));
-        endH.setValue(endH.getItems().get(0));
-        startMin.setValue(startMin.getItems().get(0));
-        endMin.setValue(endMin.getItems().get(0));
-    }
 
     @FXML
     private void cancelOffer() {

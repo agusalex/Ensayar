@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 <!--suppress ALL -->
-<ScrollPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="377.0" prefWidth="445.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.OfferWindowController">
+
+<ScrollPane fx:id="window" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="377.0" prefWidth="293.0" vbarPolicy="NEVER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.OfferWindowController">
   <content>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="388.0" prefWidth="354.0">
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="372.0" prefWidth="291.0">
          <children>
             <Separator layoutX="17.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="0.0" visible="false" />
             <Label layoutX="15.0" layoutY="27.0" text="Nombre:" />
             <TextField fx:id="nameEntry" layoutX="72.0" layoutY="23.0" prefHeight="25.0" prefWidth="172.0" />
-            <CheckBox fx:id="Bateria" layoutX="15.0" layoutY="239.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="64.0" text="Bateria" AnchorPane.leftAnchor="17.0" />
-            <CheckBox fx:id="Teclado" layoutX="17.0" layoutY="273.0" mnemonicParsing="false" text="Teclado" AnchorPane.leftAnchor="17.0" />
-            <CheckBox fx:id="Guitarra" layoutX="16.0" layoutY="256.0" mnemonicParsing="false" text="Guitarra" AnchorPane.leftAnchor="17.0" />
-            <CheckBox fx:id="Bajo" layoutX="17.0" layoutY="290.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="64.0" text="Bajo" AnchorPane.leftAnchor="17.0" />
+            <CheckBox fx:id="Bateria" layoutX="15.0" layoutY="239.0" mnemonicParsing="false" onMouseClicked="#priceUpdate" prefHeight="17.0" prefWidth="64.0" text="Bateria" AnchorPane.leftAnchor="17.0" />
+            <CheckBox fx:id="Teclado" layoutX="17.0" layoutY="273.0" mnemonicParsing="false" onMouseClicked="#priceUpdate" text="Teclado" AnchorPane.leftAnchor="17.0" />
+            <CheckBox fx:id="Guitarra" layoutX="16.0" layoutY="256.0" mnemonicParsing="false" onMouseClicked="#priceUpdate" text="Guitarra" AnchorPane.leftAnchor="17.0" />
+            <CheckBox fx:id="Bajo" layoutX="17.0" layoutY="290.0" mnemonicParsing="false" onMouseClicked="#priceUpdate" prefHeight="17.0" prefWidth="64.0" text="Bajo" AnchorPane.leftAnchor="17.0" />
             <Button fx:id="Create" cancelButton="true" defaultButton="true" layoutX="191.0" layoutY="307.0" mnemonicParsing="false" onAction="#createOffer" text="Crear" />
             <Label layoutX="16.0" layoutY="328.0" prefHeight="26.0" prefWidth="45.0" text="Precio:$" />
-            <CheckBox fx:id="Microfono" layoutX="17.0" layoutY="307.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="93.0" text="Microfono" AnchorPane.leftAnchor="17.0" AnchorPane.topAnchor="307.0" />
+            <CheckBox fx:id="Microfono" layoutX="17.0" layoutY="307.0" mnemonicParsing="false" onMouseClicked="#priceUpdate" prefHeight="17.0" prefWidth="93.0" text="Microfono" AnchorPane.leftAnchor="17.0" AnchorPane.topAnchor="307.0" />
             <Label layoutX="14.0" layoutY="72.0" text="DNI:" />
             <TextField fx:id="IDEntry" layoutX="71.0" layoutY="68.0" prefHeight="25.0" prefWidth="110.0" />
             <Label layoutX="14.0" layoutY="116.0" text="Telefono:" />
@@ -26,7 +29,6 @@
             <Label fx:id="TotalPrice" layoutX="59.0" layoutY="333.0" prefHeight="17.0" prefWidth="44.0" text="0" />
             <Button fx:id="cancel" cancelButton="true" layoutX="117.0" layoutY="307.0" mnemonicParsing="false" onAction="#cancelOffer" prefHeight="25.0" prefWidth="63.0" text="Cancelar" />
             <Label layoutX="103.0" layoutY="256.0" text="Valor Reserva" />
-            <TextField fx:id="adittionalValue" layoutX="176.0" layoutY="252.0" prefHeight="25.0" prefWidth="44.0" />
             <Separator layoutX="67.0" layoutY="7.0" orientation="VERTICAL" prefHeight="334.0" prefWidth="11.0" visible="false" />
             <Label layoutX="98.0" layoutY="159.0" prefHeight="17.0" prefWidth="24.0" text="hs" AnchorPane.leftAnchor="98.0" AnchorPane.topAnchor="159.0" />
             <Label layoutX="98.0" layoutY="204.0" prefHeight="17.0" prefWidth="24.0" text="hs" AnchorPane.topAnchor="204.0" />
@@ -42,6 +44,7 @@
             <ChoiceBox fx:id="endH" layoutX="57.0" layoutY="205.0" minHeight="14.0" minWidth="14.0" prefHeight="24.0" prefWidth="37.0" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="205.0" />
             <ChoiceBox fx:id="startMin" layoutX="122.0" layoutY="161.0" minHeight="14.0" minWidth="14.0" prefHeight="24.0" prefWidth="37.0" AnchorPane.topAnchor="161.0" />
             <ChoiceBox fx:id="endMin" layoutX="122.0" layoutY="205.0" minHeight="14.0" minWidth="14.0" prefHeight="24.0" prefWidth="37.0" AnchorPane.topAnchor="205.0" />
+            <ChoiceBox fx:id="adittionalValue" layoutX="211.0" layoutY="258.0" minHeight="14.0" minWidth="14.0" prefHeight="24.0" prefWidth="37.0" />
          </children></AnchorPane>
   </content>
 </ScrollPane>
