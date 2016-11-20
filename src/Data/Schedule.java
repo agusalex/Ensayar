@@ -61,6 +61,7 @@ public class Schedule {
         if (this.start.after(that.end) || this.end.before(that.start)) {
             return false;
         }
+        //comentario
         if(this.endH == that.starth)
             if(this.endMins==that.startMins)
                  return false;

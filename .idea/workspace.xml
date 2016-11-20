@@ -3,13 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e48859a8-213a-41bf-beb6-6b93e2024a19" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Offers.json" afterPath="$PROJECT_DIR$/Offers.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Data/Client.java" afterPath="$PROJECT_DIR$/src/Data/Client.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Data/OfferTest.java" afterPath="$PROJECT_DIR$/src/Data/OfferTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Data/Schedule.java" afterPath="$PROJECT_DIR$/src/Data/Schedule.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/UI/Controller.java" afterPath="$PROJECT_DIR$/src/UI/Controller.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/UI/MainWindow.fxml" afterPath="$PROJECT_DIR$/src/UI/MainWindow.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/UI/OfferWindowController.java" afterPath="$PROJECT_DIR$/src/UI/OfferWindowController.java" />
     </list>
     <ignored path="TpEnsayos.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -110,11 +104,11 @@
       <file leaf-file-name="Schedule.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Data/Schedule.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="64" column="12" selection-start-line="64" selection-start-column="12" selection-end-line="64" selection-end-column="12" />
+            <state relative-caret-position="237">
+              <caret line="63" column="15" selection-start-line="63" selection-start-column="15" selection-end-line="63" selection-end-column="15" />
               <folding>
-                <element signature="e#4024#4025#0" expanded="true" />
-                <element signature="e#4050#4051#0" expanded="true" />
+                <element signature="e#4045#4046#0" expanded="true" />
+                <element signature="e#4071#4072#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -687,7 +681,14 @@
       <option name="project" value="LOCAL" />
       <updated>1479351372293</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="fix colision horaria, agregado casilla telefono, dia disponible, horario">
+      <created>1479675782796</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1479675782796</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -771,7 +772,8 @@
     <MESSAGE value="Agregada  funcion calenadrio cambios:&#10;*Cambiar la fecha permite ver ofertas asignadas a otro dia&#10;*Al calcular se calcula lo de ese dia no el resto" />
     <MESSAGE value="Agregado boton de agregar ... valga la redundancia" />
     <MESSAGE value="*ahora se puede editar oferta&#10;*la info se actualiza al crear oferta" />
-    <option name="LAST_COMMIT_MESSAGE" value="*ahora se puede editar oferta&#10;*la info se actualiza al crear oferta" />
+    <MESSAGE value="fix colision horaria, agregado casilla telefono, dia disponible, horario" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix colision horaria, agregado casilla telefono, dia disponible, horario" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1118,11 +1120,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Data/Schedule.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="64" column="12" selection-start-line="64" selection-start-column="12" selection-end-line="64" selection-end-column="12" />
+        <state relative-caret-position="237">
+          <caret line="63" column="15" selection-start-line="63" selection-start-column="15" selection-end-line="63" selection-end-column="15" />
           <folding>
-            <element signature="e#4024#4025#0" expanded="true" />
-            <element signature="e#4050#4051#0" expanded="true" />
+            <element signature="e#4045#4046#0" expanded="true" />
+            <element signature="e#4071#4072#0" expanded="true" />
           </folding>
         </state>
       </provider>
