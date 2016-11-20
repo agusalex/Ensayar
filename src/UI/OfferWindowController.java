@@ -19,7 +19,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @SuppressWarnings("CanBeFinal")
-class OfferWindowController implements Initializable {
+public class OfferWindowController implements Initializable {
 
     @FXML
     private ChoiceBox<String> adittionalValue;
