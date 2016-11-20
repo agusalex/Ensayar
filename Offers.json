@@ -3,50 +3,13 @@
     "instruments": [
       "BATERIA",
       "GUITARRA",
-      "GUITARRA"
-    ],
-    "price": 170,
-    "client": {
-      "ID": "12345678",
-      "Name": "Emmanuel",
-      "Mobile": "1558984180"
-    },
-    "schedule": {
-      "start": {
-        "year": 2016,
-        "month": 10,
-        "dayOfMonth": 20,
-        "hourOfDay": 15,
-        "minute": 30,
-        "second": 44
-      },
-      "end": {
-        "year": 2016,
-        "month": 10,
-        "dayOfMonth": 20,
-        "hourOfDay": 17,
-        "minute": 30,
-        "second": 44
-      },
-      "starth": 15,
-      "endH": 17,
-      "startMins": 30,
-      "endMins": 30
-    },
-    "duration": 2,
-    "durationInMin": 0
-  },
-  {
-    "instruments": [
-      "BATERIA",
-      "GUITARRA",
       "TECLADO"
     ],
-    "price": 190,
+    "price": 370,
     "client": {
-      "ID": "12345678",
+      "ID": "00000000",
       "Name": "Pustilnik",
-      "Mobile": "1529028636"
+      "Mobile": "08009997"
     },
     "schedule": {
       "start": {
@@ -55,7 +18,7 @@
         "dayOfMonth": 20,
         "hourOfDay": 15,
         "minute": 0,
-        "second": 44
+        "second": 4
       },
       "end": {
         "year": 2016,
@@ -63,7 +26,7 @@
         "dayOfMonth": 20,
         "hourOfDay": 18,
         "minute": 0,
-        "second": 44
+        "second": 4
       },
       "starth": 15,
       "endH": 18,
@@ -115,7 +78,7 @@
     "instruments": [
       "BATERIA"
     ],
-    "price": 70,
+    "price": 0,
     "client": {
       "ID": "12345678",
       "Name": "Roberto",
@@ -151,7 +114,7 @@
       "BATERIA",
       "BATERIA"
     ],
-    "price": 140,
+    "price": 0,
     "client": {
       "ID": "12345678",
       "Name": "Gerardo",
@@ -186,7 +149,7 @@
     "instruments": [
       "BATERIA"
     ],
-    "price": 70,
+    "price": 0,
     "client": {
       "ID": "12345678",
       "Name": "Alberto",
@@ -507,16 +470,11 @@
     "instruments": [
       "BATERIA"
     ],
-    "price": 70,
+    "price": 100,
     "client": {
       "ID": "12345678",
       "Name": "Pustilnik",
       "Mobile": "1529028636"
-    },
-    "dateAvailable": {
-      "year": 2016,
-      "month": 11,
-      "day": 20
     },
     "schedule": {
       "start": {
@@ -545,21 +503,14 @@
   },
   {
     "instruments": [
-      "BAJO",
       "BATERIA",
-      "BAJO",
-      "BATERIA"
+      "BAJO"
     ],
-    "price": 240,
+    "price": 210,
     "client": {
       "ID": "12345678",
-      "Name": "Agustin",
+      "Name": "Invalido",
       "Mobile": "1503892969"
-    },
-    "dateAvailable": {
-      "year": 2016,
-      "month": 11,
-      "day": 20
     },
     "schedule": {
       "start": {
@@ -568,7 +519,7 @@
         "dayOfMonth": 20,
         "hourOfDay": 19,
         "minute": 0,
-        "second": 45
+        "second": 58
       },
       "end": {
         "year": 2016,
@@ -576,7 +527,7 @@
         "dayOfMonth": 20,
         "hourOfDay": 20,
         "minute": 30,
-        "second": 45
+        "second": 58
       },
       "starth": 19,
       "endH": 20,
@@ -585,6 +536,42 @@
     },
     "duration": 1,
     "durationInMin": 30
+  },
+  {
+    "instruments": [
+      "BATERIA",
+      "GUITARRA"
+    ],
+    "price": 0,
+    "client": {
+      "ID": "12345678",
+      "Name": "Casodetest",
+      "Mobile": "1571352378"
+    },
+    "schedule": {
+      "start": {
+        "year": 2016,
+        "month": 10,
+        "dayOfMonth": 20,
+        "hourOfDay": 6,
+        "minute": 30,
+        "second": 37
+      },
+      "end": {
+        "year": 2016,
+        "month": 10,
+        "dayOfMonth": 20,
+        "hourOfDay": 8,
+        "minute": 30,
+        "second": 37
+      },
+      "starth": 6,
+      "endH": 8,
+      "startMins": 30,
+      "endMins": 30
+    },
+    "duration": 2,
+    "durationInMin": 0
   },
   {
     "instruments": [
@@ -628,47 +615,6 @@
     },
     "duration": 1,
     "durationInMin": 30
-  },
-  {
-    "instruments": [
-      "GUITARRA",
-      "BATERIA"
-    ],
-    "price": 120,
-    "client": {
-      "ID": "12345678",
-      "Name": "Roberto",
-      "Mobile": "1571352378"
-    },
-    "dateAvailable": {
-      "year": 2016,
-      "month": 11,
-      "day": 20
-    },
-    "schedule": {
-      "start": {
-        "year": 2016,
-        "month": 10,
-        "dayOfMonth": 20,
-        "hourOfDay": 6,
-        "minute": 30,
-        "second": 45
-      },
-      "end": {
-        "year": 2016,
-        "month": 10,
-        "dayOfMonth": 20,
-        "hourOfDay": 8,
-        "minute": 30,
-        "second": 45
-      },
-      "starth": 6,
-      "endH": 8,
-      "startMins": 30,
-      "endMins": 30
-    },
-    "duration": 2,
-    "durationInMin": 0
   },
   {
     "instruments": [

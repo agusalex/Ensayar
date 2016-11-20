@@ -95,17 +95,11 @@ class Manager {
 
     }
 
-    public static void setTemporaryOffer(Offer temporaryOffer) {
+     static void setTemporaryOffer(Offer temporaryOffer) {
         Manager.temporaryOffer = temporaryOffer;
     }
 
 //
-
-    public void upDateCurrentAssigned(LocalDate date){
-
-        //TODO IMPLEMENTAR
-
-    }
 
 
     @SuppressWarnings("unchecked")
@@ -145,8 +139,7 @@ class Manager {
             recentOffers = new ArrayList<>();
             currentAssignedOffers = new ArrayList<>();
             notCurrentAssignedOffers= new ArrayList<>();
-            for(Offer o: DataBase.getOffers())
-                recentOffers.add(o);
+        recentOffers.addAll(DataBase.getOffers());
             resetDB();
             loadDB();
         return isSuccess;

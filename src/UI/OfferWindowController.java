@@ -15,9 +15,11 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @SuppressWarnings("CanBeFinal")
-public class OfferWindowController implements Initializable {
+class OfferWindowController implements Initializable {
 
     @FXML
     private ChoiceBox<String> adittionalValue;
@@ -125,12 +127,13 @@ public class OfferWindowController implements Initializable {
         cho.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> priceUpdate());
     }
 
+    @SuppressWarnings("unchecked")
     private void setDefaultChoiceBoxesParams() {
-        ChoiceBox<String>[] choices=new ChoiceBox[]{startH,endH,startMin,endMin,adittionalValue};
+        ChoiceBox[] choices=new ChoiceBox[]{startH,endH,startMin,endMin,adittionalValue};
 
-        for(ChoiceBox<String> cho :choices )
-            setDefaultChoiceBoxParams(cho);
-
+        for(ChoiceBox cho :choices ) {
+            setDefaultChoiceBoxParams((ChoiceBox<String>)cho);
+        }
 
     }
 
@@ -206,7 +209,7 @@ public class OfferWindowController implements Initializable {
         } else nameError.setVisible(false);
 
         String phone = PhoneEntry.getText();
-        if (isInt(phone) || phone.length() != 10) {
+        if (!isTelephone(phone) ) {
             System.out.println("phone error");
             noErrorsFound = false;
             PhoneError.setVisible(true);
@@ -214,7 +217,7 @@ public class OfferWindowController implements Initializable {
         } else PhoneError.setVisible(false);
 
         String ID = IDEntry.getText();
-        if (isInt(ID) || ID.length() != 8) {
+        if (!isDNI(ID) ) {
             System.out.println("dni error");
             noErrorsFound = false;
             IDError.setVisible(true);
@@ -236,7 +239,7 @@ public class OfferWindowController implements Initializable {
         int endHours = Integer.parseInt(endHour);
         int startMins = Integer.parseInt(startmin);
         int endMins = Integer.parseInt(endmin);
-        Schedule hours = null;
+        Schedule hours;
 
 
         if (!validStartHour(startHours) || !validEndHour(endHours)) {
@@ -284,31 +287,39 @@ public class OfferWindowController implements Initializable {
         stage.close();
     }
 
-    private boolean isValidName(String name) {
-        if (name.length() == 0)
-            return false;
-        String nonLetters = "1234567890,.-_´¨^{}[]++~*;:/|!$#%&()=?¡¿'\\";
-        char letter;
-        for (int i = 0; i < name.length(); i++) {
-            letter = name.charAt(i);
-            if (nonLetters.indexOf(letter) != -1) //si la letra actual del nombre aparece en "nonLetters", quiere decir que no es valido
-                return false;
-        }
-        return true;
-    }
 
-    private boolean isInt(String number) {
-        if (number.length() == 0)
-            return true;
-        String digits = "1234567890";
-        char digit;
-        for (int i = 0; i < number.length(); i++) {
-            digit = number.charAt(i);
-            if (digits.indexOf(digit) == -1) //si el digito del numero no aparece en "digits", no es valido
+    private static boolean matchesRegex(Pattern regex, String string){
+        Matcher matcher = regex.matcher(string);
+        if(string.equals(""))
+            return false;
+        if(matcher.find()) {
+            if (matcher.start() == 0 && matcher.end() == string.length()){
                 return true;
         }
+
+        }
         return false;
+
     }
+
+
+    private static boolean isValidName(String name){
+        Pattern pat=Pattern.compile("([A-Z][a-z]*[\\s])*([A-Z][a-z]*)");
+        return matchesRegex(pat,name);
+    }
+
+    private static boolean isDNI(String number) {
+        Pattern pat = Pattern.compile("(\\d{8})");
+        return matchesRegex(pat, number);
+    }
+
+    private static boolean isTelephone(String number){
+        Pattern pat = Pattern.compile("(\\d{8})");
+        Pattern pat2 = Pattern.compile("(\\d{10})");
+
+        return  matchesRegex(pat,number)||matchesRegex(pat2,number);
+    }
+
 
     private boolean validStartHour(int hour) {
         return hour >= 0 && hour <= 23;

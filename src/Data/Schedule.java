@@ -121,9 +121,6 @@ public class Schedule {
                 + endH + ":" + endMins + "hs";
     }
 
-    public Calendar getEnd() {
-        return end;
-    }
 
     public int getStarth() {
         return starth;

@@ -5,8 +5,6 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static Data.Offer.generateRandomOffers;
-
 
 public class DataBaseTest {
     private Random r;
