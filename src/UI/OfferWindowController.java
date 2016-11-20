@@ -67,6 +67,7 @@ public class OfferWindowController implements Initializable {
 
         Offer temp=Manager.getTemporaryOffer();
         TotalPrice.setText(adittionalValue.getValue());
+
         if(Manager.getTemporaryOffer()!=null){
             Manager.getTemporaryOffer().setPrice(0);
             nameEntry.setText(temp.getClient().getName());

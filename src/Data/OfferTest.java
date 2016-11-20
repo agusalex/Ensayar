@@ -29,7 +29,7 @@ public class OfferTest {
     @Test
     public void getPrice() throws Exception {
         Offer offer = instanceOffer();
-        assertEquals(275, offer.getPrice());
+        assertEquals(170, offer.getPrice());
     }
 
 

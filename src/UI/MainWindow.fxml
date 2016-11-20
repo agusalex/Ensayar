@@ -144,6 +144,9 @@
                         <Label fx:id="priceBox" alignment="CENTER" font="$x1" layoutX="74.0" layoutY="225.0" style="&#10;" textAlignment="CENTER" textFill="$x2" wrapText="false" />
                         <Label fx:id="roomBox" alignment="CENTER" font="$x1" layoutX="57.0" layoutY="267.0" style="&#10;" textAlignment="CENTER" textFill="$x2" wrapText="false" />
                         <Label alignment="CENTER" font="$x1" layoutX="16.0" layoutY="361.0" style="&#10;" text="Horario:" textAlignment="CENTER" textFill="$x2" wrapText="false" AnchorPane.leftAnchor="16.0" />
+                  <Label fx:id="dateAvailableBox" layoutX="86.0" layoutY="318.0" alignment="CENTER" font="$x1" style="&#10;" textAlignment="CENTER" textFill="$x2" wrapText="false"  />
+                  <Label fx:id="scheduleBox" layoutX="82.0" layoutY="361.0" alignment="CENTER" font="$x1" style="&#10;" textAlignment="CENTER" textFill="$x2" wrapText="false" />
+                  <Label fx:id="telBox" layoutX="50.0" layoutY="105.0" alignment="CENTER" font="$x1" style="&#10;" textAlignment="CENTER" textFill="$x2" wrapText="false" />
                     </children>
                 </AnchorPane>
             </items>

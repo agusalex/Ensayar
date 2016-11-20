@@ -206,6 +206,14 @@ public class Controller implements Initializable {
             instrumentsBox.setText(offer.getInstruments().toString());
             priceBox.setText(Integer.toString(offer.getPrice()));
             roomBox.setText("1");
+            telBox.setText(offer.getClient().getMobile());
+            scheduleBox.setText(offer.getSchedule().toString());
+            if(offer.getDateAvailable()==null)
+                dateAvailableBox.setText("Sin Asignar");
+            else
+               dateAvailableBox.setText(offer.getDateAvailable().toString());
+
+
         } else {
             throw new NullPointerException("Seleccion es null");
         }
@@ -498,6 +506,16 @@ public class Controller implements Initializable {
         alert.setContentText(msg);
         alert.showAndWait();
     }
+
+
+    @FXML
+    private Label scheduleBox;
+
+    @FXML
+    private Label telBox;
+
+    @FXML
+    private Label dateAvailableBox;
 
 
     @FXML

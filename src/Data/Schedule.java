@@ -60,11 +60,17 @@ public class Schedule {
 
         if (this.start.after(that.end) || this.end.before(that.start)) {
             return false;
-        } else if (this.endH == that.starth || this.starth == that.endH)
-            return false;
+        }
+        if(this.endH == that.starth)
+            if(this.endMins==that.startMins)
+                 return false;
+
+         if(this.starth == that.endH)
+             if(this.startMins ==that.endMins)
+                 return false;
 
 
-        return true;
+         return true;
 
     }
 
@@ -110,7 +116,7 @@ public class Schedule {
             endMins = 0 + endMins;
 
 
-        return "Horario: " + startH + ":" + startMins + "hs -> "
+        return startH + ":" + startMins + "hs -> "
                 + endH + ":" + endMins + "hs";
     }
 

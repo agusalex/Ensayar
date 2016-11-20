@@ -59,8 +59,7 @@ public class Client {
     public static ArrayList<Client> generateRandomClients() {
         String[] names = {"Gerardo", "Agustin", "Emmanuel", "Fede", "Roberto", "Juan", "Pustilnik", "Maxi", "Roberto"
                 , "Maria", "Josefina", "Claudia", "Alberto", "Esteban"};
-        String[] IDs = {"1", "2", "3", "4", "5", "6", "7", "8", "9"
-                , "10", "11", "12", "13", "14"};
+        String[] IDs = {"12345678"};
         ArrayList<Client> clients = new ArrayList<>();
 
         Random r = new Random();
@@ -74,7 +73,7 @@ public class Client {
             client = new Client("");
             randomIndex = r.nextInt(High - Low) + Low;
             client.setName(names[randomIndex]);
-            client.setID(IDs[randomIndex]);
+            client.setID(IDs[0]);
             mobile = Integer.toString(r.nextInt(1599999999 - 1500000000) + 1500000000);
             client.setMobile(mobile);
             clients.add(client);
